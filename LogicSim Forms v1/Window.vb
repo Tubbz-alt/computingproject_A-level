@@ -42,7 +42,6 @@ Class Window
     Public Sub DrawLinePoint(ByVal prevID As Integer, ByVal ID As Integer)
         Dim g As Graphics
         g = CreateGraphics()
-        ' Create pen.
         Dim blackPen As New Pen(Color.Black, 3)
         ' Draw line to screen.
         g.DrawLine(blackPen, Gates(prevID).gateXpos + 60, ((Me.Height - Gates(prevID).gateYpos) + 30), Gates(ID).gateXpos, (Me.Height - Gates(ID).gateYpos))
