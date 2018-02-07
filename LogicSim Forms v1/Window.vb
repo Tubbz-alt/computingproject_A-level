@@ -1,10 +1,10 @@
 ﻿'NEXT WIPs: --Graphical--
 '          -Maybe some proper gate icons
 '          --Funcitonal--
-'          -Ability to re-calculate all gates after gate/connection removal & Input inversion
+'          -Ability to re-calculate all gates after Input inversion
 Imports VB = Microsoft.VisualBasic
 Class Window
-    Public Shared Points(139) As String
+    Protected Shared Points(139) As String
     Private oneSelected As Boolean = False
     Private holdingCurrent As Integer
     Private prevValue As Integer
@@ -12,13 +12,13 @@ Class Window
     Private tempInputID As Integer
     Protected Point As Point
     Private ValidPB As Boolean
-    Public GatePB As New List(Of PictureBox)
+    Protected GatePB As New List(Of PictureBox)
     Protected connections(199, 199, 1) As Connection
     Protected Gates() As MultiGate
     Public gatecount As Integer
     Protected nextpoint As Integer
     Protected LastID As Integer
-    Public Property MousePoint As Point
+    Private Property MousePoint As Point
         Get
             Return Point
         End Get
@@ -26,10 +26,10 @@ Class Window
             Point = givenPoint
         End Set
     End Property
-    Public Shared Function getGatePoints(ByVal o As Integer)
+    Private Shared Function getGatePoints(ByVal o As Integer)
         Return Points(o)
     End Function
-    Public Shared Sub setGatePoints(ByVal o As Integer, ByVal text As String)
+    Private Shared Sub setGatePoints(ByVal o As Integer, ByVal text As String)
         Points(o) = text
     End Sub
     Public Event GateDeleted(PB)
@@ -39,14 +39,13 @@ Class Window
         loader.Enabled = False
         ButtonCheck.Enabled = True
     End Sub
-    Public Sub DrawLinePoint(ByVal prevID As Integer, ByVal ID As Integer)
+    Private Sub DrawLinePoint(ByVal prevID As Integer, ByVal ID As Integer)
         Dim g As Graphics
         g = CreateGraphics()
         Dim blackPen As New Pen(Color.Black, 3)
-        ' Draw line to screen.
         g.DrawLine(blackPen, Gates(prevID).gateXpos + 60, ((Me.Height - Gates(prevID).gateYpos) + 30), Gates(ID).gateXpos, (Me.Height - Gates(ID).gateYpos))
     End Sub
-    Public Sub RefreshGraphics()
+    Private Sub RefreshGraphics()
         Dim g As Graphics
         g = CreateGraphics()
         Dim blackPen As New Pen(Color.Black, 3)
@@ -75,7 +74,7 @@ Class Window
     Private Sub WindowCloser(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles Me.Closing
         End
     End Sub
-    Sub WindowStart()      'Sets initial values for gate variables
+    Private Sub WindowStart()      'Sets initial values for gate variables
         ReDim Gates(199)
         ReDim connections(199, 199, 1)
         gatecount = 0
@@ -94,7 +93,7 @@ Class Window
             Points(i) = "null"
         Next
     End Sub
-    Sub PBs_MouseDown(ByVal sender As Object, ByVal e As MouseEventArgs)
+    Private Sub PBs_MouseDown(ByVal sender As Object, ByVal e As MouseEventArgs)
         Point = e.Location
         If e.Button = MouseButtons.Left Then
             Dim PB As PictureBox = DirectCast(sender, PictureBox)
@@ -127,7 +126,7 @@ Class Window
             End If
         End If
     End Sub
-    Sub PBs_MouseMove(ByVal sender As Object, ByVal e As MouseEventArgs)
+    Private Sub PBs_MouseMove(ByVal sender As Object, ByVal e As MouseEventArgs)
         RefreshGraphics()
         If e.Button = MouseButtons.Left And ValidPB Then
             Dim PB As PictureBox = DirectCast(sender, PictureBox)
@@ -188,19 +187,28 @@ Input Node"
         End Try
     End Sub
     Private Sub RecalculateInputs(ByVal ID As Integer)
+        'Dim complete As Boolean = False
+        'Dim gatesDone As Integer
+        'While complete = False
         For j = 0 To 199
-            If connections(ID, j, 0).connectionOrigin = ID Then
-                connections(ID, j, 0).connectionValue = Gates(ID).gateValue
+            If connections(ID, j, 0).connectionValue <> 2 Or connections(ID, j, 1).connectionValue <> 2 Then
+                If connections(ID, j, 0).connectionValue <> 2 Then
+                    connections(ID, j, 0).connectionValue = Gates(ID).gateValue
+                End If
+                If connections(ID, j, 1).connectionValue <> 2 Then
+                    connections(ID, j, 1).connectionValue = Gates(ID).gateValue
+                End If
+                Gates(j).Calculate(ID, j)
+                'gatesDone += 1
             End If
-            If connections(ID, j, 1).connectionOrigin = ID Then
-                connections(ID, j, 1).connectionValue = Gates(ID).gateValue
-            End If
+            '        If gatesDone = gatecount Then
+            '            complete = True
+            '        Else
+
+            '        End If
         Next
-        For i = 0 To 199
-            For j = 0 To 199
-                Gates(j).Calculate(i, j)
-            Next
-        Next
+
+        'End While
     End Sub
     Private Sub AttachGate(ByRef oneSelected As Boolean, ByRef prevValue As Integer, ByRef prevID As Integer, ByVal ID As Integer)
         If oneSelected = True Then                                                     'This means the gate is having a value assigned to one of its inputs from another gates output
@@ -323,6 +331,7 @@ Right-Click again to delete"
         End If
     End Sub
     Private Sub DeleteGate(ByRef PB As PictureBox)
+        gatecount -= 1
         RecalculateInputs(PB.Name)
         GatePB.Remove(PB)
         For i = 0 To 199
@@ -473,7 +482,7 @@ Right-Click again to delete"
         Public Sub Calculate(ByVal prevID As Integer, ByVal ID As Integer)  'function has to find the outputs of the gate objects which led to it
             If gateType = "not" Then
                 Try
-                    input1 = connections(prevID, ID, 0).connectionValue
+                    input1 = Window.connections(prevID, ID, 0).connectionValue
                 Catch
                 End Try
                 If input1 <> 2 Then
@@ -487,7 +496,7 @@ Right-Click again to delete"
                 End If
             ElseIf gateType = "output" Then
                 Try
-                    input1 = connections(prevID, ID, 0).connectionValue
+                    input1 = Window.connections(prevID, ID, 0).connectionValue
                 Catch
                 End Try
                 If input1 <> 2 Then
@@ -501,11 +510,11 @@ Right-Click again to delete"
                 End If
             Else
                 Try
-                    input1 = connections(prevID, ID, 0).connectionValue
+                    input1 = Window.connections(prevID, ID, 0).connectionValue
                 Catch
                 End Try
                 Try
-                    input2 = connections(prevID, ID, 1).connectionValue
+                    input2 = Window.connections(prevID, ID, 1).connectionValue
                 Catch
                 End Try
 
@@ -572,7 +581,7 @@ Right-Click again to delete"
             destination = 999
             value1 = 2
         End Sub
-        Property connectionOrigin As Integer
+        Public Property connectionOrigin As Integer
             Get
                 Return origin
             End Get
@@ -580,7 +589,7 @@ Right-Click again to delete"
                 origin = value
             End Set
         End Property
-        Property connectionDestination As Integer
+        Public Property connectionDestination As Integer
             Get
                 Return destination
             End Get
@@ -588,7 +597,7 @@ Right-Click again to delete"
                 destination = value
             End Set
         End Property
-        Property connectionValue As Integer
+        Public Property connectionValue As Integer
             Get
                 Return value1
             End Get
