@@ -10,6 +10,7 @@ Class Window
     Private prevValue As Integer
     Private prevID As Integer
     Private tempInputID As Integer
+    Dim tempImage As Image
     Protected Point As Point
     Private ValidPB As Boolean
     Protected GatePB As New List(Of PictureBox)
@@ -94,9 +95,10 @@ Class Window
         Next
     End Sub
     Private Sub PBs_MouseDown(ByVal sender As Object, ByVal e As MouseEventArgs)
+        Dim PB As PictureBox = DirectCast(sender, PictureBox)
+        Dim ID = PB.Name
         Point = e.Location
         If e.Button = MouseButtons.Left Then
-            Dim PB As PictureBox = DirectCast(sender, PictureBox)
             RefreshGraphics()
             If Gates(PB.Name).gateType = "input" Then
                 tempInputID = PB.Name
@@ -109,20 +111,12 @@ Class Window
             displayGateInfo(PB.Name)
         End If
         If e.Button = MouseButtons.Right Then
-            Dim PB As PictureBox = DirectCast(sender, PictureBox)
-            Dim ID As Integer = PB.Name
             If ID = prevID And oneSelected = True Then
                 DeleteGate(PB)
                 oneSelected = False
                 message_output.Text = ""
             Else
-                displayGateInfo(PB.Name)
                 AttachGate(oneSelected, prevValue, prevID, ID)
-                If Gates(Convert.ToInt32(PB.Name)).gateType = "output" And Gates(Convert.ToInt32(PB.Name)).gateValue = 1 Then
-                    PB.Image = My.Resources.OUTPUTTRUE
-                ElseIf Gates(Convert.ToInt32(PB.Name)).gateType = "output" And Gates(Convert.ToInt32(PB.Name)).gateValue = 0 Then
-                    PB.Image = My.Resources.OUTPUTFALSE
-                End If
             End If
         End If
     End Sub

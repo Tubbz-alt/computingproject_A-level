@@ -149,5 +149,38 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\project_icon_icP_icon.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AND_SELECTED.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\INPUTFALSE_SELECTED.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\INPUTTRUE_SELECTED.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NAND_SELECTED.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NOR_SELECTED.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NOT_SELECTED.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\OR_SELECTED.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\OUTPUTFALSE_SELECTED.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\OUTPUTNULL_SELECTED.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\OUTPUTTRUE_SELECTED.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XOR_SELECTED.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
