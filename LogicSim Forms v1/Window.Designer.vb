@@ -124,9 +124,9 @@ Partial Class Window
         '
         Me.delete_gate.Location = New System.Drawing.Point(858, 12)
         Me.delete_gate.Name = "delete_gate"
-        Me.delete_gate.Size = New System.Drawing.Size(69, 69)
+        Me.delete_gate.Size = New System.Drawing.Size(69, 85)
         Me.delete_gate.TabIndex = 10
-        Me.delete_gate.Text = "Delete Gate (Doesn't work ATM)"
+        Me.delete_gate.Text = "Double Right Click Gates To Delete"
         Me.delete_gate.UseVisualStyleBackColor = True
         '
         'add_output

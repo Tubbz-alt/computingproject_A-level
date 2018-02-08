@@ -1,8 +1,4 @@
-﻿'NEXT WIPs: --Graphical--
-'          -Maybe some proper gate icons
-'          --Funcitonal--
-'          -Ability to re-calculate all gates after Input inversion
-Imports VB = Microsoft.VisualBasic
+﻿Imports VB = Microsoft.VisualBasic
 Class Window
     Protected Shared Points(139) As String
     Private oneSelected As Boolean = False
@@ -50,6 +46,15 @@ Class Window
         Dim g As Graphics
         g = CreateGraphics()
         Dim blackPen As New Pen(Color.Black, 3)
+        For Each PB In GatePB
+            If Gates(PB.Name).gateType = "output" And Gates(PB.Name).gateValue = 1 Then
+                PB.Image = My.Resources.OUTPUTTRUE
+            ElseIf Gates(PB.Name).gateType = "output" And Gates(PB.Name).gateValue = 0 Then
+                PB.Image = My.Resources.OUTPUTFALSE
+            ElseIf Gates(PB.Name).gateType = "output" And Gates(PB.Name).gateValue = 2 Then
+                PB.Image = My.Resources.OUTPUTNULL
+            End If
+        Next
         Me.Refresh()
         For k = 0 To 1
             For i = 0 To 199
@@ -118,13 +123,6 @@ Class Window
             Else
                 AttachGate(oneSelected, prevValue, prevID, ID)
                 displayGateInfo(ID)
-                If Gates(PB.Name).gateType = "output" And Gates(PB.Name).gateValue = 1 Then
-                    PB.Image = My.Resources.OUTPUTTRUE
-                ElseIf Gates(PB.Name).gateType = "output" And Gates(PB.Name).gateValue = 0 Then
-                    PB.Image = My.Resources.OUTPUTFALSE
-                ElseIf Gates(PB.Name).gateType = "output" And Gates(PB.Name).gateValue = 2 Then
-                    PB.Image = My.Resources.OUTPUTNULL
-                End If
             End If
 
         End If
@@ -201,7 +199,7 @@ Input Node"
                 If connections(ID, j, 1).connectionValue <> 2 Then
                     connections(ID, j, 1).connectionValue = Gates(ID).gateValue
                 End If
-                Gates(j).Calculate(ID, j)
+                Gates(j).Calculate(j)
                 'gatesDone += 1
             End If
             '        If gatesDone = gatecount Then
@@ -226,7 +224,9 @@ with value: " & prevValue                                         'The prevValue
                             connections(prevID, ID, 0).connectionOrigin = prevID
                             connections(prevID, ID, 0).connectionDestination = ID
                             connections(prevID, ID, 0).connectionValue = Gates(prevID).gateValue
-                            Gates(ID).Calculate(prevID, ID)
+                            Gates(ID).Calculate(ID)
+                            'Gates(prevID).gatesConnectedAfter = ID
+                            'Gates(ID).gatesConnectedBefore = prevID
                         Else
                             message_output.Text = "The input is already occupied"
                         End If
@@ -239,7 +239,9 @@ with value: " & prevValue                                         'The prevValue
                             connections(prevID, ID, 0).connectionOrigin = prevID
                             connections(prevID, ID, 0).connectionDestination = ID
                             connections(prevID, ID, 0).connectionValue = Gates(prevID).gateValue
-                            Gates(ID).Calculate(prevID, ID)
+                            Gates(ID).Calculate(ID)
+                            'Gates(prevID).gatesConnectedAfter = ID
+                            'Gates(ID).gatesConnectedBefore = prevID
                         ElseIf Gates(ID).gateInput2 = 2 Then
                             message_output.Text = "Assigned input (2)
 to " & (Gates(ID).gateType).ToUpper & " gate" & " 
@@ -248,7 +250,9 @@ with value: " & prevValue
                             connections(prevID, ID, 1).connectionOrigin = prevID
                             connections(prevID, ID, 1).connectionDestination = ID
                             connections(prevID, ID, 1).connectionValue = Gates(prevID).gateValue
-                            Gates(ID).Calculate(prevID, ID)
+                            Gates(ID).Calculate(ID)
+                            'Gates(prevID).gatesConnectedAfter = ID
+                            'Gates(ID).gatesConnectedBefore = prevID
                         Else
                             message_output.Text = "Both inputs are 
 already occupied"
@@ -333,6 +337,9 @@ Right-Click again to delete"
             message_output.Text = "Too many gates placed (200 limit) Please delete some before adding more"
         End If
     End Sub
+    Private Sub CascadeUpdate()
+
+    End Sub
     Private Sub DeleteGate(ByRef PB As PictureBox)
         gatecount -= 1
         For i = 0 To 199
@@ -350,21 +357,21 @@ Right-Click again to delete"
                 connections(PB.Name, i, 0).connectionDestination = -1
                 connections(PB.Name, i, 0).connectionOrigin = -1
                 connections(PB.Name, i, 0).connectionValue = 2
-                Gates(i).Calculate(PB.Name, i)
-                If Gates(i).gateType = "output" Then
-                    GatePB(i).Image = My.Resources.OUTPUTNULL
-                End If
+                Gates(i).Calculate(i)
+                'If Gates(i).gateType = "output" Then
+                '    GatePB(i).Image = My.Resources.OUTPUTNULL
+                'End If
             End If
             If connections(PB.Name, i, 1).connectionValue <> 2 Then
                 connections(PB.Name, i, 1).connectionDestination = -1
                 connections(PB.Name, i, 1).connectionOrigin = -1
                 connections(PB.Name, i, 1).connectionValue = 2
-                Gates(i).Calculate(PB.Name, i)
+                Gates(i).Calculate(i)                            'Not really needed a second time, since connected gate will be nullified with just one null input connection, but called anyway
             End If
         Next
-        GatePB.Remove(PB)
         Gates(Convert.ToInt32(PB.Name)).Finalize()
         Me.Refresh()
+        GatePB.Remove(PB)
         PB.Dispose()
     End Sub
 
@@ -410,8 +417,8 @@ Right-Click again to delete"
         Private value As Integer
         Private input1 As Integer
         Private input2 As Integer
-        Private IsConnected As String
-        Private FromConnected As String
+        Private connectedAfter As List(Of Integer)
+        Private connectedBefore As List(Of Integer)
 
         Sub New(ByVal givenID As Integer)
             ID = givenID
@@ -484,11 +491,37 @@ Right-Click again to delete"
                 input2 = value
             End Set
         End Property
-        Public Sub Calculate(ByVal prevID As Integer, ByVal ID As Integer)  'function has to find the outputs of the gate objects which led to it
+        Public Property gatesConnectedAfter As Integer
+            Get
+                For Each ID In connectedAfter
+                    Return ID
+                Next
+            End Get
+            Set(value As Integer)
+                connectedAfter.Add(value)
+            End Set
+        End Property
+        Public Property gatesConnectedBefore As Integer
+            Get
+                For Each ID In connectedBefore
+                    Return ID
+                Next
+            End Get
+            Set(value As Integer)
+                connectedBefore.Add(value)
+            End Set
+        End Property
+        Public Sub Calculate(ByVal ID As Integer)  'function has to find the outputs of the gate objects which led to it
             If gateType = "not" Then
                 Try
-                    input1 = Window.connections(prevID, ID, 0).connectionValue
+                    For i = 0 To 199
+                        If Window.connections(i, ID, 0).connectionValue <> 2 Then
+                            input1 = Window.connections(i, ID, 0).connectionValue
+                            i = 199
+                        End If
+                    Next
                 Catch
+                    MsgBox("Shouldn't ever catch here")
                 End Try
                 If input1 <> 2 Then
                     If input1 = 1 Then
@@ -501,8 +534,14 @@ Right-Click again to delete"
                 End If
             ElseIf gateType = "output" Then
                 Try
-                    input1 = Window.connections(prevID, ID, 0).connectionValue
+                    For i = 0 To 199
+                        If Window.connections(i, ID, 0).connectionValue <> 2 Then
+                            input1 = Window.connections(i, ID, 0).connectionValue
+                            i = 199
+                        End If
+                    Next
                 Catch
+                    MsgBox("Shouldn't ever catch here")
                 End Try
                 If input1 <> 2 Then
                     If input1 = 1 Then
@@ -515,14 +554,25 @@ Right-Click again to delete"
                 End If
             Else
                 Try
-                    input1 = Window.connections(prevID, ID, 0).connectionValue
+                    For i = 0 To 199
+                        If Window.connections(i, ID, 0).connectionValue <> 2 Then
+                            input1 = Window.connections(i, ID, 0).connectionValue
+                            i = 199
+                        End If
+                    Next
                 Catch
+                    MsgBox("Shouldn't ever catch here")
                 End Try
                 Try
-                    input2 = Window.connections(prevID, ID, 1).connectionValue
+                    For i = 0 To 199
+                        If Window.connections(i, ID, 1).connectionValue <> 2 Then
+                            input2 = Window.connections(i, ID, 1).connectionValue
+                            i = 199
+                        End If
+                    Next
                 Catch
+                    MsgBox("Shouldn't ever catch here")
                 End Try
-
                 If gateType = "and" Then
                     If input1 <> 2 And input2 <> 2 Then
                         If input1 = 1 And input2 = 1 Then
@@ -582,8 +632,8 @@ Right-Click again to delete"
         Private destination As Integer
         Private value1 As Integer
         Sub New()
-            origin = 999
-            destination = 999
+            origin = -1
+            destination = -1
             value1 = 2
         End Sub
         Public Property connectionOrigin As Integer
