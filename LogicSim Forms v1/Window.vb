@@ -117,13 +117,22 @@ Class Window
                 message_output.Text = ""
             Else
                 AttachGate(oneSelected, prevValue, prevID, ID)
+                displayGateInfo(ID)
+                If Gates(PB.Name).gateType = "output" And Gates(PB.Name).gateValue = 1 Then
+                    PB.Image = My.Resources.OUTPUTTRUE
+                ElseIf Gates(PB.Name).gateType = "output" And Gates(PB.Name).gateValue = 0 Then
+                    PB.Image = My.Resources.OUTPUTFALSE
+                ElseIf Gates(PB.Name).gateType = "output" And Gates(PB.Name).gateValue = 2 Then
+                    PB.Image = My.Resources.OUTPUTNULL
+                End If
             End If
+
         End If
     End Sub
     Private Sub PBs_MouseMove(ByVal sender As Object, ByVal e As MouseEventArgs)
+        Dim PB As PictureBox = DirectCast(sender, PictureBox)
         RefreshGraphics()
         If e.Button = MouseButtons.Left And ValidPB Then
-            Dim PB As PictureBox = DirectCast(sender, PictureBox)
             PB.Left += e.Location.X - Point.X
             PB.Top += e.Location.Y - Point.Y
             Gates(PB.Name).gateXpos = PB.Left                      '---NOT QUITE ALIGNED YET---
@@ -326,8 +335,6 @@ Right-Click again to delete"
     End Sub
     Private Sub DeleteGate(ByRef PB As PictureBox)
         gatecount -= 1
-        RecalculateInputs(PB.Name)
-        GatePB.Remove(PB)
         For i = 0 To 199
             If connections(i, PB.Name, 0).connectionValue <> 2 Then
                 connections(i, PB.Name, 0).connectionDestination = -1
@@ -343,15 +350,19 @@ Right-Click again to delete"
                 connections(PB.Name, i, 0).connectionDestination = -1
                 connections(PB.Name, i, 0).connectionOrigin = -1
                 connections(PB.Name, i, 0).connectionValue = 2
-                Gates(i).gateInput1 = 2
+                Gates(i).Calculate(PB.Name, i)
+                If Gates(i).gateType = "output" Then
+                    GatePB(i).Image = My.Resources.OUTPUTNULL
+                End If
             End If
             If connections(PB.Name, i, 1).connectionValue <> 2 Then
                 connections(PB.Name, i, 1).connectionDestination = -1
                 connections(PB.Name, i, 1).connectionOrigin = -1
                 connections(PB.Name, i, 1).connectionValue = 2
-                Gates(i).gateInput2 = 2
+                Gates(i).Calculate(PB.Name, i)
             End If
         Next
+        GatePB.Remove(PB)
         Gates(Convert.ToInt32(PB.Name)).Finalize()
         Me.Refresh()
         PB.Dispose()
@@ -498,9 +509,9 @@ Right-Click again to delete"
                         value = 1
                     ElseIf input1 = 0 Then
                         value = 0
-                    Else
-                        value = 2
                     End If
+                Else
+                    value = 2
                 End If
             Else
                 Try
