@@ -182,5 +182,47 @@
   <ItemGroup>
     <None Include="Resources\XOR_SELECTED.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AND.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NAND.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\OR.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NOR.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NOT.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XOR.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ANDP.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NANDP.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NOTP.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\OUTPUT FALSE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\OUTPUT NULL.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\OUTPUT TRUE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\INPUT FALSE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\INPUT TRUE.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

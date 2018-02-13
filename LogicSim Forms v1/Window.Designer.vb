@@ -32,17 +32,16 @@ Partial Class Window
         Me.add_nor = New System.Windows.Forms.Button()
         Me.add_xor = New System.Windows.Forms.Button()
         Me.add_not = New System.Windows.Forms.Button()
-        Me.add_input = New System.Windows.Forms.Button()
+        Me.add_input_true = New System.Windows.Forms.Button()
         Me.selected_gate = New System.Windows.Forms.Label()
-        Me.invert_input = New System.Windows.Forms.Button()
-        Me.delete_gate = New System.Windows.Forms.Button()
         Me.add_output = New System.Windows.Forms.Button()
         Me.message_output = New System.Windows.Forms.Label()
+        Me.add_input_false = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'add_and
         '
-        Me.add_and.Location = New System.Drawing.Point(118, 12)
+        Me.add_and.Location = New System.Drawing.Point(163, 12)
         Me.add_and.Name = "add_and"
         Me.add_and.Size = New System.Drawing.Size(100, 37)
         Me.add_and.TabIndex = 0
@@ -51,7 +50,7 @@ Partial Class Window
         '
         'add_nand
         '
-        Me.add_nand.Location = New System.Drawing.Point(224, 12)
+        Me.add_nand.Location = New System.Drawing.Point(269, 12)
         Me.add_nand.Name = "add_nand"
         Me.add_nand.Size = New System.Drawing.Size(100, 37)
         Me.add_nand.TabIndex = 1
@@ -60,7 +59,7 @@ Partial Class Window
         '
         'add_or
         '
-        Me.add_or.Location = New System.Drawing.Point(330, 12)
+        Me.add_or.Location = New System.Drawing.Point(375, 12)
         Me.add_or.Name = "add_or"
         Me.add_or.Size = New System.Drawing.Size(100, 37)
         Me.add_or.TabIndex = 2
@@ -69,7 +68,7 @@ Partial Class Window
         '
         'add_nor
         '
-        Me.add_nor.Location = New System.Drawing.Point(436, 12)
+        Me.add_nor.Location = New System.Drawing.Point(481, 12)
         Me.add_nor.Name = "add_nor"
         Me.add_nor.Size = New System.Drawing.Size(100, 37)
         Me.add_nor.TabIndex = 3
@@ -78,7 +77,7 @@ Partial Class Window
         '
         'add_xor
         '
-        Me.add_xor.Location = New System.Drawing.Point(542, 12)
+        Me.add_xor.Location = New System.Drawing.Point(587, 12)
         Me.add_xor.Name = "add_xor"
         Me.add_xor.Size = New System.Drawing.Size(100, 37)
         Me.add_xor.TabIndex = 4
@@ -87,76 +86,66 @@ Partial Class Window
         '
         'add_not
         '
-        Me.add_not.Location = New System.Drawing.Point(648, 12)
+        Me.add_not.Location = New System.Drawing.Point(693, 12)
         Me.add_not.Name = "add_not"
         Me.add_not.Size = New System.Drawing.Size(100, 37)
         Me.add_not.TabIndex = 5
         Me.add_not.Text = "NOT"
         Me.add_not.UseVisualStyleBackColor = True
         '
-        'add_input
+        'add_input_true
         '
-        Me.add_input.Location = New System.Drawing.Point(12, 12)
-        Me.add_input.Name = "add_input"
-        Me.add_input.Size = New System.Drawing.Size(100, 37)
-        Me.add_input.TabIndex = 6
-        Me.add_input.Text = "INPUT"
-        Me.add_input.UseVisualStyleBackColor = True
+        Me.add_input_true.Location = New System.Drawing.Point(12, 12)
+        Me.add_input_true.Name = "add_input_true"
+        Me.add_input_true.Size = New System.Drawing.Size(66, 48)
+        Me.add_input_true.TabIndex = 6
+        Me.add_input_true.Text = "INPUT (TRUE)"
+        Me.add_input_true.UseVisualStyleBackColor = True
         '
         'selected_gate
         '
         Me.selected_gate.AutoSize = True
-        Me.selected_gate.Location = New System.Drawing.Point(748, 105)
+        Me.selected_gate.Location = New System.Drawing.Point(748, 84)
         Me.selected_gate.Name = "selected_gate"
         Me.selected_gate.Size = New System.Drawing.Size(0, 15)
         Me.selected_gate.TabIndex = 7
         '
-        'invert_input
-        '
-        Me.invert_input.Location = New System.Drawing.Point(751, 12)
-        Me.invert_input.Name = "invert_input"
-        Me.invert_input.Size = New System.Drawing.Size(101, 30)
-        Me.invert_input.TabIndex = 9
-        Me.invert_input.Text = "Invert Input"
-        Me.invert_input.UseVisualStyleBackColor = True
-        '
-        'delete_gate
-        '
-        Me.delete_gate.Location = New System.Drawing.Point(858, 12)
-        Me.delete_gate.Name = "delete_gate"
-        Me.delete_gate.Size = New System.Drawing.Size(69, 85)
-        Me.delete_gate.TabIndex = 10
-        Me.delete_gate.Text = "Double Right Click Gates To Delete"
-        Me.delete_gate.UseVisualStyleBackColor = True
-        '
         'add_output
         '
-        Me.add_output.Location = New System.Drawing.Point(751, 50)
+        Me.add_output.Location = New System.Drawing.Point(799, 12)
         Me.add_output.Name = "add_output"
-        Me.add_output.Size = New System.Drawing.Size(101, 31)
+        Me.add_output.Size = New System.Drawing.Size(123, 37)
         Me.add_output.TabIndex = 11
-        Me.add_output.Text = "Add Output Node"
+        Me.add_output.Text = "OUTPUT (BUFFER)"
         Me.add_output.UseVisualStyleBackColor = True
         '
         'message_output
         '
         Me.message_output.AutoSize = True
-        Me.message_output.Location = New System.Drawing.Point(748, 157)
+        Me.message_output.Location = New System.Drawing.Point(748, 136)
         Me.message_output.Name = "message_output"
         Me.message_output.Size = New System.Drawing.Size(0, 15)
         Me.message_output.TabIndex = 12
+        '
+        'add_input_false
+        '
+        Me.add_input_false.Location = New System.Drawing.Point(84, 12)
+        Me.add_input_false.Name = "add_input_false"
+        Me.add_input_false.Size = New System.Drawing.Size(66, 48)
+        Me.add_input_false.TabIndex = 14
+        Me.add_input_false.Text = "INPUT (FALSE)"
+        Me.add_input_false.UseVisualStyleBackColor = True
         '
         'Window
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(934, 449)
+        Me.Controls.Add(Me.add_input_false)
         Me.Controls.Add(Me.message_output)
         Me.Controls.Add(Me.add_output)
-        Me.Controls.Add(Me.delete_gate)
-        Me.Controls.Add(Me.invert_input)
         Me.Controls.Add(Me.selected_gate)
-        Me.Controls.Add(Me.add_input)
+        Me.Controls.Add(Me.add_input_true)
         Me.Controls.Add(Me.add_not)
         Me.Controls.Add(Me.add_xor)
         Me.Controls.Add(Me.add_nor)
@@ -181,10 +170,9 @@ Partial Class Window
     Friend WithEvents add_nor As Button
     Friend WithEvents add_xor As Button
     Friend WithEvents add_not As Button
-    Friend WithEvents add_input As Button
+    Friend WithEvents add_input_true As Button
     Friend WithEvents selected_gate As Label
-    Friend WithEvents invert_input As Button
-    Friend WithEvents delete_gate As Button
     Friend WithEvents add_output As Button
     Friend WithEvents message_output As Label
+    Friend WithEvents add_input_false As Button
 End Class

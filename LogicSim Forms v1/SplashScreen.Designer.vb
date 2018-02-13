@@ -22,29 +22,43 @@ Partial Class SplashScreen
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.start_prof = New System.Windows.Forms.Button()
+        Me.start_nonprof = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
-        'Button1
+        'start_prof
         '
-        Me.Button1.Location = New System.Drawing.Point(56, 85)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(184, 103)
-        Me.Button1.TabIndex = 0
-        Me.Button1.Text = "BEGIN"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.start_prof.Font = New System.Drawing.Font("Verdana", 10.18868!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.start_prof.Location = New System.Drawing.Point(12, 12)
+        Me.start_prof.Name = "start_prof"
+        Me.start_prof.Size = New System.Drawing.Size(260, 54)
+        Me.start_prof.TabIndex = 0
+        Me.start_prof.Text = "Start in Professional Mode"
+        Me.start_prof.UseVisualStyleBackColor = True
+        '
+        'start_nonprof
+        '
+        Me.start_nonprof.Font = New System.Drawing.Font("Verdana", 10.18868!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.start_nonprof.Location = New System.Drawing.Point(12, 84)
+        Me.start_nonprof.Name = "start_nonprof"
+        Me.start_nonprof.Size = New System.Drawing.Size(260, 54)
+        Me.start_nonprof.TabIndex = 2
+        Me.start_nonprof.Text = "Start in Child Friendly Mode"
+        Me.start_nonprof.UseVisualStyleBackColor = True
         '
         'SplashScreen
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(284, 261)
-        Me.Controls.Add(Me.Button1)
+        Me.ClientSize = New System.Drawing.Size(284, 155)
+        Me.Controls.Add(Me.start_nonprof)
+        Me.Controls.Add(Me.start_prof)
         Me.Name = "SplashScreen"
         Me.Text = "LogicSim"
         Me.ResumeLayout(False)
 
     End Sub
 
-    Friend WithEvents Button1 As Button
+    Friend WithEvents start_prof As Button
+    Friend WithEvents start_nonprof As Button
 End Class

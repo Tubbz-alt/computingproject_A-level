@@ -1,12 +1,24 @@
 ﻿Imports VB = Microsoft.VisualBasic
 Class Window
+    Private profMode As Boolean
     Protected Shared Points(139) As String
     Private oneSelected As Boolean = False
     Private holdingCurrent As Integer
     Private prevValue As Integer
     Private prevID As Integer
     Private tempInputID As Integer
-    Dim tempImage As Image
+    Private tempImage As Image
+    Private inputImageTrue As Image
+    Private inputImageFalse As Image
+    Private outputImageNull As Image
+    Private outputImageTrue As Image
+    Private outputImageFalse As Image
+    Private andImage As Image
+    Private nandImage As Image
+    Private orImage As Image
+    Private norImage As Image
+    Private xorImage As Image
+    Private notImage As Image
     Protected Point As Point
     Private ValidPB As Boolean
     Protected GatePB As New List(Of PictureBox)
@@ -15,68 +27,6 @@ Class Window
     Public gatecount As Integer
     Protected nextpoint As Integer
     Protected LastID As Integer
-    Private Property MousePoint As Point
-        Get
-            Return Point
-        End Get
-        Set(givenPoint As Point)
-            Point = givenPoint
-        End Set
-    End Property
-    Private Shared Function getGatePoints(ByVal o As Integer)
-        Return Points(o)
-    End Function
-    Private Shared Sub setGatePoints(ByVal o As Integer, ByVal text As String)
-        Points(o) = text
-    End Sub
-    Public Event GateDeleted(PB)
-    Private Sub WindowLoader(sender As Object, e As EventArgs) Handles MyBase.Load
-        loader.Enabled = True
-        WindowStart()                   'Calls the sub that redims gate arrays and constructs gate objects using these arrays
-        loader.Enabled = False
-        ButtonCheck.Enabled = True
-    End Sub
-    Private Sub DrawLinePoint(ByVal prevID As Integer, ByVal ID As Integer)
-        Dim g As Graphics
-        g = CreateGraphics()
-        Dim blackPen As New Pen(Color.Black, 3)
-        g.DrawLine(blackPen, Gates(prevID).gateXpos + 60, ((Me.Height - Gates(prevID).gateYpos) + 30), Gates(ID).gateXpos, (Me.Height - Gates(ID).gateYpos))
-    End Sub
-    Private Sub RefreshGraphics()
-        Dim g As Graphics
-        g = CreateGraphics()
-        Dim blackPen As New Pen(Color.Black, 3)
-        For Each PB In GatePB
-            If Gates(PB.Name).gateType = "output" And Gates(PB.Name).gateValue = 1 Then
-                PB.Image = My.Resources.OUTPUTTRUE
-            ElseIf Gates(PB.Name).gateType = "output" And Gates(PB.Name).gateValue = 0 Then
-                PB.Image = My.Resources.OUTPUTFALSE
-            ElseIf Gates(PB.Name).gateType = "output" And Gates(PB.Name).gateValue = 2 Then
-                PB.Image = My.Resources.OUTPUTNULL
-            End If
-        Next
-        Me.Refresh()
-        For k = 0 To 1
-            For i = 0 To 199
-                For j = 0 To 199
-                    If connections(i, j, k).connectionValue <> 2 And k = 0 Then
-                        If Gates(i).gateType = "input" Then
-                            g.DrawLine(blackPen, (Gates(i).gateXpos + 60), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 20))
-                        Else
-                            g.DrawLine(blackPen, (Gates(i).gateXpos + 120), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 20))
-                        End If
-                    End If
-                    If connections(i, j, k).connectionValue <> 2 And k = 1 Then
-                        If Gates(i).gateType = "input" Then
-                            g.DrawLine(blackPen, (Gates(i).gateXpos + 60), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 40))
-                        Else
-                            g.DrawLine(blackPen, (Gates(i).gateXpos + 120), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 40))
-                        End If
-                    End If
-                Next
-            Next
-        Next
-    End Sub
     Private Sub WindowCloser(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles Me.Closing
         End
     End Sub
@@ -85,6 +35,31 @@ Class Window
         ReDim connections(199, 199, 1)
         gatecount = 0
         prevValue = 2
+        If profMode = True Then
+            inputImageTrue = My.Resources.INPUTTRUEP
+            inputImageFalse = My.Resources.INPUTFALSEP
+            outputImageNull = My.Resources.OUTPUTNULLP
+            outputImageTrue = My.Resources.OUTPUTTRUEP
+            outputImageFalse = My.Resources.OUTPUTFALSEP
+            andImage = My.Resources._ANDP
+            nandImage = My.Resources._NANDP
+            orImage = My.Resources._ORP
+            norImage = My.Resources.NORP
+            xorImage = My.Resources._XORP
+            notImage = My.Resources._NOTP
+        Else
+            inputImageTrue = My.Resources.INPUTTRUE
+            inputImageFalse = My.Resources.INPUTFALSE
+            outputImageNull = My.Resources.OUTPUTNULL
+            outputImageTrue = My.Resources.OUTPUTTRUE
+            outputImageTrue = My.Resources.OUTPUTFALSE
+            andImage = My.Resources._AND
+            nandImage = My.Resources.NAND
+            orImage = My.Resources._OR
+            norImage = My.Resources.NOR
+            xorImage = My.Resources._XOR
+            notImage = My.Resources._NOT
+        End If
         For i As Integer = 0 To 199
             Gates(i) = New MultiGate(i)
         Next
@@ -99,13 +74,98 @@ Class Window
             Points(i) = "null"
         Next
     End Sub
+    Private Property MousePoint As Point
+        Get
+            Return Point
+        End Get
+        Set(givenPoint As Point)
+            Point = givenPoint
+        End Set
+    End Property
+    Public Property windowProf As Boolean
+        Get
+            Return profMode
+        End Get
+        Set(value As Boolean)
+            profMode = value
+        End Set
+    End Property
+
+    Private Function getGatePoints(ByVal o As Integer)
+        Return Points(o)
+    End Function
+    Private Sub setGatePoints(ByVal o As Integer, ByVal text As String)
+        Points(o) = text
+    End Sub
+    Public Event GateDeleted(PB)
+    Private Sub WindowLoader(sender As Object, e As EventArgs) Handles MyBase.Load
+        loader.Enabled = True
+        WindowStart()                   'Calls the sub that redims gate arrays and constructs gate objects using these arrays
+        loader.Enabled = False
+        ButtonCheck.Enabled = True
+    End Sub
+    Private Sub DrawLinePoint(ByVal prevID As Integer, ByVal ID As Integer)
+        Dim g As Graphics
+        g = CreateGraphics()
+        Dim blackPen As New Pen(Color.Black, 4)
+        g.DrawLine(blackPen, Gates(prevID).gateXpos + 30, ((Me.Height - Gates(prevID).gateYpos) + 30), Gates(ID).gateXpos, (Me.Height - Gates(ID).gateYpos))
+    End Sub
+    Private Sub RefreshGraphics()
+        Dim g As Graphics
+        g = CreateGraphics()
+        Dim blackPen As New Pen(Color.Black, 4)
+        For Each PB In GatePB
+            If Gates(PB.Name).gateType = "output" And Gates(PB.Name).gateValue = 1 Then
+                PB.Image = outputImageTrue
+            ElseIf Gates(PB.Name).gateType = "output" And Gates(PB.Name).gateValue = 0 Then
+                PB.Image = outputImageFalse
+            ElseIf Gates(PB.Name).gateType = "output" And Gates(PB.Name).gateValue = 2 Then
+                PB.Image = outputImageNull
+            End If
+        Next
+        Me.Refresh()
+        For k = 0 To 1
+            For i = 0 To 199
+                For j = 0 To 199
+                    If connections(i, j, k).connectionValue <> 2 And k = 0 Then
+                        If Gates(j).gateType = "not" Then
+                            If Gates(i).gateType = "inputt" Or Gates(i).gateType = "inputf" Then
+                                g.DrawLine(blackPen, (Gates(i).gateXpos + 30), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 30))
+                            Else
+                                g.DrawLine(blackPen, (Gates(i).gateXpos + 120), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 30))
+                            End If
+                        ElseIf Gates(j).gateType = "output" Then
+                            If Gates(i).gateType = "inputt" Or Gates(i).gateType = "inputf" Then
+                                g.DrawLine(blackPen, (Gates(i).gateXpos + 30), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos + 25), (Me.Height - Gates(j).gateYpos + 48))
+                            Else
+                                g.DrawLine(blackPen, (Gates(i).gateXpos + 120), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 30))
+                            End If
+                        Else
+                            If Gates(i).gateType = "inputt" Or Gates(i).gateType = "inputf" Then
+                                g.DrawLine(blackPen, (Gates(i).gateXpos + 30), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 20))
+                            Else
+                                g.DrawLine(blackPen, (Gates(i).gateXpos + 120), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 20))
+                            End If
+                        End If
+                    End If
+                    If connections(i, j, k).connectionValue <> 2 And k = 1 Then
+                        If Gates(i).gateType = "inputt" Or Gates(i).gateType = "inputf" Then
+                            g.DrawLine(blackPen, (Gates(i).gateXpos + 30), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 40))
+                        Else
+                            g.DrawLine(blackPen, (Gates(i).gateXpos + 120), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 40))
+                        End If
+                    End If
+                Next
+            Next
+        Next
+    End Sub
     Private Sub PBs_MouseDown(ByVal sender As Object, ByVal e As MouseEventArgs)
         Dim PB As PictureBox = DirectCast(sender, PictureBox)
         Dim ID = PB.Name
         Point = e.Location
         If e.Button = MouseButtons.Left Then
             RefreshGraphics()
-            If Gates(PB.Name).gateType = "input" Then
+            If Gates(PB.Name).gateType = "inputt" Or Gates(PB.Name).gateType = "inputf" Then
                 tempInputID = PB.Name
             Else
                 tempInputID = -1
@@ -167,26 +227,6 @@ Current Value: " & value
         Else
         End If
     End Sub
-    Private Sub InvertInput(sender As Object, e As EventArgs) Handles invert_input.Click
-        Try
-            If tempInputID >= 0 Then
-                If Gates(tempInputID).gateValue = 1 Then
-                    Gates(tempInputID).gateValue = 0
-                    GatePB(tempInputID).Image = My.Resources.INPUTFALSE
-                ElseIf Gates(tempInputID).gateValue = 0 Then
-                    Gates(tempInputID).gateValue = 1
-                    GatePB(tempInputID).Image = My.Resources.INPUTTRUE
-                End If
-                RecalculateInputs(tempInputID)
-                displayGateInfo(tempInputID)
-            Else
-                message_output.Text = "Selected gate is not an 
-Input Node"
-            End If
-        Catch
-            MsgBox("Error in 'InvertInput' Sub")
-        End Try
-    End Sub
     Private Sub RecalculateInputs(ByVal ID As Integer)
         'Dim complete As Boolean = False
         'Dim gatesDone As Integer
@@ -213,7 +253,7 @@ Input Node"
     End Sub
     Private Sub AttachGate(ByRef oneSelected As Boolean, ByRef prevValue As Integer, ByRef prevID As Integer, ByVal ID As Integer)
         If oneSelected = True Then                                                     'This means the gate is having a value assigned to one of its inputs from another gates output
-            If Gates(ID).gateType <> "input" Then
+            If Gates(ID).gateType <> "inputt" Or Gates(ID).gateType <> "inputf" Then
                 If Gates(prevID).gateValue <> 2 Then
                     If Gates(ID).gateType = "not" Or Gates(ID).gateType = "output" Then
                         If Gates(ID).gateInput1 = 2 Then
@@ -264,7 +304,7 @@ assigned null
 values (yet)"
                 End If
             Else
-                    message_output.Text = "Input values are 
+                message_output.Text = "Input values are 
 fixed and cannot be 
 assigned by another 
 gate"
@@ -290,22 +330,30 @@ Right-Click again to delete"
         AddHandler PB.MouseDown, AddressOf PBs_MouseDown
         AddHandler PB.MouseMove, AddressOf PBs_MouseMove
         PB.Parent = Me
-        If choice = "input" Then
-            PB.Image = My.Resources.INPUTTRUE
+        If choice = "inputt" Then
+            PB.Height = 60
+            PB.Width = 60
+            PB.Image = inputImageTrue
+        ElseIf choice = "inputf" Then
+            PB.Height = 60
+            PB.Width = 60
+            PB.Image = inputImageFalse
         ElseIf choice = "output" Then
-            PB.Image = My.Resources.OUTPUTNULL
+            PB.Height = 60
+            PB.Width = 60
+            PB.Image = outputImageNull
         ElseIf choice = "and" Then
-            PB.Image = My.Resources._AND
+            PB.Image = andImage
         ElseIf choice = "nand" Then
-            PB.Image = My.Resources.NAND
+            PB.Image = nandImage
         ElseIf choice = "or" Then
-            PB.Image = My.Resources._OR
+            PB.Image = orImage
         ElseIf choice = "nor" Then
-            PB.Image = My.Resources.NOR
+            PB.Image = norImage
         ElseIf choice = "xor" Then
-            PB.Image = My.Resources._XOR
+            PB.Image = xorImage
         ElseIf choice = "not" Then
-            PB.Image = My.Resources._NOT
+            PB.Image = notImage
         End If
         PB.Name = tempID
         GatePB.Add(PB)
@@ -317,8 +365,10 @@ Right-Click again to delete"
                 If Gates(i).gateIsNull = True Then                  'Cycles through the array of objects with a loop and finds an unused one
                     Gates(i).gateIsNull = False                     'Sets it to 'Not Null'
                     Gates(i).gateType = choice                      'Sets the 'Type' variable to the choice
-                    If choice = "input" Then
+                    If choice = "inputt" Then
                         Gates(i).gateValue = 1
+                    ElseIf choice = "inputf" Then
+                        Gates(i).gateValue = 0
                     ElseIf choice = "output" Then
                         Gates(i).gateValue = 2
                         Gates(i).gateInput1 = 2
@@ -336,9 +386,6 @@ Right-Click again to delete"
         Else
             message_output.Text = "Too many gates placed (200 limit) Please delete some before adding more"
         End If
-    End Sub
-    Private Sub CascadeUpdate()
-
     End Sub
     Private Sub DeleteGate(ByRef PB As PictureBox)
         gatecount -= 1
@@ -375,8 +422,12 @@ Right-Click again to delete"
         PB.Dispose()
     End Sub
 
-    Private Sub AddInput(ByVal sender As Object, ByVal e As EventArgs) Handles add_input.Click
-        Dim choice As String = "input"
+    Private Sub AddInputTrue(ByVal sender As Object, ByVal e As EventArgs) Handles add_input_true.Click
+        Dim choice As String = "inputt"
+        newGate(choice)
+    End Sub
+    Private Sub AddInputFalse(ByVal sender As Object, ByVal e As EventArgs) Handles add_input_false.Click
+        Dim choice As String = "inputf"
         newGate(choice)
     End Sub
     Private Sub add_output_Click(sender As Object, e As EventArgs) Handles add_output.Click
@@ -521,7 +572,6 @@ Right-Click again to delete"
                         End If
                     Next
                 Catch
-                    MsgBox("Shouldn't ever catch here")
                 End Try
                 If input1 <> 2 Then
                     If input1 = 1 Then
@@ -541,7 +591,6 @@ Right-Click again to delete"
                         End If
                     Next
                 Catch
-                    MsgBox("Shouldn't ever catch here")
                 End Try
                 If input1 <> 2 Then
                     If input1 = 1 Then
@@ -561,7 +610,6 @@ Right-Click again to delete"
                         End If
                     Next
                 Catch
-                    MsgBox("Shouldn't ever catch here")
                 End Try
                 Try
                     For i = 0 To 199
@@ -571,7 +619,6 @@ Right-Click again to delete"
                         End If
                     Next
                 Catch
-                    MsgBox("Shouldn't ever catch here")
                 End Try
                 If gateType = "and" Then
                     If input1 <> 2 And input2 <> 2 Then

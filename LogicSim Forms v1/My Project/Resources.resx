@@ -187,4 +187,37 @@
   <data name="XOR_SELECTED" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\XOR_SELECTED.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="INPUTFALSEP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\INPUT FALSE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="INPUTTRUEP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\INPUT TRUE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NORP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NOR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="OUTPUTFALSEP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\OUTPUT FALSE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="OUTPUTNULLP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\OUTPUT NULL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="OUTPUTTRUEP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\OUTPUT TRUE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_ANDP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ANDP.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_NANDP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NANDP.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_NOTP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NOTP.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_ORP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\OR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_XORP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\XOR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
