@@ -134,53 +134,40 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\AND.jpg" />
-    <EmbeddedResource Include="Resources\INPUTFALSE.jpg" />
-    <EmbeddedResource Include="Resources\INPUTTRUE.jpg" />
-    <EmbeddedResource Include="Resources\NAND.jpg" />
-    <EmbeddedResource Include="Resources\NOR.jpg" />
-    <EmbeddedResource Include="Resources\NOT.jpg" />
-    <EmbeddedResource Include="Resources\OR.jpg" />
-    <EmbeddedResource Include="Resources\OUTPUTFALSE.jpg" />
-    <EmbeddedResource Include="Resources\OUTPUTNULL.jpg" />
-    <EmbeddedResource Include="Resources\OUTPUTTRUE.jpg" />
-    <EmbeddedResource Include="Resources\XOR.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Resources\project_icon_icP_icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\AND_SELECTED.jpg" />
+    <None Include="Resources\ANDP.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\INPUTFALSE_SELECTED.jpg" />
+    <None Include="Resources\INPUTFALSEP.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\INPUTTRUE_SELECTED.jpg" />
+    <None Include="Resources\INPUTTRUEP.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\NAND_SELECTED.jpg" />
+    <None Include="Resources\NANDP.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\NOR_SELECTED.jpg" />
+    <None Include="Resources\NORP.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\NOT_SELECTED.jpg" />
+    <None Include="Resources\NOTP.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\OR_SELECTED.jpg" />
+    <None Include="Resources\ORP.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\OUTPUTFALSE_SELECTED.jpg" />
+    <None Include="Resources\OUTPUTFALSEP.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\OUTPUTNULL_SELECTED.jpg" />
+    <None Include="Resources\OUTPUTNULLP.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\OUTPUTTRUE_SELECTED.jpg" />
+    <None Include="Resources\OUTPUTTRUEP.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\XOR_SELECTED.jpg" />
+    <None Include="Resources\XORP.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AND.png" />
@@ -189,40 +176,31 @@
     <None Include="Resources\NAND.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\OR.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\NOR.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\NOT.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\OR.png" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Resources\XOR.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\ANDP.png" />
+    <None Include="Resources\INPUTFALSE.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\NANDP.png" />
+    <None Include="Resources\INPUTTRUE.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\NOTP.png" />
+    <None Include="Resources\OUTPUTFALSE.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\OUTPUT FALSE.png" />
+    <None Include="Resources\OUTPUTNULL.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\OUTPUT NULL.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\OUTPUT TRUE.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\INPUT FALSE.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\INPUT TRUE.png" />
+    <None Include="Resources\OUTPUTTRUE.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

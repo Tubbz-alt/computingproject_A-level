@@ -153,29 +153,9 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property AND_SELECTED() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("AND_SELECTED", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
         Friend ReadOnly Property INPUTFALSE() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("INPUTFALSE", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property INPUTFALSE_SELECTED() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("INPUTFALSE_SELECTED", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -203,16 +183,6 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property INPUTTRUE_SELECTED() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("INPUTTRUE_SELECTED", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
         Friend ReadOnly Property INPUTTRUEP() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("INPUTTRUEP", resourceCulture)
@@ -233,29 +203,9 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property NAND_SELECTED() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("NAND_SELECTED", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
         Friend ReadOnly Property NOR() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("NOR", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property NOR_SELECTED() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("NOR_SELECTED", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -273,39 +223,9 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property NOT_SELECTED() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("NOT_SELECTED", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property OR_SELECTED() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("OR_SELECTED", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
         Friend ReadOnly Property OUTPUTFALSE() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("OUTPUTFALSE", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property OUTPUTFALSE_SELECTED() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("OUTPUTFALSE_SELECTED", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -333,16 +253,6 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property OUTPUTNULL_SELECTED() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("OUTPUTNULL_SELECTED", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
         Friend ReadOnly Property OUTPUTNULLP() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("OUTPUTNULLP", resourceCulture)
@@ -356,16 +266,6 @@ Namespace My.Resources
         Friend ReadOnly Property OUTPUTTRUE() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("OUTPUTTRUE", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property OUTPUTTRUE_SELECTED() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("OUTPUTTRUE_SELECTED", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -387,16 +287,6 @@ Namespace My.Resources
             Get
                 Dim obj As Object = ResourceManager.GetObject("project_icon_icP_icon", resourceCulture)
                 Return CType(obj,System.Drawing.Icon)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property XOR_SELECTED() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("XOR_SELECTED", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
     End Module

@@ -67,17 +67,7 @@ LogicSim Forms v1
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
 </member>
-<member name="P:LogicSim_Forms_v1.My.Resources.Resources.AND_SELECTED">
-<summary>
-  Looks up a localized resource of type System.Drawing.Bitmap.
-</summary>
-</member>
 <member name="P:LogicSim_Forms_v1.My.Resources.Resources.INPUTFALSE">
-<summary>
-  Looks up a localized resource of type System.Drawing.Bitmap.
-</summary>
-</member>
-<member name="P:LogicSim_Forms_v1.My.Resources.Resources.INPUTFALSE_SELECTED">
 <summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
@@ -92,11 +82,6 @@ LogicSim Forms v1
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
 </member>
-<member name="P:LogicSim_Forms_v1.My.Resources.Resources.INPUTTRUE_SELECTED">
-<summary>
-  Looks up a localized resource of type System.Drawing.Bitmap.
-</summary>
-</member>
 <member name="P:LogicSim_Forms_v1.My.Resources.Resources.INPUTTRUEP">
 <summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
@@ -107,17 +92,7 @@ LogicSim Forms v1
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
 </member>
-<member name="P:LogicSim_Forms_v1.My.Resources.Resources.NAND_SELECTED">
-<summary>
-  Looks up a localized resource of type System.Drawing.Bitmap.
-</summary>
-</member>
 <member name="P:LogicSim_Forms_v1.My.Resources.Resources.NOR">
-<summary>
-  Looks up a localized resource of type System.Drawing.Bitmap.
-</summary>
-</member>
-<member name="P:LogicSim_Forms_v1.My.Resources.Resources.NOR_SELECTED">
 <summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
@@ -127,22 +102,7 @@ LogicSim Forms v1
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
 </member>
-<member name="P:LogicSim_Forms_v1.My.Resources.Resources.NOT_SELECTED">
-<summary>
-  Looks up a localized resource of type System.Drawing.Bitmap.
-</summary>
-</member>
-<member name="P:LogicSim_Forms_v1.My.Resources.Resources.OR_SELECTED">
-<summary>
-  Looks up a localized resource of type System.Drawing.Bitmap.
-</summary>
-</member>
 <member name="P:LogicSim_Forms_v1.My.Resources.Resources.OUTPUTFALSE">
-<summary>
-  Looks up a localized resource of type System.Drawing.Bitmap.
-</summary>
-</member>
-<member name="P:LogicSim_Forms_v1.My.Resources.Resources.OUTPUTFALSE_SELECTED">
 <summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
@@ -157,22 +117,12 @@ LogicSim Forms v1
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
 </member>
-<member name="P:LogicSim_Forms_v1.My.Resources.Resources.OUTPUTNULL_SELECTED">
-<summary>
-  Looks up a localized resource of type System.Drawing.Bitmap.
-</summary>
-</member>
 <member name="P:LogicSim_Forms_v1.My.Resources.Resources.OUTPUTNULLP">
 <summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
 </member>
 <member name="P:LogicSim_Forms_v1.My.Resources.Resources.OUTPUTTRUE">
-<summary>
-  Looks up a localized resource of type System.Drawing.Bitmap.
-</summary>
-</member>
-<member name="P:LogicSim_Forms_v1.My.Resources.Resources.OUTPUTTRUE_SELECTED">
 <summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
@@ -185,11 +135,6 @@ LogicSim Forms v1
 <member name="P:LogicSim_Forms_v1.My.Resources.Resources.project_icon_icP_icon">
 <summary>
   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-</summary>
-</member>
-<member name="P:LogicSim_Forms_v1.My.Resources.Resources.XOR_SELECTED">
-<summary>
-  Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
 </member>
 </members>

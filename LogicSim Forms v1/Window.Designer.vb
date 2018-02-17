@@ -37,6 +37,7 @@ Partial Class Window
         Me.add_output = New System.Windows.Forms.Button()
         Me.message_output = New System.Windows.Forms.Label()
         Me.add_input_false = New System.Windows.Forms.Button()
+        Me.delete_all_gates = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'add_and
@@ -105,7 +106,7 @@ Partial Class Window
         'selected_gate
         '
         Me.selected_gate.AutoSize = True
-        Me.selected_gate.Location = New System.Drawing.Point(748, 84)
+        Me.selected_gate.Location = New System.Drawing.Point(747, 104)
         Me.selected_gate.Name = "selected_gate"
         Me.selected_gate.Size = New System.Drawing.Size(0, 15)
         Me.selected_gate.TabIndex = 7
@@ -122,7 +123,7 @@ Partial Class Window
         'message_output
         '
         Me.message_output.AutoSize = True
-        Me.message_output.Location = New System.Drawing.Point(748, 136)
+        Me.message_output.Location = New System.Drawing.Point(747, 156)
         Me.message_output.Name = "message_output"
         Me.message_output.Size = New System.Drawing.Size(0, 15)
         Me.message_output.TabIndex = 12
@@ -136,11 +137,21 @@ Partial Class Window
         Me.add_input_false.Text = "INPUT (FALSE)"
         Me.add_input_false.UseVisualStyleBackColor = True
         '
+        'delete_all_gates
+        '
+        Me.delete_all_gates.Location = New System.Drawing.Point(799, 55)
+        Me.delete_all_gates.Name = "delete_all_gates"
+        Me.delete_all_gates.Size = New System.Drawing.Size(123, 37)
+        Me.delete_all_gates.TabIndex = 15
+        Me.delete_all_gates.Text = "CLEAR ALL GATES"
+        Me.delete_all_gates.UseVisualStyleBackColor = True
+        '
         'Window
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(934, 449)
+        Me.Controls.Add(Me.delete_all_gates)
         Me.Controls.Add(Me.add_input_false)
         Me.Controls.Add(Me.message_output)
         Me.Controls.Add(Me.add_output)
@@ -175,4 +186,5 @@ Partial Class Window
     Friend WithEvents add_output As Button
     Friend WithEvents message_output As Label
     Friend WithEvents add_input_false As Button
+    Friend WithEvents delete_all_gates As Button
 End Class

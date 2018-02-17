@@ -1,7 +1,6 @@
 ﻿Imports VB = Microsoft.VisualBasic
 Class Window
     Private profMode As Boolean
-    Protected Shared Points(139) As String
     Private oneSelected As Boolean = False
     Private holdingCurrent As Integer
     Private prevValue As Integer
@@ -52,7 +51,7 @@ Class Window
             inputImageFalse = My.Resources.INPUTFALSE
             outputImageNull = My.Resources.OUTPUTNULL
             outputImageTrue = My.Resources.OUTPUTTRUE
-            outputImageTrue = My.Resources.OUTPUTFALSE
+            outputImageFalse = My.Resources.OUTPUTFALSE
             andImage = My.Resources._AND
             nandImage = My.Resources.NAND
             orImage = My.Resources._OR
@@ -69,9 +68,6 @@ Class Window
                     connections(i, j, k) = New Connection
                 Next
             Next
-        Next
-        For i = 0 To 139
-            Points(i) = "null"
         Next
     End Sub
     Private Property MousePoint As Point
@@ -90,14 +86,6 @@ Class Window
             profMode = value
         End Set
     End Property
-
-    Private Function getGatePoints(ByVal o As Integer)
-        Return Points(o)
-    End Function
-    Private Sub setGatePoints(ByVal o As Integer, ByVal text As String)
-        Points(o) = text
-    End Sub
-    Public Event GateDeleted(PB)
     Private Sub WindowLoader(sender As Object, e As EventArgs) Handles MyBase.Load
         loader.Enabled = True
         WindowStart()                   'Calls the sub that redims gate arrays and constructs gate objects using these arrays
@@ -193,9 +181,8 @@ Class Window
         If e.Button = MouseButtons.Left And ValidPB Then
             PB.Left += e.Location.X - Point.X
             PB.Top += e.Location.Y - Point.Y
-            Gates(PB.Name).gateXpos = PB.Left                      '---NOT QUITE ALIGNED YET---
+            Gates(PB.Name).gateXpos = PB.Left
             Gates(PB.Name).gateYpos = Me.Height - PB.Top
-            message_output.Text = Gates(PB.Name).gateXpos & " " & Gates(PB.Name).gateYpos
             If PB.Left < 0 Then
                 PB.Left = 0
                 ValidPB = False
@@ -228,9 +215,6 @@ Current Value: " & value
         End If
     End Sub
     Private Sub RecalculateInputs(ByVal ID As Integer)
-        'Dim complete As Boolean = False
-        'Dim gatesDone As Integer
-        'While complete = False
         For j = 0 To 199
             If connections(ID, j, 0).connectionValue <> 2 Or connections(ID, j, 1).connectionValue <> 2 Then
                 If connections(ID, j, 0).connectionValue <> 2 Then
@@ -240,16 +224,8 @@ Current Value: " & value
                     connections(ID, j, 1).connectionValue = Gates(ID).gateValue
                 End If
                 Gates(j).Calculate(j)
-                'gatesDone += 1
             End If
-            '        If gatesDone = gatecount Then
-            '            complete = True
-            '        Else
-
-            '        End If
         Next
-
-        'End While
     End Sub
     Private Sub AttachGate(ByRef oneSelected As Boolean, ByRef prevValue As Integer, ByRef prevID As Integer, ByVal ID As Integer)
         If oneSelected = True Then                                                     'This means the gate is having a value assigned to one of its inputs from another gates output
@@ -265,8 +241,6 @@ with value: " & prevValue                                         'The prevValue
                             connections(prevID, ID, 0).connectionDestination = ID
                             connections(prevID, ID, 0).connectionValue = Gates(prevID).gateValue
                             Gates(ID).Calculate(ID)
-                            'Gates(prevID).gatesConnectedAfter = ID
-                            'Gates(ID).gatesConnectedBefore = prevID
                         Else
                             message_output.Text = "The input is already occupied"
                         End If
@@ -280,8 +254,6 @@ with value: " & prevValue                                         'The prevValue
                             connections(prevID, ID, 0).connectionDestination = ID
                             connections(prevID, ID, 0).connectionValue = Gates(prevID).gateValue
                             Gates(ID).Calculate(ID)
-                            'Gates(prevID).gatesConnectedAfter = ID
-                            'Gates(ID).gatesConnectedBefore = prevID
                         ElseIf Gates(ID).gateInput2 = 2 Then
                             message_output.Text = "Assigned input (2)
 to " & (Gates(ID).gateType).ToUpper & " gate" & " 
@@ -291,8 +263,6 @@ with value: " & prevValue
                             connections(prevID, ID, 1).connectionDestination = ID
                             connections(prevID, ID, 1).connectionValue = Gates(prevID).gateValue
                             Gates(ID).Calculate(ID)
-                            'Gates(prevID).gatesConnectedAfter = ID
-                            'Gates(ID).gatesConnectedBefore = prevID
                         Else
                             message_output.Text = "Both inputs are 
 already occupied"
@@ -378,14 +348,29 @@ Right-Click again to delete"
                         Gates(i).gateInput2 = 2
                     End If
                     tempID = i
-                    i = 199
                     gatecount += 1
                     AddGatePB(choice, tempID)
+                    Exit For
                 End If
             Next
         Else
             message_output.Text = "Too many gates placed (200 limit) Please delete some before adding more"
         End If
+    End Sub
+    Private Sub delete_all_gates_Click(sender As Object, e As EventArgs) Handles delete_all_gates.Click
+        While GatePB.Count <> 0
+            Try
+                For Each PB In GatePB
+                    DeleteGate(PB)
+                    If GatePB.Count = 0 Then
+                        Exit For
+                    End If
+                Next
+            Catch
+            End Try
+        End While
+        selected_gate.Text = ""
+        message_output.Text = ""
     End Sub
     Private Sub DeleteGate(ByRef PB As PictureBox)
         gatecount -= 1
@@ -405,9 +390,9 @@ Right-Click again to delete"
                 connections(PB.Name, i, 0).connectionOrigin = -1
                 connections(PB.Name, i, 0).connectionValue = 2
                 Gates(i).Calculate(i)
-                'If Gates(i).gateType = "output" Then
-                '    GatePB(i).Image = My.Resources.OUTPUTNULL
-                'End If
+                If Gates(i).gateType = "output" Then
+                    GatePB(i).Image = outputImageNull
+                End If
             End If
             If connections(PB.Name, i, 1).connectionValue <> 2 Then
                 connections(PB.Name, i, 1).connectionDestination = -1
@@ -468,8 +453,6 @@ Right-Click again to delete"
         Private value As Integer
         Private input1 As Integer
         Private input2 As Integer
-        Private connectedAfter As List(Of Integer)
-        Private connectedBefore As List(Of Integer)
 
         Sub New(ByVal givenID As Integer)
             ID = givenID
@@ -540,26 +523,6 @@ Right-Click again to delete"
             End Get
             Set(value As Integer)
                 input2 = value
-            End Set
-        End Property
-        Public Property gatesConnectedAfter As Integer
-            Get
-                For Each ID In connectedAfter
-                    Return ID
-                Next
-            End Get
-            Set(value As Integer)
-                connectedAfter.Add(value)
-            End Set
-        End Property
-        Public Property gatesConnectedBefore As Integer
-            Get
-                For Each ID In connectedBefore
-                    Return ID
-                Next
-            End Get
-            Set(value As Integer)
-                connectedBefore.Add(value)
             End Set
         End Property
         Public Sub Calculate(ByVal ID As Integer)  'function has to find the outputs of the gate objects which led to it

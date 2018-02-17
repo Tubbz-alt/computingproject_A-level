@@ -118,92 +118,50 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="INPUTFALSE" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\INPUTFALSE.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="INPUTTRUE" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\INPUTTRUE.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="NAND" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\NAND.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="NOR" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\NOR.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="OUTPUTFALSE" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\OUTPUTFALSE.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="OUTPUTNULL" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\OUTPUTNULL.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="OUTPUTTRUE" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\OUTPUTTRUE.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="project_icon_icP_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\project_icon_icP_icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="_AND" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\AND.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_NOT" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\NOT.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_OR" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\OR.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_XOR" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\XOR.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="AND_SELECTED" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\AND_SELECTED.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="INPUTFALSE_SELECTED" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\INPUTFALSE_SELECTED.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="INPUTTRUE_SELECTED" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\INPUTTRUE_SELECTED.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="NAND_SELECTED" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\NAND_SELECTED.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="NOR_SELECTED" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\NOR_SELECTED.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="NOT_SELECTED" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\NOT_SELECTED.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="OR_SELECTED" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\OR_SELECTED.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="OUTPUTFALSE_SELECTED" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\OUTPUTFALSE_SELECTED.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="OUTPUTNULL_SELECTED" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\OUTPUTNULL_SELECTED.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="OUTPUTTRUE_SELECTED" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\OUTPUTTRUE_SELECTED.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="XOR_SELECTED" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\XOR_SELECTED.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="INPUTFALSE" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\INPUTFALSE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="INPUTFALSEP" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\INPUT FALSE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\INPUTFALSEP.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="INPUTTRUE" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\INPUTTRUE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="INPUTTRUEP" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\INPUT TRUE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\INPUTTRUEP.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="NORP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="NAND" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NAND.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NOR" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\NOR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="NORP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NORP.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="OUTPUTFALSE" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\OUTPUTFALSE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="OUTPUTFALSEP" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\OUTPUT FALSE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\OUTPUTFALSEP.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="OUTPUTNULL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\OUTPUTNULL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="OUTPUTNULLP" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\OUTPUT NULL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\OUTPUTNULLP.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="OUTPUTTRUE" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\OUTPUTTRUE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="OUTPUTTRUEP" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\OUTPUT TRUE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\OUTPUTTRUEP.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_AND" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AND.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="_ANDP" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ANDP.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -211,13 +169,22 @@
   <data name="_NANDP" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\NANDP.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="_NOT" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NOT.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="_NOTP" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\NOTP.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="_ORP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="_OR" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\OR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="_XORP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="_ORP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ORP.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_XOR" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\XOR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_XORP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\XORP.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
