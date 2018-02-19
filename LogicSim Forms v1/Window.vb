@@ -6,6 +6,9 @@ Class Window
     Private prevValue As Integer
     Private prevID As Integer
     Private tempInputID As Integer
+    Private g As Graphics
+    Private blackPen As New Pen(Color.Black, 4)
+    Private bluePen As New Pen(Color.CadetBlue, 4)
     Private tempImage As Image
     Private inputImageTrue As Image
     Private inputImageFalse As Image
@@ -30,6 +33,7 @@ Class Window
         End
     End Sub
     Private Sub WindowStart()      'Sets initial values for gate variables
+        g = CreateGraphics()
         ReDim Gates(199)
         ReDim connections(199, 199, 1)
         gatecount = 0
@@ -95,13 +99,13 @@ Class Window
     Private Sub DrawLinePoint(ByVal prevID As Integer, ByVal ID As Integer)
         Dim g As Graphics
         g = CreateGraphics()
-        Dim blackPen As New Pen(Color.Black, 4)
-        g.DrawLine(blackPen, Gates(prevID).gateXpos + 30, ((Me.Height - Gates(prevID).gateYpos) + 30), Gates(ID).gateXpos, (Me.Height - Gates(ID).gateYpos))
+        If Gates(prevID).gateValue = 1 Then
+            g.DrawLine(bluePen, Gates(prevID).gateXpos + 30, ((Me.Height - Gates(prevID).gateYpos) + 30), Gates(ID).gateXpos, (Me.Height - Gates(ID).gateYpos))
+        Else
+            g.DrawLine(blackPen, Gates(prevID).gateXpos + 30, ((Me.Height - Gates(prevID).gateYpos) + 30), Gates(ID).gateXpos, (Me.Height - Gates(ID).gateYpos))
+        End If
     End Sub
     Private Sub RefreshGraphics()
-        Dim g As Graphics
-        g = CreateGraphics()
-        Dim blackPen As New Pen(Color.Black, 4)
         For Each PB In GatePB
             If Gates(PB.Name).gateType = "output" And Gates(PB.Name).gateValue = 1 Then
                 PB.Image = outputImageTrue
@@ -116,31 +120,47 @@ Class Window
             For i = 0 To 199
                 For j = 0 To 199
                     If connections(i, j, k).connectionValue <> 2 And k = 0 Then
-                        If Gates(j).gateType = "not" Then
-                            If Gates(i).gateType = "inputt" Or Gates(i).gateType = "inputf" Then
+                        If (Gates(j).gateType = "not" Or Gates(j).gateType = "output") And Gates(i).gateValue = 1 Then
+                            If Gates(i).gateType = "inputt" Or Gates(i).gateType = "inputf" Or Gates(i).gateType = "output" Then
+                                g.DrawLine(bluePen, (Gates(i).gateXpos + 30), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 30))
+                            Else
+                                g.DrawLine(bluePen, (Gates(i).gateXpos + 120), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 30))
+                            End If
+                        ElseIf (Gates(j).gateType = "not" Or Gates(j).gateType = "output") And Gates(i).gateValue = 0 Then
+                            If Gates(i).gateType = "inputt" Or Gates(i).gateType = "inputf" Or Gates(i).gateType = "output" Then
                                 g.DrawLine(blackPen, (Gates(i).gateXpos + 30), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 30))
                             Else
                                 g.DrawLine(blackPen, (Gates(i).gateXpos + 120), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 30))
                             End If
-                        ElseIf Gates(j).gateType = "output" Then
-                            If Gates(i).gateType = "inputt" Or Gates(i).gateType = "inputf" Then
-                                g.DrawLine(blackPen, (Gates(i).gateXpos + 30), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos + 25), (Me.Height - Gates(j).gateYpos + 48))
-                            Else
-                                g.DrawLine(blackPen, (Gates(i).gateXpos + 120), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 30))
-                            End If
                         Else
-                            If Gates(i).gateType = "inputt" Or Gates(i).gateType = "inputf" Then
-                                g.DrawLine(blackPen, (Gates(i).gateXpos + 30), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 20))
+                            If Gates(i).gateValue = 1 Then
+                                If Gates(i).gateType = "inputt" Or Gates(i).gateType = "inputf" Or Gates(i).gateType = "output" Then
+                                    g.DrawLine(bluePen, (Gates(i).gateXpos + 30), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 20))
+                                Else
+                                    g.DrawLine(bluePen, (Gates(i).gateXpos + 120), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 20))
+                                End If
                             Else
-                                g.DrawLine(blackPen, (Gates(i).gateXpos + 120), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 20))
+                                If Gates(i).gateType = "inputt" Or Gates(i).gateType = "inputf" Or Gates(i).gateType = "output" Then
+                                    g.DrawLine(blackPen, (Gates(i).gateXpos + 30), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 20))
+                                Else
+                                    g.DrawLine(blackPen, (Gates(i).gateXpos + 120), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 20))
+                                End If
                             End If
                         End If
                     End If
                     If connections(i, j, k).connectionValue <> 2 And k = 1 Then
-                        If Gates(i).gateType = "inputt" Or Gates(i).gateType = "inputf" Then
-                            g.DrawLine(blackPen, (Gates(i).gateXpos + 30), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 40))
+                        If Gates(i).gateValue = 1 Then
+                            If Gates(i).gateType = "inputt" Or Gates(i).gateType = "inputf" Or Gates(i).gateType = "output" Then
+                                g.DrawLine(bluePen, (Gates(i).gateXpos + 30), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 40))
+                            Else
+                                g.DrawLine(bluePen, (Gates(i).gateXpos + 120), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 40))
+                            End If
                         Else
-                            g.DrawLine(blackPen, (Gates(i).gateXpos + 120), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 40))
+                            If Gates(i).gateType = "inputt" Or Gates(i).gateType = "inputf" Or Gates(i).gateType = "output" Then
+                                g.DrawLine(blackPen, (Gates(i).gateXpos + 30), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 40))
+                            Else
+                                g.DrawLine(blackPen, (Gates(i).gateXpos + 120), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 40))
+                            End If
                         End If
                     End If
                 Next
@@ -164,10 +184,13 @@ Class Window
             displayGateInfo(PB.Name)
         End If
         If e.Button = MouseButtons.Right Then
-            If ID = prevID And oneSelected = True Then
+            If ID = prevID And oneSelected = True And profMode = True Then
                 DeleteGate(PB)
                 oneSelected = False
                 message_output.Text = ""
+            ElseIf ID = prevID And oneSelected = True And profMode = False
+                message_output.Text = "To delete gates in child mode use 
+the RESET button"
             Else
                 AttachGate(oneSelected, prevValue, prevID, ID)
                 displayGateInfo(ID)
@@ -354,7 +377,8 @@ Right-Click again to delete"
                 End If
             Next
         Else
-            message_output.Text = "Too many gates placed (200 limit) Please delete some before adding more"
+            message_output.Text = "Too many gates placed (200 limit) 
+Please delete some before adding more"
         End If
     End Sub
     Private Sub delete_all_gates_Click(sender As Object, e As EventArgs) Handles delete_all_gates.Click

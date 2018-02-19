@@ -106,9 +106,10 @@ Partial Class Window
         'selected_gate
         '
         Me.selected_gate.AutoSize = True
+        Me.selected_gate.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.selected_gate.Location = New System.Drawing.Point(747, 104)
         Me.selected_gate.Name = "selected_gate"
-        Me.selected_gate.Size = New System.Drawing.Size(0, 15)
+        Me.selected_gate.Size = New System.Drawing.Size(0, 20)
         Me.selected_gate.TabIndex = 7
         '
         'add_output
@@ -123,9 +124,10 @@ Partial Class Window
         'message_output
         '
         Me.message_output.AutoSize = True
-        Me.message_output.Location = New System.Drawing.Point(747, 156)
+        Me.message_output.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.message_output.Location = New System.Drawing.Point(396, 62)
         Me.message_output.Name = "message_output"
-        Me.message_output.Size = New System.Drawing.Size(0, 15)
+        Me.message_output.Size = New System.Drawing.Size(0, 20)
         Me.message_output.TabIndex = 12
         '
         'add_input_false
@@ -143,14 +145,14 @@ Partial Class Window
         Me.delete_all_gates.Name = "delete_all_gates"
         Me.delete_all_gates.Size = New System.Drawing.Size(123, 37)
         Me.delete_all_gates.TabIndex = 15
-        Me.delete_all_gates.Text = "CLEAR ALL GATES"
+        Me.delete_all_gates.Text = "RESET"
         Me.delete_all_gates.UseVisualStyleBackColor = True
         '
         'Window
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(934, 449)
+        Me.ClientSize = New System.Drawing.Size(934, 452)
         Me.Controls.Add(Me.delete_all_gates)
         Me.Controls.Add(Me.add_input_false)
         Me.Controls.Add(Me.message_output)
