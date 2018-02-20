@@ -1,4 +1,5 @@
 ﻿Imports VB = Microsoft.VisualBasic
+Imports System.Runtime.InteropServices
 Class Window
     Private profMode As Boolean
     Private oneSelected As Boolean = False
@@ -8,7 +9,7 @@ Class Window
     Private tempInputID As Integer
     Private g As Graphics
     Private blackPen As New Pen(Color.Black, 4)
-    Private bluePen As New Pen(Color.CadetBlue, 4)
+    Private bluePen As New Pen(Color.Blue, 4)
     Private tempImage As Image
     Private inputImageTrue As Image
     Private inputImageFalse As Image
@@ -32,6 +33,9 @@ Class Window
     Private Sub WindowCloser(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles Me.Closing
         End
     End Sub
+    <DllImport("user32.dll", CharSet:=CharSet.Auto)>
+    Private Shared Function SendMessage(ByVal hWnd As IntPtr, ByVal msg As Integer, ByVal wParam As Integer, <MarshalAs(UnmanagedType.LPWStr)> ByVal lParam As String) As Int32
+    End Function
     Private Sub WindowStart()      'Sets initial values for gate variables
         g = CreateGraphics()
         ReDim Gates(199)
@@ -73,6 +77,8 @@ Class Window
                 Next
             Next
         Next
+        SendMessage(Me.custom_gate_input.Handle, &H1501, 0, "Add a cutsom number of gates...")
+        SendMessage(Me.custom_gate_name.Handle, &H1501, 0, "Add a cutsom gate name...")
     End Sub
     Private Property MousePoint As Point
         Get
@@ -233,7 +239,8 @@ the RESET button"
             End If
             selected_gate.Text = "Selected Gate ID: " & ID & " 
 Gate Type: " & (Gates(ID).gateType).ToUpper & "
-Current Value: " & value
+Current Value: " & value & "
+Gate Name: " & (Gates(ID).gateName).ToUpper
         Else
         End If
     End Sub
@@ -316,70 +323,82 @@ Right-Click again to delete"
     Private Sub AddGatePB(ByVal choice As String, ByVal tempID As Integer)
         oneSelected = False
         Dim PB As New PictureBox
-        PB.Height = 60
-        PB.Width = 125
-        PB.Left = Me.ClientRectangle.Width - PB.Width
-        PB.Top = Me.ClientRectangle.Height - PB.Height
-        AddHandler PB.MouseDown, AddressOf PBs_MouseDown
-        AddHandler PB.MouseMove, AddressOf PBs_MouseMove
-        PB.Parent = Me
-        If choice = "inputt" Then
             PB.Height = 60
-            PB.Width = 60
-            PB.Image = inputImageTrue
-        ElseIf choice = "inputf" Then
-            PB.Height = 60
-            PB.Width = 60
-            PB.Image = inputImageFalse
-        ElseIf choice = "output" Then
-            PB.Height = 60
-            PB.Width = 60
-            PB.Image = outputImageNull
-        ElseIf choice = "and" Then
-            PB.Image = andImage
-        ElseIf choice = "nand" Then
-            PB.Image = nandImage
-        ElseIf choice = "or" Then
-            PB.Image = orImage
-        ElseIf choice = "nor" Then
-            PB.Image = norImage
-        ElseIf choice = "xor" Then
-            PB.Image = xorImage
-        ElseIf choice = "not" Then
-            PB.Image = notImage
-        End If
-        PB.Name = tempID
-        GatePB.Add(PB)
+            PB.Width = 125
+            PB.Left = Me.ClientRectangle.Width - PB.Width
+            PB.Top = Me.ClientRectangle.Height - PB.Height
+            AddHandler PB.MouseDown, AddressOf PBs_MouseDown
+            AddHandler PB.MouseMove, AddressOf PBs_MouseMove
+            PB.Parent = Me
+            If choice = "inputt" Then
+                PB.Height = 60
+                PB.Width = 60
+                PB.Image = inputImageTrue
+            ElseIf choice = "inputf" Then
+                PB.Height = 60
+                PB.Width = 60
+                PB.Image = inputImageFalse
+            ElseIf choice = "output" Then
+                PB.Height = 60
+                PB.Width = 60
+                PB.Image = outputImageNull
+            ElseIf choice = "and" Then
+                PB.Image = andImage
+            ElseIf choice = "nand" Then
+                PB.Image = nandImage
+            ElseIf choice = "or" Then
+                PB.Image = orImage
+            ElseIf choice = "nor" Then
+                PB.Image = norImage
+            ElseIf choice = "xor" Then
+                PB.Image = xorImage
+            ElseIf choice = "not" Then
+                PB.Image = notImage
+            End If
+            PB.Name = tempID
+            GatePB.Add(PB)
     End Sub
     Private Sub newGate(ByVal choice As String)
-        Dim tempID As Integer
-        If gatecount < 200 Then
-            For i As Integer = 0 To 199
-                If Gates(i).gateIsNull = True Then                  'Cycles through the array of objects with a loop and finds an unused one
-                    Gates(i).gateIsNull = False                     'Sets it to 'Not Null'
-                    Gates(i).gateType = choice                      'Sets the 'Type' variable to the choice
-                    If choice = "inputt" Then
-                        Gates(i).gateValue = 1
-                    ElseIf choice = "inputf" Then
-                        Gates(i).gateValue = 0
-                    ElseIf choice = "output" Then
-                        Gates(i).gateValue = 2
-                        Gates(i).gateInput1 = 2
-                    Else
-                        Gates(i).gateValue = 2
-                        Gates(i).gateInput1 = 2
-                        Gates(i).gateInput2 = 2
+        Dim multgate As Integer
+        Try
+            multGate = custom_gate_input.Text
+        Catch
+            multGate = 1
+        End Try
+        custom_gate_input.Text = ""
+        For o = 0 To multgate - 1
+            Dim tempID As Integer
+            If gatecount < 200 Then
+                For i As Integer = 0 To 199
+                    If Gates(i).gateIsNull = True Then                  'Cycles through the array of objects with a loop and finds an unused one
+                        Gates(i).gateIsNull = False                     'Sets it to 'Not Null'
+                        Gates(i).gateType = choice                      'Sets the 'Type' variable to the choice
+                        Gates(i).gateName = custom_gate_name.Text
+                        If choice = "inputt" Then
+                            Gates(i).gateValue = 1
+                        ElseIf choice = "inputf" Then
+                            Gates(i).gateValue = 0
+                        ElseIf choice = "output" Then
+                            Gates(i).gateValue = 2
+                            Gates(i).gateInput1 = 2
+                        Else
+                            Gates(i).gateValue = 2
+                            Gates(i).gateInput1 = 2
+                            Gates(i).gateInput2 = 2
+                        End If
+                        tempID = i
+                        gatecount += 1
+                        AddGatePB(choice, tempID)
+                        Exit For
                     End If
-                    tempID = i
-                    gatecount += 1
-                    AddGatePB(choice, tempID)
-                    Exit For
-                End If
-            Next
-        Else
-            message_output.Text = "Too many gates placed (200 limit) 
+                Next
+            Else
+                message_output.Text = "Too many gates placed (200 limit) 
 Please delete some before adding more"
-        End If
+                Exit For
+            End If
+        Next
+        custom_gate_name.Text = ""
     End Sub
     Private Sub delete_all_gates_Click(sender As Object, e As EventArgs) Handles delete_all_gates.Click
         While GatePB.Count <> 0
@@ -430,7 +449,6 @@ Please delete some before adding more"
         GatePB.Remove(PB)
         PB.Dispose()
     End Sub
-
     Private Sub AddInputTrue(ByVal sender As Object, ByVal e As EventArgs) Handles add_input_true.Click
         Dim choice As String = "inputt"
         newGate(choice)
@@ -469,6 +487,7 @@ Please delete some before adding more"
     End Sub
     Class MultiGate
         Inherits Window
+        Private name1 As String
         Private ID As Integer
         Private isNull As Boolean
         Private Type As String
@@ -485,6 +504,15 @@ Please delete some before adding more"
         Protected Overrides Sub Finalize()
             isNull = True
         End Sub
+        Public Property gateName As String
+            Get
+                Return name1
+            End Get
+            Set(value As String)
+                name1 = value
+            End Set
+
+        End Property
         Public Property gateID As Integer
             Get
                 Return ID

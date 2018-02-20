@@ -1,0 +1,141 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+LogicSim Forms v1
+</name>
+</assembly>
+<members>
+<member name="T:LogicSim_Forms_v1.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:LogicSim_Forms_v1.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:LogicSim_Forms_v1.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+<member name="P:LogicSim_Forms_v1.My.Resources.Resources._AND">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:LogicSim_Forms_v1.My.Resources.Resources._ANDP">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:LogicSim_Forms_v1.My.Resources.Resources._NANDP">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:LogicSim_Forms_v1.My.Resources.Resources._NOT">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:LogicSim_Forms_v1.My.Resources.Resources._NOTP">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:LogicSim_Forms_v1.My.Resources.Resources._OR">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:LogicSim_Forms_v1.My.Resources.Resources._ORP">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:LogicSim_Forms_v1.My.Resources.Resources._XOR">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:LogicSim_Forms_v1.My.Resources.Resources._XORP">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:LogicSim_Forms_v1.My.Resources.Resources.INPUTFALSE">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:LogicSim_Forms_v1.My.Resources.Resources.INPUTFALSEP">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:LogicSim_Forms_v1.My.Resources.Resources.INPUTTRUE">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:LogicSim_Forms_v1.My.Resources.Resources.INPUTTRUEP">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:LogicSim_Forms_v1.My.Resources.Resources.NAND">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:LogicSim_Forms_v1.My.Resources.Resources.NOR">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:LogicSim_Forms_v1.My.Resources.Resources.NORP">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:LogicSim_Forms_v1.My.Resources.Resources.OUTPUTFALSE">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:LogicSim_Forms_v1.My.Resources.Resources.OUTPUTFALSEP">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:LogicSim_Forms_v1.My.Resources.Resources.OUTPUTNULL">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:LogicSim_Forms_v1.My.Resources.Resources.OUTPUTNULLP">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:LogicSim_Forms_v1.My.Resources.Resources.OUTPUTTRUE">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:LogicSim_Forms_v1.My.Resources.Resources.OUTPUTTRUEP">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:LogicSim_Forms_v1.My.Resources.Resources.project_icon_icP_icon">
+<summary>
+  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+</summary>
+</member>
+</members>
+</doc>
