@@ -25,7 +25,7 @@ Class Window
     Protected Point As Point
     Private ValidPB As Boolean
     Protected GatePB As New List(Of PictureBox)
-    Protected connections(199, 199, 1) As Connection
+    Public connections(199, 199, 1) As Connection
     Protected Gates() As MultiGate
     Public gatecount As Integer
     Protected nextpoint As Integer
@@ -422,11 +422,13 @@ Please delete some before adding more"
                 connections(i, PB.Name, 0).connectionDestination = -1
                 connections(i, PB.Name, 0).connectionOrigin = -1
                 connections(i, PB.Name, 0).connectionValue = 2
+                Gates(PB.Name).Calculate(PB.Name)
             End If
             If connections(i, PB.Name, 1).connectionValue <> 2 Then
                 connections(i, PB.Name, 1).connectionDestination = -1
                 connections(i, PB.Name, 1).connectionOrigin = -1
                 connections(i, PB.Name, 1).connectionValue = 2
+                Gates(PB.Name).Calculate(PB.Name)
             End If
             If connections(PB.Name, i, 0).connectionValue <> 2 Then
                 connections(PB.Name, i, 0).connectionDestination = -1
@@ -579,30 +581,36 @@ Please delete some before adding more"
         End Property
         Public Sub Calculate(ByVal ID As Integer)  'function has to find the outputs of the gate objects which led to it
             If gateType = "not" Then
-                Try
-                    For i = 0 To 199
-                        If Window.connections(i, ID, 0).connectionValue <> 2 Then
-                            input1 = Window.connections(i, ID, 0).connectionValue
-                            i = 199
-                        End If
-                    Next
-                Catch
-                End Try
+                'Try
+                For i = 0 To 199
+                    If Window.connections(i, ID, 0).connectionValue <> 2 Then
+                        input1 = Window.connections(i, ID, 0).connectionValue
+                        Exit For
+                    End If
+                    If i = 199 And input1 <> 2 Then
+                        input1 = 2
+                    End If
+                Next
+                'Catch
+                'End Try
                 If input1 <> 2 Then
                     If input1 = 1 Then
                         value = 0
                     ElseIf input1 = 0 Then
                         value = 1
-                    Else
-                        value = 2
                     End If
+                Else
+                    value = 2
                 End If
             ElseIf gateType = "output" Then
                 Try
                     For i = 0 To 199
                         If Window.connections(i, ID, 0).connectionValue <> 2 Then
                             input1 = Window.connections(i, ID, 0).connectionValue
-                            i = 199
+                            Exit For
+                        End If
+                        If i = 199 And input1 <> 2 Then
+                            input1 = 2
                         End If
                     Next
                 Catch
@@ -621,7 +629,10 @@ Please delete some before adding more"
                     For i = 0 To 199
                         If Window.connections(i, ID, 0).connectionValue <> 2 Then
                             input1 = Window.connections(i, ID, 0).connectionValue
-                            i = 199
+                            Exit For
+                        End If
+                        If i = 199 And input1 <> 2 Then
+                            input1 = 2
                         End If
                     Next
                 Catch
@@ -630,7 +641,10 @@ Please delete some before adding more"
                     For i = 0 To 199
                         If Window.connections(i, ID, 1).connectionValue <> 2 Then
                             input2 = Window.connections(i, ID, 1).connectionValue
-                            i = 199
+                            Exit For
+                        End If
+                        If i = 199 And input2 <> 2 Then
+                            input2 = 2
                         End If
                     Next
                 Catch
