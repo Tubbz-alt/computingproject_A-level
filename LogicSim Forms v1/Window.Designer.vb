@@ -44,127 +44,130 @@ Partial Class Window
         '
         'add_and
         '
-        Me.add_and.Location = New System.Drawing.Point(228, 4)
+        Me.add_and.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.add_and.Location = New System.Drawing.Point(12, 4)
         Me.add_and.Name = "add_and"
-        Me.add_and.Size = New System.Drawing.Size(100, 37)
+        Me.add_and.Size = New System.Drawing.Size(125, 60)
         Me.add_and.TabIndex = 0
-        Me.add_and.Text = "AND"
+        Me.add_and.Text = "   AND"
         Me.add_and.UseVisualStyleBackColor = True
         '
         'add_nand
         '
-        Me.add_nand.Location = New System.Drawing.Point(334, 4)
+        Me.add_nand.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.add_nand.Location = New System.Drawing.Point(143, 4)
         Me.add_nand.Name = "add_nand"
-        Me.add_nand.Size = New System.Drawing.Size(100, 37)
+        Me.add_nand.Size = New System.Drawing.Size(125, 60)
         Me.add_nand.TabIndex = 1
-        Me.add_nand.Text = "NAND"
+        Me.add_nand.Text = "    NAND"
         Me.add_nand.UseVisualStyleBackColor = True
         '
         'add_or
         '
-        Me.add_or.Location = New System.Drawing.Point(440, 4)
+        Me.add_or.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.add_or.Location = New System.Drawing.Point(274, 4)
         Me.add_or.Name = "add_or"
-        Me.add_or.Size = New System.Drawing.Size(100, 37)
+        Me.add_or.Size = New System.Drawing.Size(125, 60)
         Me.add_or.TabIndex = 2
-        Me.add_or.Text = "OR"
+        Me.add_or.Text = "       OR"
         Me.add_or.UseVisualStyleBackColor = True
         '
         'add_nor
         '
-        Me.add_nor.Location = New System.Drawing.Point(546, 4)
+        Me.add_nor.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.add_nor.Location = New System.Drawing.Point(405, 4)
         Me.add_nor.Name = "add_nor"
-        Me.add_nor.Size = New System.Drawing.Size(100, 37)
+        Me.add_nor.Size = New System.Drawing.Size(125, 60)
         Me.add_nor.TabIndex = 3
-        Me.add_nor.Text = "NOR"
+        Me.add_nor.Text = "        NOR"
         Me.add_nor.UseVisualStyleBackColor = True
         '
         'add_xor
         '
-        Me.add_xor.Location = New System.Drawing.Point(652, 4)
+        Me.add_xor.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.add_xor.Location = New System.Drawing.Point(536, 4)
         Me.add_xor.Name = "add_xor"
-        Me.add_xor.Size = New System.Drawing.Size(100, 37)
+        Me.add_xor.Size = New System.Drawing.Size(125, 60)
         Me.add_xor.TabIndex = 4
-        Me.add_xor.Text = "XOR"
+        Me.add_xor.Text = "        XOR"
         Me.add_xor.UseVisualStyleBackColor = True
         '
         'add_not
         '
-        Me.add_not.Location = New System.Drawing.Point(758, 4)
+        Me.add_not.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.add_not.Location = New System.Drawing.Point(667, 4)
         Me.add_not.Name = "add_not"
-        Me.add_not.Size = New System.Drawing.Size(100, 37)
+        Me.add_not.Size = New System.Drawing.Size(125, 60)
         Me.add_not.TabIndex = 5
-        Me.add_not.Text = "NOT"
+        Me.add_not.Text = " NOT"
         Me.add_not.UseVisualStyleBackColor = True
         '
         'add_input_true
         '
         Me.add_input_true.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.add_input_true.Location = New System.Drawing.Point(12, 4)
+        Me.add_input_true.Location = New System.Drawing.Point(798, 2)
         Me.add_input_true.Name = "add_input_true"
-        Me.add_input_true.Size = New System.Drawing.Size(89, 29)
+        Me.add_input_true.Size = New System.Drawing.Size(64, 64)
         Me.add_input_true.TabIndex = 6
-        Me.add_input_true.Text = "INPUT (TRUE)"
         Me.add_input_true.UseVisualStyleBackColor = True
         '
         'selected_gate
         '
         Me.selected_gate.AutoSize = True
         Me.selected_gate.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.selected_gate.Location = New System.Drawing.Point(752, 45)
+        Me.selected_gate.Location = New System.Drawing.Point(465, 85)
         Me.selected_gate.Name = "selected_gate"
-        Me.selected_gate.Size = New System.Drawing.Size(0, 20)
+        Me.selected_gate.Size = New System.Drawing.Size(0, 22)
         Me.selected_gate.TabIndex = 7
         '
         'add_output
         '
-        Me.add_output.Location = New System.Drawing.Point(107, 4)
+        Me.add_output.Location = New System.Drawing.Point(936, 2)
         Me.add_output.Name = "add_output"
-        Me.add_output.Size = New System.Drawing.Size(115, 29)
+        Me.add_output.Size = New System.Drawing.Size(64, 64)
         Me.add_output.TabIndex = 11
-        Me.add_output.Text = "OUTPUT (BUFFER)"
         Me.add_output.UseVisualStyleBackColor = True
         '
         'message_output
         '
         Me.message_output.AutoSize = True
         Me.message_output.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.message_output.Location = New System.Drawing.Point(391, 104)
+        Me.message_output.Location = New System.Drawing.Point(782, 81)
         Me.message_output.Name = "message_output"
-        Me.message_output.Size = New System.Drawing.Size(0, 20)
+        Me.message_output.Size = New System.Drawing.Size(0, 22)
         Me.message_output.TabIndex = 12
         '
         'add_input_false
         '
         Me.add_input_false.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.add_input_false.Location = New System.Drawing.Point(12, 38)
+        Me.add_input_false.Location = New System.Drawing.Point(867, 2)
         Me.add_input_false.Name = "add_input_false"
-        Me.add_input_false.Size = New System.Drawing.Size(89, 29)
+        Me.add_input_false.Size = New System.Drawing.Size(64, 64)
         Me.add_input_false.TabIndex = 14
-        Me.add_input_false.Text = "INPUT (FALSE)"
         Me.add_input_false.UseVisualStyleBackColor = True
         '
         'delete_all_gates
         '
         Me.delete_all_gates.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.delete_all_gates.Location = New System.Drawing.Point(107, 38)
+        Me.delete_all_gates.Location = New System.Drawing.Point(12, 72)
         Me.delete_all_gates.Name = "delete_all_gates"
-        Me.delete_all_gates.Size = New System.Drawing.Size(115, 29)
+        Me.delete_all_gates.Size = New System.Drawing.Size(78, 45)
         Me.delete_all_gates.TabIndex = 15
         Me.delete_all_gates.Text = "RESET"
         Me.delete_all_gates.UseVisualStyleBackColor = True
         '
         'custom_gate_input
         '
-        Me.custom_gate_input.Location = New System.Drawing.Point(228, 47)
+        Me.custom_gate_input.Location = New System.Drawing.Point(270, 85)
         Me.custom_gate_input.Name = "custom_gate_input"
-        Me.custom_gate_input.Size = New System.Drawing.Size(163, 20)
+        Me.custom_gate_input.Size = New System.Drawing.Size(168, 20)
         Me.custom_gate_input.TabIndex = 16
         '
         'custom_gate_name
         '
-        Me.custom_gate_name.Location = New System.Drawing.Point(395, 47)
+        Me.custom_gate_name.Location = New System.Drawing.Point(96, 85)
         Me.custom_gate_name.Name = "custom_gate_name"
-        Me.custom_gate_name.Size = New System.Drawing.Size(163, 20)
+        Me.custom_gate_name.Size = New System.Drawing.Size(168, 20)
         Me.custom_gate_name.TabIndex = 17
         '
         'Window
@@ -172,7 +175,7 @@ Partial Class Window
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.delete_all_gates
-        Me.ClientSize = New System.Drawing.Size(934, 452)
+        Me.ClientSize = New System.Drawing.Size(1014, 459)
         Me.Controls.Add(Me.custom_gate_name)
         Me.Controls.Add(Me.custom_gate_input)
         Me.Controls.Add(Me.delete_all_gates)
@@ -189,8 +192,8 @@ Partial Class Window
         Me.Controls.Add(Me.add_and)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
-        Me.MaximumSize = New System.Drawing.Size(950, 490)
-        Me.MinimumSize = New System.Drawing.Size(950, 490)
+        Me.MaximumSize = New System.Drawing.Size(1030, 500)
+        Me.MinimumSize = New System.Drawing.Size(1030, 500)
         Me.Name = "Window"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "LogicSim"
