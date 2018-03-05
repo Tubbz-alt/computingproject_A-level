@@ -352,6 +352,7 @@ Right-Click again to delete"
     End Sub
     Private Sub AddGatePB(ByVal choice As String, ByVal tempID As Integer)
         oneSelected = False
+        message_output.Text = ""
         Dim PB As New PictureBox
         PB.Height = 60                              'Sets dimensions and properties of gate PB
         PB.Width = 125
@@ -390,44 +391,54 @@ Right-Click again to delete"
     End Sub
     Private Sub newGate(ByVal choice As String)
         Dim multgate As Integer
+        Dim validName As Boolean = True
         Try
             multGate = custom_gate_input.Text
         Catch
             multGate = 1
         End Try
         custom_gate_input.Text = ""
-        For o = 0 To multgate - 1
-            Dim tempID As Integer
-            If gatecount < 200 Then
-                For i As Integer = 0 To 199
-                    If Gates(i).gateIsNull = True Then                  'Cycles through the array of objects with a loop and finds an unused one
-                        Gates(i).gateIsNull = False                     'Sets it to 'Not Null'
-                        Gates(i).gateType = choice                      'Sets the 'Type' variable to the choice
-                        Gates(i).gateName = custom_gate_name.Text       'Sets the optional gate name
-                        If choice = "inputt" Then                       'Sets the preset value that the gate starts with
-                            Gates(i).gateValue = 1
-                        ElseIf choice = "inputf" Then
-                            Gates(i).gateValue = 0
-                        ElseIf choice = "output" Then
-                            Gates(i).gateValue = 2
-                            Gates(i).gateInput1 = 2
-                        Else
-                            Gates(i).gateValue = 2
-                            Gates(i).gateInput1 = 2
-                            Gates(i).gateInput2 = 2
-                        End If
-                        tempID = i
-                        gatecount += 1
-                        AddGatePB(choice, tempID)
-                        Exit For
-                    End If
-                Next
-            Else
-                message_output.Text = "Too many gates placed (200 limit) 
-Please delete some before adding more"
+        For i = 0 To 199
+            If custom_gate_name.Text = Gates(i).gateName Then 'FIX THIS - STILL BLOCKS GATES AFTER THEY'RE DELETED
+                validName = False
                 Exit For
             End If
         Next
+        If gatecount + multgate <= 200 And validName = True Then
+            For o = 0 To multgate - 1
+                Dim tempID As Integer
+                If gatecount < 200 Then
+                    For i As Integer = 0 To 199
+                        If Gates(i).gateIsNull = True Then                  'Cycles through the array of objects with a loop and finds an unused one
+                            Gates(i).gateIsNull = False                     'Sets it to 'Not Null'
+                            Gates(i).gateType = choice                      'Sets the 'Type' variable to the choice
+                            Gates(i).gateName = custom_gate_name.Text       'Sets the optional gate name
+                            If choice = "inputt" Then                       'Sets the preset value that the gate starts with
+                                Gates(i).gateValue = 1
+                            ElseIf choice = "inputf" Then
+                                Gates(i).gateValue = 0
+                            ElseIf choice = "output" Then
+                                Gates(i).gateValue = 2
+                                Gates(i).gateInput1 = 2
+                            Else
+                                Gates(i).gateValue = 2
+                                Gates(i).gateInput1 = 2
+                                Gates(i).gateInput2 = 2
+                            End If
+                            tempID = i
+                            gatecount += 1
+                            AddGatePB(choice, tempID)
+                            Exit For
+                        End If
+                    Next
+                End If
+            Next
+        ElseIf gatecount + multgate > 200
+            message_output.Text = "Gate limit reached"
+        Else
+            message_output.Text = "Gate already exists with 
+that name"
+        End If
         custom_gate_name.Text = ""
     End Sub
     Private Sub delete_all_gates_Click(sender As Object, e As EventArgs) Handles delete_all_gates.Click
@@ -476,6 +487,7 @@ Please delete some before adding more"
                 Gates(i).gateValue = 2
             End If
         Next
+        selected_gate.Text = ""
         Gates(PB.Name).Finalize()    'Destructs gate object
         GatePB.Remove(PB)            'Removes gate PB from PB list
         PB.Dispose()                 'makes PB disappear
