@@ -399,7 +399,7 @@ Right-Click again to delete"
         End Try
         custom_gate_input.Text = ""
         For i = 0 To 199
-            If custom_gate_name.Text = Gates(i).gateName Then 'FIX THIS - STILL BLOCKS GATES AFTER THEY'RE DELETED
+            If custom_gate_name.Text = Gates(i).gateName And Gates(i).gateName <> "" Then
                 validName = False
                 Exit For
             End If
@@ -488,6 +488,7 @@ that name"
             End If
         Next
         selected_gate.Text = ""
+        Gates(PB.Name).gateName = ""
         Gates(PB.Name).Finalize()    'Destructs gate object
         GatePB.Remove(PB)            'Removes gate PB from PB list
         PB.Dispose()                 'makes PB disappear
