@@ -93,6 +93,7 @@ Class Window
             notImage = My.Resources._NOT
             add_not.Image = notImage
             add_not.Text = ""
+            delete_all_gates.Font = New Drawing.Font("Comic Sans MS", 11, FontStyle.Regular)
         End If
         For i As Integer = 0 To 199
             Gates(i) = New MultiGate(i)
@@ -104,6 +105,7 @@ Class Window
                 Next
             Next
         Next
+        loading_bar.Hide()
         SendMessage(Me.custom_gate_input.Handle, &H1501, 0, "Add a cutsom number of gates...")
         SendMessage(Me.custom_gate_name.Handle, &H1501, 0, "Add a cutsom gate name...")
     End Sub
@@ -225,11 +227,10 @@ Class Window
                 oneSelected = False
                 message_output.Text = ""
             ElseIf ID = prevID And oneSelected = True And profMode = False Then
-                message_output.Text = "To delete gates in child mode 
+                message_output.Text = "To delete gates In child mode 
 use the RESET button"
             Else
                 AttachGate(oneSelected, prevValue, prevID, ID)
-                displayGateInfo(ID)
             End If
 
         End If
@@ -442,10 +443,14 @@ that name"
         custom_gate_name.Text = ""
     End Sub
     Private Sub delete_all_gates_Click(sender As Object, e As EventArgs) Handles delete_all_gates.Click
+        loading_bar.Value = 0
+        loading_bar.Maximum = Convert.ToInt32(GatePB.LongCount)
+        loading_bar.Show()
         While GatePB.Count <> 0
             Try
                 For Each PB In GatePB
                     DeleteGate(PB)
+                    loading_bar.Value += 1
                     If GatePB.Count = 0 Then
                         Exit For
                     End If
@@ -455,6 +460,7 @@ that name"
         End While
         selected_gate.Text = ""
         message_output.Text = ""
+        loading_bar.Hide()
     End Sub
     Private Sub DeleteGate(ByRef PB As PictureBox)
         gatecount -= 1

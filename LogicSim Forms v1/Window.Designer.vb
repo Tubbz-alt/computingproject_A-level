@@ -40,66 +40,73 @@ Partial Class Window
         Me.delete_all_gates = New System.Windows.Forms.Button()
         Me.custom_gate_input = New System.Windows.Forms.TextBox()
         Me.custom_gate_name = New System.Windows.Forms.TextBox()
+        Me.loading_bar = New System.Windows.Forms.ProgressBar()
         Me.SuspendLayout()
         '
         'add_and
         '
+        Me.add_and.Font = New System.Drawing.Font("Corbel", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.add_and.ForeColor = System.Drawing.SystemColors.ControlLightLight
         Me.add_and.Location = New System.Drawing.Point(12, 4)
         Me.add_and.Name = "add_and"
         Me.add_and.Size = New System.Drawing.Size(125, 60)
         Me.add_and.TabIndex = 0
-        Me.add_and.Text = "   AND"
+        Me.add_and.Text = "    AND"
         Me.add_and.UseVisualStyleBackColor = True
         '
         'add_nand
         '
+        Me.add_nand.Font = New System.Drawing.Font("Corbel", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.add_nand.ForeColor = System.Drawing.SystemColors.ControlLightLight
         Me.add_nand.Location = New System.Drawing.Point(143, 4)
         Me.add_nand.Name = "add_nand"
         Me.add_nand.Size = New System.Drawing.Size(125, 60)
         Me.add_nand.TabIndex = 1
-        Me.add_nand.Text = "    NAND"
+        Me.add_nand.Text = "     NAND"
         Me.add_nand.UseVisualStyleBackColor = True
         '
         'add_or
         '
+        Me.add_or.Font = New System.Drawing.Font("Corbel", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.add_or.ForeColor = System.Drawing.SystemColors.ControlLightLight
         Me.add_or.Location = New System.Drawing.Point(274, 4)
         Me.add_or.Name = "add_or"
         Me.add_or.Size = New System.Drawing.Size(125, 60)
         Me.add_or.TabIndex = 2
-        Me.add_or.Text = "       OR"
+        Me.add_or.Text = "        OR"
         Me.add_or.UseVisualStyleBackColor = True
         '
         'add_nor
         '
+        Me.add_nor.Font = New System.Drawing.Font("Corbel", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.add_nor.ForeColor = System.Drawing.SystemColors.ControlLightLight
         Me.add_nor.Location = New System.Drawing.Point(405, 4)
         Me.add_nor.Name = "add_nor"
         Me.add_nor.Size = New System.Drawing.Size(125, 60)
         Me.add_nor.TabIndex = 3
-        Me.add_nor.Text = "        NOR"
+        Me.add_nor.Text = "         NOR"
         Me.add_nor.UseVisualStyleBackColor = True
         '
         'add_xor
         '
+        Me.add_xor.Font = New System.Drawing.Font("Corbel", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.add_xor.ForeColor = System.Drawing.SystemColors.ControlLightLight
         Me.add_xor.Location = New System.Drawing.Point(536, 4)
         Me.add_xor.Name = "add_xor"
         Me.add_xor.Size = New System.Drawing.Size(125, 60)
         Me.add_xor.TabIndex = 4
-        Me.add_xor.Text = "        XOR"
+        Me.add_xor.Text = "         XOR"
         Me.add_xor.UseVisualStyleBackColor = True
         '
         'add_not
         '
+        Me.add_not.Font = New System.Drawing.Font("Corbel", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.add_not.ForeColor = System.Drawing.SystemColors.ControlLightLight
         Me.add_not.Location = New System.Drawing.Point(667, 4)
         Me.add_not.Name = "add_not"
         Me.add_not.Size = New System.Drawing.Size(125, 60)
         Me.add_not.TabIndex = 5
-        Me.add_not.Text = " NOT"
+        Me.add_not.Text = "   NOT"
         Me.add_not.UseVisualStyleBackColor = True
         '
         'add_input_true
@@ -149,6 +156,7 @@ Partial Class Window
         'delete_all_gates
         '
         Me.delete_all_gates.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.delete_all_gates.Font = New System.Drawing.Font("Corbel", 10.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.delete_all_gates.Location = New System.Drawing.Point(12, 72)
         Me.delete_all_gates.Name = "delete_all_gates"
         Me.delete_all_gates.Size = New System.Drawing.Size(78, 45)
@@ -170,12 +178,20 @@ Partial Class Window
         Me.custom_gate_name.Size = New System.Drawing.Size(168, 20)
         Me.custom_gate_name.TabIndex = 17
         '
+        'loading_bar
+        '
+        Me.loading_bar.Location = New System.Drawing.Point(12, 123)
+        Me.loading_bar.Name = "loading_bar"
+        Me.loading_bar.Size = New System.Drawing.Size(426, 20)
+        Me.loading_bar.TabIndex = 18
+        '
         'Window
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.delete_all_gates
         Me.ClientSize = New System.Drawing.Size(1014, 459)
+        Me.Controls.Add(Me.loading_bar)
         Me.Controls.Add(Me.custom_gate_name)
         Me.Controls.Add(Me.custom_gate_input)
         Me.Controls.Add(Me.delete_all_gates)
@@ -217,4 +233,5 @@ Partial Class Window
     Friend WithEvents delete_all_gates As Button
     Friend WithEvents custom_gate_input As TextBox
     Friend WithEvents custom_gate_name As TextBox
+    Friend WithEvents loading_bar As ProgressBar
 End Class
