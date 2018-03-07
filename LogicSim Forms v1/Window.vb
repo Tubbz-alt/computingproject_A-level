@@ -134,15 +134,6 @@ Class Window
         loader.Enabled = False
         ButtonCheck.Enabled = True
     End Sub
-    Private Sub DrawLinePoint(ByVal prevID As Integer, ByVal ID As Integer)
-        Dim g As Graphics
-        g = CreateGraphics()
-        If Gates(prevID).gateValue = 1 Then
-            g.DrawLine(bluePen, Gates(prevID).gateXpos + 30, ((Me.Height - Gates(prevID).gateYpos) + 30), Gates(ID).gateXpos, (Me.Height - Gates(ID).gateYpos))
-        Else
-            g.DrawLine(blackPen, Gates(prevID).gateXpos + 30, ((Me.Height - Gates(prevID).gateYpos) + 30), Gates(ID).gateXpos, (Me.Height - Gates(ID).gateYpos))
-        End If
-    End Sub
     Private Sub RefreshGraphics()
         For Each PB In GatePB
             If Gates(PB.Name).gateType = "output" And Gates(PB.Name).gateValue = 1 Then          'Refreshes gate PBs with dynamic states pictures
@@ -210,7 +201,6 @@ Class Window
         Dim ID = PB.Name
         Point = e.Location
         If e.Button = MouseButtons.Left Then                               'If it is a left click then the gate is 'selected' and details are shown
-            RefreshGraphics()
             If Gates(PB.Name).gateType = "inputt" Or Gates(PB.Name).gateType = "inputf" Then
                 tempInputID = PB.Name
             Else
@@ -232,12 +222,10 @@ use the RESET button"
             Else
                 AttachGate(oneSelected, prevValue, prevID, ID)
             End If
-
         End If
     End Sub
     Private Sub PBs_MouseMove(ByVal sender As Object, ByVal e As MouseEventArgs)
         Dim PB As PictureBox = DirectCast(sender, PictureBox)
-        RefreshGraphics()
         If e.Button = MouseButtons.Left And ValidPB Then               'If mouse is down, moving and the mouse is in valid bounds then the gate moves
             PB.Left += e.Location.X - Point.X
             PB.Top += e.Location.Y - Point.Y
@@ -256,6 +244,7 @@ use the RESET button"
                 PB.Top = (Me.Height - 100)
                 ValidPB = False
             End If
+            RefreshGraphics()
         End If
     End Sub
     Private Sub displayGateInfo(ByVal ID As Integer)
@@ -341,7 +330,7 @@ assigned by another
 gate"
             End If
             oneSelected = False
-            DrawLinePoint(prevID, ID)
+            RefreshGraphics()
         ElseIf oneSelected = False Then                         'This means the gate is before another gate in the circuit
             message_output.Text = (Gates(ID).gateType).ToUpper & " gate 1 selected...
 Right-Click again to delete"
@@ -498,7 +487,7 @@ that name"
         Gates(PB.Name).Finalize()    'Destructs gate object
         GatePB.Remove(PB)            'Removes gate PB from PB list
         PB.Dispose()                 'makes PB disappear
-        Me.Refresh()                 'Graphics refresh
+        RefreshGraphics()            'Graphics Refresh
     End Sub
     Private Sub AddInputTrue(ByVal sender As Object, ByVal e As EventArgs) Handles add_input_true.Click
         Dim choice As String = "inputt"
