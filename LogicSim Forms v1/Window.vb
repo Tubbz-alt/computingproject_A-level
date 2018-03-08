@@ -7,6 +7,8 @@ Class Window
     Private prevValue As Integer
     Private prevID As Integer
     Private tempInputID As Integer
+    Private comicSansFont As New Font("Comic Sans MS", 9, FontStyle.Regular)
+    Private corbelFont As New Font("Corbel", 10, FontStyle.Regular)
     Private g As Graphics
     Private blackPen As New Pen(Color.Black, 4)
     Private bluePen As New Pen(Color.Blue, 4)
@@ -42,6 +44,22 @@ Class Window
         ReDim connections(199, 199, 1)
         gatecount = 0
         prevValue = 2
+        ModeSwitch()
+        For i As Integer = 0 To 199
+            Gates(i) = New MultiGate(i)
+        Next
+        For k = 0 To 1
+            For i = 0 To 199
+                For j = 0 To 199
+                    connections(i, j, k) = New Connection
+                Next
+            Next
+        Next
+        loading_bar.Hide()
+        SendMessage(Me.custom_gate_input.Handle, &H1501, 0, "Add a cutsom number of gates...")
+        SendMessage(Me.custom_gate_name.Handle, &H1501, 0, "Add a cutsom gate name...")
+    End Sub
+    Private Sub ModeSwitch()
         If profMode = True Then
             inputImageTrue = My.Resources.INPUTTRUEP
             inputImageFalse = My.Resources.INPUTFALSEP
@@ -53,28 +71,35 @@ Class Window
             add_output.Image = outputImageFalse
             andImage = My.Resources._ANDP
             add_and.Image = andImage
+            add_and.Text = "    AND"
             nandImage = My.Resources._NANDP
             add_nand.Image = nandImage
+            add_nand.Text = "     NAND"
             orImage = My.Resources._ORP
             add_or.Image = orImage
+            add_or.Text = "        OR"
             norImage = My.Resources.NORP
             add_nor.Image = norImage
+            add_nor.Text = "         NOR"
             xorImage = My.Resources._XORP
             add_xor.Image = xorImage
+            add_xor.Text = "         XOR"
             notImage = My.Resources._NOTP
             add_not.Image = notImage
+            add_not.Text = "   NOT"
+            delete_all_gates.Font = corbelFont
+            message_output.Font = corbelFont
+            selected_gate.Font = corbelFont
+            switch_mode.Font = corbelFont
         Else
             inputImageTrue = My.Resources.INPUTTRUE
             inputImageFalse = My.Resources.INPUTFALSE
             add_input_true.Image = inputImageTrue
             add_input_false.Image = inputImageFalse
-            add_input_true.Text = ""
-            add_input_false.Text = ""
             outputImageNull = My.Resources.OUTPUTNULL
             outputImageTrue = My.Resources.OUTPUTTRUE
             outputImageFalse = My.Resources.OUTPUTFALSE
             add_output.Image = outputImageFalse
-            add_output.Text = ""
             andImage = My.Resources._AND
             add_and.Image = andImage
             add_and.Text = ""
@@ -93,21 +118,11 @@ Class Window
             notImage = My.Resources._NOT
             add_not.Image = notImage
             add_not.Text = ""
-            delete_all_gates.Font = New Drawing.Font("Comic Sans MS", 11, FontStyle.Regular)
+            delete_all_gates.Font = comicSansFont
+            message_output.Font = comicSansFont
+            selected_gate.Font = comicSansFont
+            switch_mode.Font = comicSansFont
         End If
-        For i As Integer = 0 To 199
-            Gates(i) = New MultiGate(i)
-        Next
-        For k = 0 To 1
-            For i = 0 To 199
-                For j = 0 To 199
-                    connections(i, j, k) = New Connection
-                Next
-            Next
-        Next
-        loading_bar.Hide()
-        SendMessage(Me.custom_gate_input.Handle, &H1501, 0, "Add a cutsom number of gates...")
-        SendMessage(Me.custom_gate_name.Handle, &H1501, 0, "Add a cutsom gate name...")
     End Sub
     Public Function getWindowConnectionsValue(ByVal i As Integer, ByVal j As Integer, ByVal k As Integer)
         Return connections(i, j, k).connectionValue
@@ -530,6 +545,10 @@ that name"
     Private Sub AddNot(sender As Object, e As EventArgs) Handles add_not.Click
         Dim choice As String = "not"
         newGate(choice)
+    End Sub
+    Private Sub switch_mode_click(sender As Object, e As EventArgs) Handles switch_mode.Click
+        profMode = Not profMode
+        ModeSwitch()
     End Sub
     Class MultiGate
         Inherits Window

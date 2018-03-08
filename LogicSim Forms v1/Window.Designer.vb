@@ -41,6 +41,7 @@ Partial Class Window
         Me.custom_gate_input = New System.Windows.Forms.TextBox()
         Me.custom_gate_name = New System.Windows.Forms.TextBox()
         Me.loading_bar = New System.Windows.Forms.ProgressBar()
+        Me.switch_mode = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'add_and
@@ -121,10 +122,10 @@ Partial Class Window
         'selected_gate
         '
         Me.selected_gate.AutoSize = True
-        Me.selected_gate.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.selected_gate.Location = New System.Drawing.Point(465, 85)
+        Me.selected_gate.Font = New System.Drawing.Font("Corbel", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.selected_gate.Location = New System.Drawing.Point(596, 85)
         Me.selected_gate.Name = "selected_gate"
-        Me.selected_gate.Size = New System.Drawing.Size(0, 22)
+        Me.selected_gate.Size = New System.Drawing.Size(0, 24)
         Me.selected_gate.TabIndex = 7
         '
         'add_output
@@ -138,10 +139,10 @@ Partial Class Window
         'message_output
         '
         Me.message_output.AutoSize = True
-        Me.message_output.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.message_output.Font = New System.Drawing.Font("Corbel", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.message_output.Location = New System.Drawing.Point(782, 81)
         Me.message_output.Name = "message_output"
-        Me.message_output.Size = New System.Drawing.Size(0, 22)
+        Me.message_output.Size = New System.Drawing.Size(0, 24)
         Me.message_output.TabIndex = 12
         '
         'add_input_false
@@ -156,7 +157,7 @@ Partial Class Window
         'delete_all_gates
         '
         Me.delete_all_gates.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.delete_all_gates.Font = New System.Drawing.Font("Corbel", 10.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.delete_all_gates.Font = New System.Drawing.Font("Corbel", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.delete_all_gates.Location = New System.Drawing.Point(12, 72)
         Me.delete_all_gates.Name = "delete_all_gates"
         Me.delete_all_gates.Size = New System.Drawing.Size(78, 45)
@@ -166,14 +167,14 @@ Partial Class Window
         '
         'custom_gate_input
         '
-        Me.custom_gate_input.Location = New System.Drawing.Point(270, 85)
+        Me.custom_gate_input.Location = New System.Drawing.Point(400, 85)
         Me.custom_gate_input.Name = "custom_gate_input"
         Me.custom_gate_input.Size = New System.Drawing.Size(168, 20)
         Me.custom_gate_input.TabIndex = 16
         '
         'custom_gate_name
         '
-        Me.custom_gate_name.Location = New System.Drawing.Point(96, 85)
+        Me.custom_gate_name.Location = New System.Drawing.Point(226, 85)
         Me.custom_gate_name.Name = "custom_gate_name"
         Me.custom_gate_name.Size = New System.Drawing.Size(168, 20)
         Me.custom_gate_name.TabIndex = 17
@@ -185,12 +186,24 @@ Partial Class Window
         Me.loading_bar.Size = New System.Drawing.Size(426, 20)
         Me.loading_bar.TabIndex = 18
         '
+        'switch_mode
+        '
+        Me.switch_mode.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.switch_mode.Font = New System.Drawing.Font("Corbel", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.switch_mode.Location = New System.Drawing.Point(96, 72)
+        Me.switch_mode.Name = "switch_mode"
+        Me.switch_mode.Size = New System.Drawing.Size(124, 45)
+        Me.switch_mode.TabIndex = 19
+        Me.switch_mode.Text = "SWITCH MODE"
+        Me.switch_mode.UseVisualStyleBackColor = True
+        '
         'Window
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.delete_all_gates
         Me.ClientSize = New System.Drawing.Size(1014, 459)
+        Me.Controls.Add(Me.switch_mode)
         Me.Controls.Add(Me.loading_bar)
         Me.Controls.Add(Me.custom_gate_name)
         Me.Controls.Add(Me.custom_gate_input)
@@ -234,4 +247,5 @@ Partial Class Window
     Friend WithEvents custom_gate_input As TextBox
     Friend WithEvents custom_gate_name As TextBox
     Friend WithEvents loading_bar As ProgressBar
+    Friend WithEvents switch_mode As Button
 End Class
