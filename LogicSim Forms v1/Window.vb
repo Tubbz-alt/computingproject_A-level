@@ -3,7 +3,7 @@ Imports System.Runtime.InteropServices
 Class Window
     Private profMode As Boolean
     Private oneSelected As Boolean = False
-    Private holdingCurrent As Integer
+    Private tempID As Integer
     Private prevValue As Integer
     Private prevID As Integer
     Private tempInputID As Integer
@@ -378,6 +378,8 @@ Right-Click again to delete"
         End If
         PB.Name = tempID             '---IMPORTANT---Gate name is set as the gate ID so the gate object can be referenced from the gate PB
         GatePB.Add(PB)               'Gate PB is added to PB list
+        Gates(PB.Name).gateXpos = PB.Left
+        Gates(PB.Name).gateYpos = Me.Height - PB.Top
     End Sub
     Private Sub newGate(ByVal choice As String)
         Dim multgate As Integer
@@ -453,6 +455,7 @@ that name"
     End Sub
     Private Sub DeleteGate(ByRef PB As PictureBox)
         Dim ID As Integer = PB.Name
+        tempID = PB.Name
         gatecount -= 1
         NullifyConnections(ID)
         selected_gate.Text = ""
@@ -464,13 +467,13 @@ that name"
     End Sub
     Private Sub NullifyConnections(ByVal ID As Integer)
         For i = 0 To 199                                                   'Searches array of connections and looks for connections connected to and from gate to be deleted
-            If connections(i, ID, 0).connectionValue <> 2 Then        'nullifies any gates that have had connections deprived
+            If connections(i, ID, 0).connectionValue <> 2 And ID = tempID Then        'nullifies any gates that have had connections deprived
                 connections(i, ID, 0).connectionValue = 2
                 connections(i, ID, 0).connectionDestination = -1
                 connections(i, ID, 0).connectionOrigin = -1
             End If
-            If connections(i, ID, 1).connectionValue <> 2 Then
-                connections(i, ID, 0).connectionValue = 2
+            If connections(i, ID, 1).connectionValue <> 2 And ID = tempID Then
+                connections(i, ID, 1).connectionValue = 2
                 connections(i, ID, 1).connectionDestination = -1
                 connections(i, ID, 1).connectionOrigin = -1
             End If
