@@ -433,7 +433,7 @@ that name"
     End Sub
     Private Sub delete_all_gates_Click(sender As Object, e As EventArgs) Handles delete_all_gates.Click
         loading_bar.Value = 0
-        loading_bar.Maximum = Convert.ToInt32(GatePB.LongCount)
+        loading_bar.Maximum = Convert.ToInt32(GatePB.Count)
         loading_bar.Show()
         While GatePB.Count <> 0
             Try
@@ -452,42 +452,45 @@ that name"
         loading_bar.Hide()
     End Sub
     Private Sub DeleteGate(ByRef PB As PictureBox)
+        Dim ID As Integer = PB.Name
         gatecount -= 1
-        For i = 0 To 199                                                   'Searches array of connections and looks for connections connected to and from gate to be deleted
-            If connections(i, PB.Name, 0).connectionValue <> 2 Then        'nullifies any gates that have had connections deprived
-                connections(i, PB.Name, 0).connectionDestination = -1
-                connections(i, PB.Name, 0).connectionOrigin = -1
-                connections(i, PB.Name, 0).connectionValue = 2
-            End If
-            If connections(i, PB.Name, 1).connectionValue <> 2 Then
-                connections(i, PB.Name, 1).connectionDestination = -1
-                connections(i, PB.Name, 1).connectionOrigin = -1
-                connections(i, PB.Name, 1).connectionValue = 2
-            End If
-            If connections(PB.Name, i, 0).connectionValue <> 2 Then
-                connections(PB.Name, i, 0).connectionDestination = -1
-                connections(PB.Name, i, 0).connectionOrigin = -1
-                connections(PB.Name, i, 0).connectionValue = 2
-                Gates(i).gateInput1 = 2
-                Gates(i).gateValue = 2
-                If Gates(i).gateType = "output" Then
-                    GatePB(i).Image = outputImageNull
-                End If
-            End If
-            If connections(PB.Name, i, 1).connectionValue <> 2 Then
-                connections(PB.Name, i, 1).connectionDestination = -1
-                connections(PB.Name, i, 1).connectionOrigin = -1
-                connections(PB.Name, i, 1).connectionValue = 2
-                Gates(i).gateInput2 = 2
-                Gates(i).gateValue = 2
-            End If
-        Next
+        NullifyConnections(ID)
         selected_gate.Text = ""
         Gates(PB.Name).gateName = ""
         Gates(PB.Name).Finalize()    'Destructs gate object
         GatePB.Remove(PB)            'Removes gate PB from PB list
         PB.Dispose()                 'makes PB disappear
         RefreshGraphics()            'Graphics Refresh
+    End Sub
+    Private Sub NullifyConnections(ByVal ID As Integer)
+        For i = 0 To 199                                                   'Searches array of connections and looks for connections connected to and from gate to be deleted
+            If connections(i, ID, 0).connectionValue <> 2 Then        'nullifies any gates that have had connections deprived
+                connections(i, ID, 0).connectionValue = 2
+                connections(i, ID, 0).connectionDestination = -1
+                connections(i, ID, 0).connectionOrigin = -1
+            End If
+            If connections(i, ID, 1).connectionValue <> 2 Then
+                connections(i, ID, 0).connectionValue = 2
+                connections(i, ID, 1).connectionDestination = -1
+                connections(i, ID, 1).connectionOrigin = -1
+            End If
+            If connections(ID, i, 0).connectionValue <> 2 Then
+                connections(ID, i, 0).connectionValue = 2
+                connections(ID, i, 0).connectionDestination = -1
+                connections(ID, i, 0).connectionOrigin = -1
+                Gates(i).gateInput1 = 2
+                Gates(i).gateValue = 2
+                NullifyConnections(i)
+            End If
+            If connections(ID, i, 1).connectionValue <> 2 Then
+                connections(ID, i, 1).connectionValue = 2
+                connections(ID, i, 1).connectionDestination = -1
+                connections(ID, i, 1).connectionOrigin = -1
+                Gates(i).gateInput2 = 2
+                Gates(i).gateValue = 2
+                NullifyConnections(i)
+            End If
+        Next
     End Sub
     Private Sub AddInputTrue(ByVal sender As Object, ByVal e As EventArgs) Handles add_input_true.Click
         Dim choice As String = "inputt"
@@ -550,7 +553,6 @@ that name"
             Set(value As String)
                 name1 = value
             End Set
-
         End Property
         Public Property gateID As Integer
             Get
