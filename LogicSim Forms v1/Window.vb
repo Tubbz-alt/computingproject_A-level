@@ -1,10 +1,10 @@
 ﻿Imports VB = Microsoft.VisualBasic
 Imports System.Runtime.InteropServices
-'BUG IN ATTACHGATE/DELTEGATE GATE INPUTS NOT UPDATED WHEN GATES ARE DELETED
 Class Window
     Private profMode As Boolean
     Private oneSelected As Boolean = False
     Private tempID As Integer
+    Private selectedID As Integer
     Private prevValue As Integer
     Private prevID As Integer
     Private tempInputID As Integer
@@ -127,9 +127,9 @@ Class Window
         End If
         If GatePB.Count <> 0 Then
             For Each PB In GatePB
-                If Gates(PB.Name).gateType = "inputt" Then
+                If Gates(PB.Name).gateType = "input" And Gates(PB.Name).gateValue = 1 Then
                     PB.Image = inputImageTrue
-                ElseIf Gates(PB.Name).gateType = "inputf" Then
+                ElseIf Gates(PB.Name).gateType = "input" And Gates(PB.name).gateValue = 0 Then
                     PB.Image = inputImageFalse
                 ElseIf Gates(PB.Name).gateType = "output" Then
                     If Gates(PB.Name).gateValue = 2 Then
@@ -188,6 +188,10 @@ Class Window
                 PB.Image = outputImageFalse
             ElseIf Gates(PB.Name).gateType = "output" And Gates(PB.Name).gateValue = 2 Then
                 PB.Image = outputImageNull
+            ElseIf Gates(PB.name).gateType = "input" And Gates(PB.name).gateValue = 1 Then
+                PB.Image = inputImageTrue
+            ElseIf Gates(PB.name).gateType = "input" And Gates(PB.name).gateValue = 0 Then
+                PB.Image = inputImageFalse
             End If
         Next
         Me.Refresh()              'Graphics refresh
@@ -197,7 +201,7 @@ Class Window
                     If connections(i, j, k).connectionExists = True And k = 0 Then
                         If (Gates(j).gateType = "not" Or Gates(j).gateType = "output") And Gates(i).gateValue = 1 Then
 
-                            If Gates(i).gateType = "inputt" Or Gates(i).gateType = "inputf" Or Gates(i).gateType = "output" Then
+                            If Gates(i).gateType = "input" Or Gates(i).gateType = "output" Then
                                 g.DrawLine(bluePen, (Gates(i).gateXpos + 30), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 30))
                             Else
                                 g.DrawLine(bluePen, (Gates(i).gateXpos + 120), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 30))
@@ -205,7 +209,7 @@ Class Window
 
                         ElseIf (Gates(j).gateType = "not" Or Gates(j).gateType = "output") And Gates(i).gateValue = 0 Then
 
-                            If Gates(i).gateType = "inputt" Or Gates(i).gateType = "inputf" Or Gates(i).gateType = "output" Then
+                            If Gates(i).gateType = "input" Or Gates(i).gateType = "output" Then
                                 g.DrawLine(blackPen, (Gates(i).gateXpos + 30), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 30))
                             Else
                                 g.DrawLine(blackPen, (Gates(i).gateXpos + 120), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 30))
@@ -213,7 +217,7 @@ Class Window
 
                         ElseIf (Gates(j).gateType = "not" Or Gates(j).gateType = "output") And Gates(i).gateValue = 2 Then
 
-                            If Gates(i).gateType = "inputt" Or Gates(i).gateType = "inputf" Or Gates(i).gateType = "output" Then
+                            If Gates(i).gateType = "input" Or Gates(i).gateType = "output" Then
                                 g.DrawLine(redPen, (Gates(i).gateXpos + 30), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 30))
                             Else
                                 g.DrawLine(redPen, (Gates(i).gateXpos + 120), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 30))
@@ -223,15 +227,15 @@ Class Window
 
                             If Gates(i).gateValue = 1 Then
 
-                                If Gates(i).gateType = "inputt" Or Gates(i).gateType = "inputf" Or Gates(i).gateType = "output" Then
+                                If Gates(i).gateType = "input" Or Gates(i).gateType = "output" Then
                                     g.DrawLine(bluePen, (Gates(i).gateXpos + 30), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 20))
                                 Else
                                     g.DrawLine(bluePen, (Gates(i).gateXpos + 120), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 20))
                                 End If
 
-                            ElseIf Gates(i).gateValue = 0
+                            ElseIf Gates(i).gateValue = 0 Then
 
-                                If Gates(i).gateType = "inputt" Or Gates(i).gateType = "inputf" Or Gates(i).gateType = "output" Then
+                                If Gates(i).gateType = "input" Or Gates(i).gateType = "output" Then
                                     g.DrawLine(blackPen, (Gates(i).gateXpos + 30), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 20))
                                 Else
                                     g.DrawLine(blackPen, (Gates(i).gateXpos + 120), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 20))
@@ -239,7 +243,7 @@ Class Window
 
                             Else
 
-                                If Gates(i).gateType = "inputt" Or Gates(i).gateType = "inputf" Or Gates(i).gateType = "output" Then
+                                If Gates(i).gateType = "input" Or Gates(i).gateType = "output" Then
                                     g.DrawLine(redPen, (Gates(i).gateXpos + 30), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 20))
                                 Else
                                     g.DrawLine(redPen, (Gates(i).gateXpos + 120), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 20))
@@ -251,15 +255,15 @@ Class Window
                     If connections(i, j, k).connectionExists = True And k = 1 Then
                         If Gates(i).gateValue = 1 Then
 
-                            If Gates(i).gateType = "inputt" Or Gates(i).gateType = "inputf" Or Gates(i).gateType = "output" Then
+                            If Gates(i).gateType = "input" Or Gates(i).gateType = "output" Then
                                 g.DrawLine(bluePen, (Gates(i).gateXpos + 30), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 40))
                             Else
                                 g.DrawLine(bluePen, (Gates(i).gateXpos + 120), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 40))
                             End If
 
-                        ElseIf Gates(i).gateValue = 0
+                        ElseIf Gates(i).gateValue = 0 Then
 
-                            If Gates(i).gateType = "inputt" Or Gates(i).gateType = "inputf" Or Gates(i).gateType = "output" Then
+                            If Gates(i).gateType = "input" Or Gates(i).gateType = "output" Then
                                 g.DrawLine(blackPen, (Gates(i).gateXpos + 30), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 40))
                             Else
                                 g.DrawLine(blackPen, (Gates(i).gateXpos + 120), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 40))
@@ -267,7 +271,7 @@ Class Window
 
                         Else
 
-                            If Gates(i).gateType = "inputt" Or Gates(i).gateType = "inputf" Or Gates(i).gateType = "output" Then
+                            If Gates(i).gateType = "input" Or Gates(i).gateType = "output" Then
                                 g.DrawLine(redPen, (Gates(i).gateXpos + 30), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 40))
                             Else
                                 g.DrawLine(redPen, (Gates(i).gateXpos + 120), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 40))
@@ -284,11 +288,7 @@ Class Window
         Dim ID = PB.Name
         Point = e.Location
         If e.Button = MouseButtons.Left Then                               'If it is a left click then the gate is 'selected' and details are shown
-            If Gates(PB.Name).gateType = "inputt" Or Gates(PB.Name).gateType = "inputf" Then
-                tempInputID = PB.Name
-            Else
-                tempInputID = -1
-            End If
+            selectedID = PB.Name
             If PB.Location.X >= 0 Or PB.Location.X <= Me.Width Or PB.Location.Y >= 0 Or PB.Location.Y <= Me.Height Then
                 ValidPB = True
             End If
@@ -347,70 +347,48 @@ Gate Name: " & (Gates(ID).gateName).ToUpper
         Else
         End If
     End Sub
-    Private Sub RecalculateInputs(ByVal ID As Integer)
-        For j = 0 To 199
-            If connections(ID, j, 0).connectionValue <> 2 Or connections(ID, j, 1).connectionValue <> 2 Then
-                If connections(ID, j, 0).connectionValue <> 2 Then
-                    connections(ID, j, 0).connectionValue = Gates(ID).gateValue
-                End If
-                If connections(ID, j, 1).connectionValue <> 2 Then
-                    connections(ID, j, 1).connectionValue = Gates(ID).gateValue
-                End If
-                Gates(j).Calculate(j)
-            End If
-        Next
-    End Sub
     Private Sub AttachGate(ByRef oneSelected As Boolean, ByRef prevValue As Integer, ByRef prevID As Integer, ByVal ID As Integer)
         If oneSelected = True Then                                                     'This means the gate is having a value assigned to one of its inputs from another gates output
-            If Gates(ID).gateType <> "inputt" Or Gates(ID).gateType <> "inputf" Then
-                If Gates(prevID).gateValue <> 2 Then
-                    If Gates(ID).gateType = "not" Or Gates(ID).gateType = "output" Then
-                        If Gates(ID).gateInput1Exists = False Then
-                            message_output.Text = "Assigned input 
+            If Gates(ID).gateType <> "input" Then
+
+                If Gates(ID).gateType = "not" Or Gates(ID).gateType = "output" Then
+                    If Gates(ID).gateInput1Exists = False Then
+                        message_output.Text = "Assigned input 
 to " & (Gates(ID).gateType).ToUpper & " gate" & " 
 with value: " & prevValue                                         'The prevValue is assigned to an input
-                            Gates(ID).gateInput1 = prevValue
-                            connections(prevID, ID, 0).connectionOrigin = prevID
-                            connections(prevID, ID, 0).connectionDestination = ID
-                            connections(prevID, ID, 0).connectionValue = Gates(prevID).gateValue
-                            connections(prevID, ID, 0).connectionExists = True
-                            Gates(ID).gateInput1Exists = True
-                            Gates(ID).Calculate(ID)
-                        Else
-                            message_output.Text = "The input is already occupied"
-                        End If
+                        Gates(ID).gateInput1 = prevValue
+                        connections(prevID, ID, 0).connectionValue = Gates(prevID).gateValue
+                        connections(prevID, ID, 0).connectionExists = True
+                        Gates(ID).gateInput1Exists = True
+                        Gates(ID).Calculate()
                     Else
-                        If Gates(ID).gateInput1Exists = False Then
-                            message_output.Text = "Assigned input (1) 
-to " & (Gates(ID).gateType).ToUpper & " gate" & " 
-with value: " & prevValue                                         'The prevValue is assigned to an input
-                            Gates(ID).gateInput1 = prevValue
-                            connections(prevID, ID, 0).connectionOrigin = prevID
-                            connections(prevID, ID, 0).connectionDestination = ID
-                            connections(prevID, ID, 0).connectionValue = Gates(prevID).gateValue
-                            connections(prevID, ID, 0).connectionExists = True
-                            Gates(ID).gateInput1Exists = True
-                            Gates(ID).Calculate(ID)
-                        ElseIf Gates(ID).gateInput2Exists = False Then
-                            message_output.Text = "Assigned input (2)
-to " & (Gates(ID).gateType).ToUpper & " gate" & " 
-with value: " & prevValue
-                            Gates(ID).gateInput2 = prevValue
-                            connections(prevID, ID, 1).connectionOrigin = prevID
-                            connections(prevID, ID, 1).connectionDestination = ID
-                            connections(prevID, ID, 1).connectionValue = Gates(prevID).gateValue
-                            connections(prevID, ID, 1).connectionExists = True
-                            Gates(ID).gateInput2Exists = True
-                            Gates(ID).Calculate(ID)
-                        Else
-                            message_output.Text = "Both inputs are 
-already occupied"
-                        End If
+                        message_output.Text = "The input is already occupied"
                     End If
                 Else
-                    message_output.Text = "Gates cannot be 
-assigned null 
-values (yet)"
+                    If Gates(ID).gateInput1Exists = False Then
+                        message_output.Text = "Assigned input (1) 
+to " & (Gates(ID).gateType).ToUpper & " gate" & " 
+with value: " & prevValue                                         'The prevValue is assigned to an input
+                        Gates(ID).gateInput1 = prevValue
+                        connections(prevID, ID, 0).connectionValue = Gates(prevID).gateValue
+                        connections(prevID, ID, 0).connectionExists = True
+                        Gates(ID).gateInput1Exists = True
+                        Gates(ID).Calculate()
+                    ElseIf Gates(ID).gateInput2Exists = False Then
+                        message_output.Text = "Assigned input (2)
+to " & (Gates(ID).gateType).ToUpper & " gate" & " 
+with value: " & prevValue
+                        Gates(ID).gateInput2 = prevValue
+
+                        connections(prevID, ID, 1).connectionValue = Gates(prevID).gateValue
+                        connections(prevID, ID, 1).connectionExists = True
+                        Gates(ID).gateInput2Exists = True
+                        Gates(ID).Calculate()
+                    Else
+                        message_output.Text = "Both inputs are 
+already occupied"
+                    End If
+                    RecalculateConnections(ID)
                 End If
             Else
                 message_output.Text = "Input values are 
@@ -440,11 +418,11 @@ Right-Click again to delete"
         AddHandler PB.MouseDown, AddressOf PBs_MouseDown
         AddHandler PB.MouseMove, AddressOf PBs_MouseMove
         PB.Parent = Me
-        If choice = "inputt" Then
+        If choice = "input" And Gates(tempID).gateValue = 1 Then
             PB.Height = 60
             PB.Width = 60
             PB.Image = inputImageTrue
-        ElseIf choice = "inputf" Then
+        ElseIf choice = "input" And Gates(tempID).gateValue = 0 Then
             PB.Height = 60
             PB.Width = 60
             PB.Image = inputImageFalse
@@ -496,8 +474,10 @@ Right-Click again to delete"
                             Gates(i).gateName = custom_gate_name.Text       'Sets the optional gate name
                             If choice = "inputt" Then                       'Sets the preset value that the gate starts with
                                 Gates(i).gateValue = 1
+                                Gates(i).gateType = "input"
                             ElseIf choice = "inputf" Then
                                 Gates(i).gateValue = 0
+                                Gates(i).gateType = "input"
                             ElseIf choice = "output" Then
                                 Gates(i).gateValue = 2
                                 Gates(i).gateInput1 = 2
@@ -508,13 +488,13 @@ Right-Click again to delete"
                             End If
                             tempID = i
                             gatecount += 1
-                            AddGatePB(choice, tempID)
+                            AddGatePB(Gates(i).gateType, tempID)
                             Exit For
                         End If
                     Next
                 End If
             Next
-        ElseIf gatecount + multgate > 200
+        ElseIf gatecount + multgate > 200 Then
             message_output.Text = "Gate limit reached"
         Else
             message_output.Text = "Gate already exists with 
@@ -561,28 +541,20 @@ that name"
             If connections(i, ID, 0).connectionExists = True And ID = tempID Then        'nullifies any gates that have had connections deprived
                 connections(i, ID, 0).connectionExists = False
                 connections(i, ID, 0).connectionValue = 2
-                connections(i, ID, 0).connectionDestination = -1
-                connections(i, ID, 0).connectionOrigin = -1
             End If
             If connections(i, ID, 1).connectionExists = True And ID = tempID Then
                 connections(i, ID, 1).connectionExists = False
                 connections(i, ID, 1).connectionValue = 2
-                connections(i, ID, 1).connectionDestination = -1
-                connections(i, ID, 1).connectionOrigin = -1
             End If
             If connections(ID, i, 0).connectionExists = True And ID = tempID Then
                 connections(ID, i, 0).connectionExists = False
                 Gates(i).gateInput1Exists = False
                 connections(ID, i, 0).connectionValue = 2
-                connections(ID, i, 0).connectionDestination = -1
-                connections(ID, i, 0).connectionOrigin = -1
                 Gates(i).gateInput1 = 2
                 Gates(i).gateValue = 2
                 NullifyConnections(i)
             ElseIf connections(ID, i, 0).connectionExists = True Then
                 connections(ID, i, 0).connectionValue = 2
-                connections(ID, i, 0).connectionDestination = -1
-                connections(ID, i, 0).connectionOrigin = -1
                 Gates(i).gateInput1 = 2
                 Gates(i).gateValue = 2
                 NullifyConnections(i)
@@ -591,15 +563,11 @@ that name"
                 connections(ID, i, 1).connectionExists = False
                 Gates(i).gateInput2Exists = False
                 connections(ID, i, 1).connectionValue = 2
-                connections(ID, i, 1).connectionDestination = -1
-                connections(ID, i, 1).connectionOrigin = -1
                 Gates(i).gateInput2 = 2
                 Gates(i).gateValue = 2
                 NullifyConnections(i)
             ElseIf connections(ID, i, 1).connectionExists = True Then
                 connections(ID, i, 1).connectionValue = 2
-                connections(ID, i, 1).connectionDestination = -1
-                connections(ID, i, 1).connectionOrigin = -1
                 Gates(i).gateInput2 = 2
                 Gates(i).gateValue = 2
                 NullifyConnections(i)
@@ -607,22 +575,27 @@ that name"
         Next
     End Sub
     Private Sub RecalculateConnections(ID)
-        For i = 0 To 199                                                   'Searches array of connections and looks for connections connected to and from gate to be deleted
+        For i = 0 To 199
             If connections(ID, i, 0).connectionExists = True Then
-                connections(ID, i, 0).connectionValue = 2
-                connections(ID, i, 0).connectionDestination = -1
-                connections(ID, i, 0).connectionOrigin = -1
-                Gates(i).gateInput1 = 2
-                Gates(i).gateValue = 2
-                RecalculateConnections(i)
+                connections(ID, i, 0).connectionValue = Gates(ID).gateValue
+                Gates(i).gateInput1 = Gates(ID).gateValue
+                Gates(i).Calculate()
+                Try
+                    RecalculateConnections(i)
+                Catch ex As Exception
+                    MsgBox(ex)
+                End Try
+
             End If
             If connections(ID, i, 1).connectionExists = True Then
-                connections(ID, i, 1).connectionValue = 2
-                connections(ID, i, 1).connectionDestination = -1
-                connections(ID, i, 1).connectionOrigin = -1
-                Gates(i).gateInput2 = 2
-                Gates(i).gateValue = 2
-                RecalculateConnections(i)
+                connections(ID, i, 1).connectionValue = Gates(ID).gateValue
+                Gates(i).gateInput2 = Gates(ID).gateValue
+                Gates(i).Calculate()
+                Try
+                    RecalculateConnections(i)
+                Catch ex As Exception
+                    MsgBox(ex)
+                End Try
             End If
         Next
     End Sub
@@ -666,6 +639,17 @@ that name"
         profMode = Not profMode
         ModeSwitch()
     End Sub
+    Private Sub invert_input_Click(sender As Object, e As EventArgs) Handles invert_input.Click
+        If Gates(selectedID).gateType = "input" Then
+            If Gates(selectedID).gateValue = 1 Then
+                Gates(selectedID).gateValue = 0
+            Else
+                Gates(selectedID).gateValue = 1
+            End If
+            RecalculateConnections(selectedID)
+            RefreshGraphics()
+        End If
+    End Sub
     Class MultiGate
         Inherits Window
         Private name1 As String
@@ -685,9 +669,9 @@ that name"
             input1Exists = False
             input2Exists = False
         End Sub
-        Protected Overrides Sub Finalize()
-            isNull = True
-        End Sub
+        'Protected Overrides Sub Finalize()
+        '    isNull = True
+        'End Sub
         Public Property gateName As String
             Get
                 Return name1
@@ -776,20 +760,8 @@ that name"
                 input2Exists = value
             End Set
         End Property
-        Public Sub Calculate(ByVal ID As Integer)  'function has to find the outputs of the gate objects which led to it
+        Public Sub Calculate()  'function has to find the outputs of the gate objects which led to it
             If gateType = "not" Then
-                Try
-                    For i = 0 To 199
-                        If Window.getWindowConnectionsValue(i, ID, 0) <> 2 Then
-                            input1 = Window.getWindowConnectionsValue(i, ID, 0)
-                            Exit For
-                        End If
-                        If i = 199 And input1 <> 2 Then
-                            input1 = 2
-                        End If
-                    Next
-                Catch
-                End Try
                 If input1 <> 2 Then
                     If input1 = 1 Then
                         value = 0
@@ -800,18 +772,6 @@ that name"
                     value = 2
                 End If
             ElseIf gateType = "output" Then
-                Try
-                    For i = 0 To 199
-                        If Window.connections(i, ID, 0).connectionValue <> 2 Then
-                            input1 = Window.connections(i, ID, 0).connectionValue
-                            Exit For
-                        End If
-                        If i = 199 And input1 <> 2 Then
-                            input1 = 2
-                        End If
-                    Next
-                Catch
-                End Try
                 If input1 <> 2 Then
                     If input1 = 1 Then
                         value = 1
@@ -822,30 +782,6 @@ that name"
                     value = 2
                 End If
             Else
-                Try
-                    For i = 0 To 199
-                        If Window.connections(i, ID, 0).connectionValue <> 2 Then
-                            input1 = Window.connections(i, ID, 0).connectionValue
-                            Exit For
-                        End If
-                        If i = 199 And input1 <> 2 Then
-                            input1 = 2
-                        End If
-                    Next
-                Catch
-                End Try
-                Try
-                    For i = 0 To 199
-                        If Window.connections(i, ID, 1).connectionValue <> 2 Then
-                            input2 = Window.connections(i, ID, 1).connectionValue
-                            Exit For
-                        End If
-                        If i = 199 And input2 <> 2 Then
-                            input2 = 2
-                        End If
-                    Next
-                Catch
-                End Try
                 If gateType = "and" Then
                     If input1 <> 2 And input2 <> 2 Then
                         If input1 = 1 And input2 = 1 Then
@@ -901,32 +837,12 @@ that name"
         End Sub
     End Class
     Class Connection
-        Private origin As Integer
-        Private destination As Integer
         Private value1 As Integer
         Private exists As Boolean
         Sub New()
-            origin = -1
-            destination = -1
             value1 = 2
             exists = False
         End Sub
-        Public Property connectionOrigin As Integer
-            Get
-                Return origin
-            End Get
-            Set(value As Integer)
-                origin = value
-            End Set
-        End Property
-        Public Property connectionDestination As Integer
-            Get
-                Return destination
-            End Get
-            Set(value As Integer)
-                destination = value
-            End Set
-        End Property
         Public Property connectionValue As Integer
             Get
                 Return value1

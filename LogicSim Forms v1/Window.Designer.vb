@@ -42,6 +42,7 @@ Partial Class Window
         Me.custom_gate_name = New System.Windows.Forms.TextBox()
         Me.loading_bar = New System.Windows.Forms.ProgressBar()
         Me.switch_mode = New System.Windows.Forms.Button()
+        Me.invert_input = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'add_and
@@ -181,7 +182,7 @@ Partial Class Window
         '
         'loading_bar
         '
-        Me.loading_bar.Location = New System.Drawing.Point(12, 123)
+        Me.loading_bar.Location = New System.Drawing.Point(96, 123)
         Me.loading_bar.Name = "loading_bar"
         Me.loading_bar.Size = New System.Drawing.Size(426, 20)
         Me.loading_bar.TabIndex = 18
@@ -197,12 +198,24 @@ Partial Class Window
         Me.switch_mode.Text = "SWITCH MODE"
         Me.switch_mode.UseVisualStyleBackColor = True
         '
+        'invert_input
+        '
+        Me.invert_input.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.invert_input.Font = New System.Drawing.Font("Corbel", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.invert_input.Location = New System.Drawing.Point(12, 123)
+        Me.invert_input.Name = "invert_input"
+        Me.invert_input.Size = New System.Drawing.Size(78, 45)
+        Me.invert_input.TabIndex = 20
+        Me.invert_input.Text = "INVERT INPUT"
+        Me.invert_input.UseVisualStyleBackColor = True
+        '
         'Window
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.delete_all_gates
         Me.ClientSize = New System.Drawing.Size(1014, 459)
+        Me.Controls.Add(Me.invert_input)
         Me.Controls.Add(Me.switch_mode)
         Me.Controls.Add(Me.loading_bar)
         Me.Controls.Add(Me.custom_gate_name)
@@ -248,4 +261,5 @@ Partial Class Window
     Friend WithEvents custom_gate_name As TextBox
     Friend WithEvents loading_bar As ProgressBar
     Friend WithEvents switch_mode As Button
+    Friend WithEvents invert_input As Button
 End Class
