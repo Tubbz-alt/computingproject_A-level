@@ -14,7 +14,6 @@ Class Window
     Private blackPen As New Pen(Color.Black, 4)
     Private bluePen As New Pen(Color.Blue, 4)
     Private redPen As New Pen(Color.Red, 4)
-    Private tempImage As Image
     Private inputImageTrue As Image
     Private inputImageFalse As Image
     Private outputImageNull As Image
@@ -28,12 +27,9 @@ Class Window
     Private notImage As Image
     Protected Point As Point
     Private ValidPB As Boolean
-    Protected GatePB As New List(Of PictureBox)
-    Private connections(199, 199, 1) As Connection
+    Protected WithEvents GatePB As New List(Of PictureBox)
+    Protected connections(199, 199, 1) As Connection
     Protected Gates() As MultiGate
-    Public gatecount As Integer
-    Protected nextpoint As Integer
-    Protected LastID As Integer
     Private Sub WindowCloser(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles Me.Closing
         End
     End Sub
@@ -44,7 +40,6 @@ Class Window
         g = CreateGraphics()
         ReDim Gates(199)
         ReDim connections(199, 199, 1)
-        gatecount = 0
         prevValue = 2
         ModeSwitch()
         For i As Integer = 0 To 199
@@ -155,17 +150,6 @@ Class Window
             Next
         End If
     End Sub
-    Public Function getWindowConnectionsValue(ByVal i As Integer, ByVal j As Integer, ByVal k As Integer)
-        Return connections(i, j, k).connectionValue
-    End Function
-    Private Property MousePoint As Point
-        Get
-            Return Point
-        End Get
-        Set(givenPoint As Point)
-            Point = givenPoint
-        End Set
-    End Property
     Public Property windowProf As Boolean
         Get
             Return profMode
@@ -292,7 +276,6 @@ Class Window
             If PB.Location.X >= 0 Or PB.Location.X <= Me.Width Or PB.Location.Y >= 0 Or PB.Location.Y <= Me.Height Then
                 ValidPB = True
             End If
-            displayGateInfo(PB.Name)
         End If
         If e.Button = MouseButtons.Right Then                         'If it is a right click then the gate is being attached and the AttachGate sub is run.
             If ID = prevID And oneSelected = True And profMode = True Then
@@ -329,6 +312,13 @@ use the RESET button"
             End If
             RefreshGraphics()
         End If
+    End Sub
+    Private Sub PBMouseEnter(sender As Object, e As EventArgs)
+        Dim PB As PictureBox = DirectCast(sender, PictureBox)
+        displayGateInfo(PB.Name)
+    End Sub
+    Private Sub PBMouseLeave(sender As Object, e As EventArgs)
+        selected_gate.Text = ""
     End Sub
     Private Sub displayGateInfo(ByVal ID As Integer)
         Dim value As String
@@ -405,7 +395,6 @@ Right-Click again to delete"
             prevID = ID
             oneSelected = True
         End If
-        displayGateInfo(ID)
     End Sub
     Private Sub AddGatePB(ByVal choice As String, ByVal tempID As Integer)
         oneSelected = False
@@ -417,6 +406,8 @@ Right-Click again to delete"
         PB.Top = Me.ClientRectangle.Height - PB.Height
         AddHandler PB.MouseDown, AddressOf PBs_MouseDown
         AddHandler PB.MouseMove, AddressOf PBs_MouseMove
+        AddHandler PB.MouseEnter, AddressOf PBMouseEnter
+        AddHandler PB.MouseLeave, AddressOf PBMouseLeave
         PB.Parent = Me
         If choice = "input" And Gates(tempID).gateValue = 1 Then
             PB.Height = 60
@@ -449,8 +440,14 @@ Right-Click again to delete"
         Gates(PB.Name).gateYpos = Me.Height - PB.Top
     End Sub
     Private Sub newGate(ByVal choice As String)
+        Dim gatecount As Integer
         Dim multgate As Integer
         Dim validName As Boolean = True
+        For Each Gate In Gates
+            If Gate.gateIsNull = False Then
+                gatecount += 1
+            End If
+        Next
         Try
             multgate = custom_gate_input.Text
         Catch
@@ -487,7 +484,6 @@ Right-Click again to delete"
                                 Gates(i).gateInput2 = 2
                             End If
                             tempID = i
-                            gatecount += 1
                             AddGatePB(Gates(i).gateType, tempID)
                             Exit For
                         End If
@@ -525,12 +521,8 @@ that name"
     Private Sub DeleteGate(ByRef PB As PictureBox)
         Dim ID As Integer = PB.Name
         tempID = ID
-        gatecount -= 1
         NullifyConnections(ID)
         selected_gate.Text = ""
-        Gates(ID).gateName = ""
-        Gates(ID).gateInput1Exists = False
-        Gates(ID).gateInput2Exists = False
         Gates(PB.Name).Finalize()    'Destructs gate object
         GatePB.Remove(PB)            'Removes gate PB from PB list
         PB.Dispose()                 'makes PB disappear
@@ -669,9 +661,12 @@ that name"
             input1Exists = False
             input2Exists = False
         End Sub
-        'Protected Overrides Sub Finalize()
-        '    isNull = True
-        'End Sub
+        Protected Overrides Sub Finalize()
+            isNull = True
+            name1 = ""
+            input1Exists = False
+            input2Exists = False
+        End Sub
         Public Property gateName As String
             Get
                 Return name1

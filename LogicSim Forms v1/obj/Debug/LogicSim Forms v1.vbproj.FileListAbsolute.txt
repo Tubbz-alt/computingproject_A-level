@@ -42,7 +42,6 @@ F:\Documents\GitHub\computingprojects\LogicSim Forms v1\bin\Debug\LogicSim Forms
 F:\Documents\GitHub\computingprojects\LogicSim Forms v1\bin\Debug\LogicSim Forms v1.pdb
 F:\Documents\GitHub\computingprojects\LogicSim Forms v1\bin\Debug\LogicSim Forms v1.xml
 F:\Documents\GitHub\computingprojects\LogicSim Forms v1\obj\Debug\LogicSim Forms v1.vbprojResolveAssemblyReference.cache
-F:\Documents\GitHub\computingprojects\LogicSim Forms v1\obj\Debug\LogicSim_Forms_v1.GateMenu.resources
 F:\Documents\GitHub\computingprojects\LogicSim Forms v1\obj\Debug\LogicSim_Forms_v1.SplashScreen.resources
 F:\Documents\GitHub\computingprojects\LogicSim Forms v1\obj\Debug\LogicSim_Forms_v1.Window.resources
 F:\Documents\GitHub\computingprojects\LogicSim Forms v1\obj\Debug\LogicSim_Forms_v1.Resources.resources
