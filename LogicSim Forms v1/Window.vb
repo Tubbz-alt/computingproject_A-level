@@ -333,7 +333,7 @@ use the RESET button"
             selected_gate.Text = "Selected Gate ID: " & ID & " 
 Gate Type: " & (Gates(ID).gateType).ToUpper & "
 Current Value: " & value & "
-Gate Name: " & (Gates(ID).gateName).ToUpper
+Gate Name: " & Gates(ID).gateName
         Else
         End If
     End Sub

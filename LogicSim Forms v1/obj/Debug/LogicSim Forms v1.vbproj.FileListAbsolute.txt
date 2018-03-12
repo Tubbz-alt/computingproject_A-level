@@ -19,7 +19,6 @@ D:\A - Level\VB.NET Projects\LogicSim Forms v1\LogicSim Forms v1\bin\Debug\Logic
 D:\A - Level\VB.NET Projects\LogicSim Forms v1\LogicSim Forms v1\bin\Debug\LogicSim Forms v1.pdb
 D:\A - Level\VB.NET Projects\LogicSim Forms v1\LogicSim Forms v1\bin\Debug\LogicSim Forms v1.xml
 D:\A - Level\VB.NET Projects\LogicSim Forms v1\LogicSim Forms v1\obj\Debug\LogicSim Forms v1.vbprojResolveAssemblyReference.cache
-D:\A - Level\VB.NET Projects\LogicSim Forms v1\LogicSim Forms v1\obj\Debug\LogicSim_Forms_v1.GateMenu.resources
 D:\A - Level\VB.NET Projects\LogicSim Forms v1\LogicSim Forms v1\obj\Debug\LogicSim_Forms_v1.SplashScreen.resources
 D:\A - Level\VB.NET Projects\LogicSim Forms v1\LogicSim Forms v1\obj\Debug\LogicSim_Forms_v1.Window.resources
 D:\A - Level\VB.NET Projects\LogicSim Forms v1\LogicSim Forms v1\obj\Debug\LogicSim_Forms_v1.Resources.resources
