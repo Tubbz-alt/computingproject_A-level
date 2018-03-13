@@ -124,7 +124,7 @@ Class Window
             For Each PB In GatePB
                 If Gates(PB.Name).gateType = "input" And Gates(PB.Name).gateValue = 1 Then
                     PB.Image = inputImageTrue
-                ElseIf Gates(PB.Name).gateType = "input" And Gates(PB.name).gateValue = 0 Then
+                ElseIf Gates(PB.Name).gateType = "input" And Gates(PB.Name).gateValue = 0 Then
                     PB.Image = inputImageFalse
                 ElseIf Gates(PB.Name).gateType = "output" Then
                     If Gates(PB.Name).gateValue = 2 Then
@@ -172,9 +172,9 @@ Class Window
                 PB.Image = outputImageFalse
             ElseIf Gates(PB.Name).gateType = "output" And Gates(PB.Name).gateValue = 2 Then
                 PB.Image = outputImageNull
-            ElseIf Gates(PB.name).gateType = "input" And Gates(PB.name).gateValue = 1 Then
+            ElseIf Gates(PB.Name).gateType = "input" And Gates(PB.Name).gateValue = 1 Then
                 PB.Image = inputImageTrue
-            ElseIf Gates(PB.name).gateType = "input" And Gates(PB.name).gateValue = 0 Then
+            ElseIf Gates(PB.Name).gateType = "input" And Gates(PB.Name).gateValue = 0 Then
                 PB.Image = inputImageFalse
             End If
         Next
@@ -340,7 +340,6 @@ Gate Name: " & Gates(ID).gateName
     Private Sub AttachGate(ByRef oneSelected As Boolean, ByRef prevValue As Integer, ByRef prevID As Integer, ByVal ID As Integer)
         If oneSelected = True Then                                                     'This means the gate is having a value assigned to one of its inputs from another gates output
             If Gates(ID).gateType <> "input" Then
-
                 If Gates(ID).gateType = "not" Or Gates(ID).gateType = "output" Then
                     If Gates(ID).gateInput1Exists = False Then
                         message_output.Text = "Assigned input 
@@ -543,12 +542,12 @@ that name"
                 Gates(i).gateInput1Exists = False
                 connections(ID, i, 0).connectionValue = 2
                 Gates(i).gateInput1 = 2
-                Gates(i).gateValue = 2
+                Gates(i).Calculate()
                 NullifyConnections(i)
             ElseIf connections(ID, i, 0).connectionExists = True Then
                 connections(ID, i, 0).connectionValue = 2
                 Gates(i).gateInput1 = 2
-                Gates(i).gateValue = 2
+                Gates(i).Calculate()
                 NullifyConnections(i)
             End If
             If connections(ID, i, 1).connectionExists = True And ID = tempID Then
@@ -556,12 +555,12 @@ that name"
                 Gates(i).gateInput2Exists = False
                 connections(ID, i, 1).connectionValue = 2
                 Gates(i).gateInput2 = 2
-                Gates(i).gateValue = 2
+                Gates(i).Calculate()
                 NullifyConnections(i)
             ElseIf connections(ID, i, 1).connectionExists = True Then
                 connections(ID, i, 1).connectionValue = 2
                 Gates(i).gateInput2 = 2
-                Gates(i).gateValue = 2
+                Gates(i).Calculate()
                 NullifyConnections(i)
             End If
         Next
@@ -572,22 +571,13 @@ that name"
                 connections(ID, i, 0).connectionValue = Gates(ID).gateValue
                 Gates(i).gateInput1 = Gates(ID).gateValue
                 Gates(i).Calculate()
-                Try
-                    RecalculateConnections(i)
-                Catch ex As Exception
-                    MsgBox(ex)
-                End Try
-
+                RecalculateConnections(i)
             End If
             If connections(ID, i, 1).connectionExists = True Then
                 connections(ID, i, 1).connectionValue = Gates(ID).gateValue
                 Gates(i).gateInput2 = Gates(ID).gateValue
                 Gates(i).Calculate()
-                Try
-                    RecalculateConnections(i)
-                Catch ex As Exception
-                    MsgBox(ex)
-                End Try
+                RecalculateConnections(i)
             End If
         Next
     End Sub
@@ -778,8 +768,10 @@ that name"
                 End If
             Else
                 If gateType = "and" Then
-                    If input1 <> 2 And input2 <> 2 Then
-                        If input1 = 1 And input2 = 1 Then
+                    If input1 <> 2 Or input2 <> 2 Then
+                        If (input1 = 1 And input2 = 2) Or (input1 = 2 And input2 = 1) Then
+                            value = 2
+                        ElseIf input1 = 1 And input2 = 1 Then
                             value = 1
                         Else
                             value = 0
@@ -788,8 +780,10 @@ that name"
                         value = 2
                     End If
                 ElseIf gateType = "nand" Then
-                    If input1 <> 2 And input2 <> 2 Then
-                        If input1 = 1 And input2 = 1 Then
+                    If input1 <> 2 Or input2 <> 2 Then
+                        If (input1 = 1 And input2 = 2) Or (input1 = 2 And input2 = 1) Then
+                            value = 2
+                        ElseIf input1 = 1 And input2 = 1 Then
                             value = 0
                         Else
                             value = 1
@@ -798,9 +792,11 @@ that name"
                         value = 2
                     End If
                 ElseIf gateType = "or" Then
-                    If input1 <> 2 And input2 <> 2 Then
+                    If input1 <> 2 Or input2 <> 2 Then
                         If input1 = 1 Or input2 = 1 Then
                             value = 1
+                        ElseIf (input1 = 0 And input2 = 2) Or (input1 = 2 And input2 = 0) Then
+                            value = 2
                         Else
                             value = 0
                         End If
@@ -808,9 +804,11 @@ that name"
                         value = 2
                     End If
                 ElseIf gateType = "nor" Then
-                    If input1 <> 2 And input2 <> 2 Then
+                    If input1 <> 2 Or input2 <> 2 Then
                         If input1 = 1 Or input2 = 1 Then
                             value = 0
+                        ElseIf (input1 = 0 And input2 = 2) Or (input1 = 2 And input2 = 0) Then
+                            value = 2
                         Else
                             value = 1
                         End If
