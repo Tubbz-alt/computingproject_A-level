@@ -8,6 +8,9 @@ Class Window
     Private prevValue As Integer
     Private prevID As Integer
     Private tempInputID As Integer
+    Private loopCount As Integer
+    Private prevLoopID As Integer = Nothing
+    Private prevLoopID2 As Integer = Nothing
     Private comicSansFont As New Font("Comic Sans MS", 9, FontStyle.Regular)
     Private corbelFont As New Font("Corbel", 10, FontStyle.Regular)
     Private g As Graphics
@@ -293,6 +296,7 @@ use the RESET button"
     Private Sub PBs_MouseMove(ByVal sender As Object, ByVal e As MouseEventArgs)
         Dim PB As PictureBox = DirectCast(sender, PictureBox)
         If e.Button = MouseButtons.Left And ValidPB Then               'If mouse is down, moving and the mouse is in valid bounds then the gate moves
+            RefreshGraphics()
             PB.Left += e.Location.X - Point.X
             PB.Top += e.Location.Y - Point.Y
             Gates(PB.Name).gateXpos = PB.Left
@@ -310,7 +314,6 @@ use the RESET button"
                 PB.Top = (Me.Height - 100)
                 ValidPB = False
             End If
-            RefreshGraphics()
         End If
     End Sub
     Private Sub PBMouseEnter(sender As Object, e As EventArgs)
@@ -377,8 +380,8 @@ with value: " & prevValue
                         message_output.Text = "Both inputs are 
 already occupied"
                     End If
-                    RecalculateConnections(ID)
                 End If
+                RecalculateConnections(ID)
             Else
                 message_output.Text = "Input values are 
 fixed and cannot be 
@@ -386,6 +389,7 @@ assigned by another
 gate"
             End If
             oneSelected = False
+            displayGateInfo(ID)
             RefreshGraphics()
         ElseIf oneSelected = False Then                         'This means the gate is before another gate in the circuit
             message_output.Text = (Gates(ID).gateType).ToUpper & " gate 1 selected...
@@ -571,13 +575,33 @@ that name"
                 connections(ID, i, 0).connectionValue = Gates(ID).gateValue
                 Gates(i).gateInput1 = Gates(ID).gateValue
                 Gates(i).Calculate()
-                RecalculateConnections(i)
+                If loopCount <= 10 Then
+                    RecalculateConnections(i)
+                    loopCount += 1
+                    If prevLoopID = ID Then
+                        prevLoopID2 = ID
+                    Else
+                        prevLoopID = ID
+                    End If
+                ElseIf ID = prevLoopID Or ID = prevLoopID Then
+                    loopCount = 0
+                End If
             End If
             If connections(ID, i, 1).connectionExists = True Then
                 connections(ID, i, 1).connectionValue = Gates(ID).gateValue
                 Gates(i).gateInput2 = Gates(ID).gateValue
                 Gates(i).Calculate()
-                RecalculateConnections(i)
+                If loopCount <= 2 Then
+                    RecalculateConnections(i)
+                    loopCount += 1
+                    If prevLoopID = ID Then
+                        prevLoopID2 = ID
+                    Else
+                        prevLoopID = ID
+                    End If
+                ElseIf ID = prevLoopID Or ID = prevLoopID Then
+                    loopCount = 0
+                End If
             End If
         Next
     End Sub
@@ -769,10 +793,10 @@ that name"
             Else
                 If gateType = "and" Then
                     If input1 <> 2 Or input2 <> 2 Then
-                        If (input1 = 1 And input2 = 2) Or (input1 = 2 And input2 = 1) Then
-                            value = 2
-                        ElseIf input1 = 1 And input2 = 1 Then
+                        If input1 = 1 And input2 = 1 Then
                             value = 1
+                        ElseIf (input1 = 1 And input2 = 2) Or (input1 = 2 And input2 = 1) Then
+                            value = 2
                         Else
                             value = 0
                         End If
