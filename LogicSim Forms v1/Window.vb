@@ -9,8 +9,8 @@ Class Window
     Private prevID As Integer
     Private tempInputID As Integer
     Private loopCount As Integer
+    Private loopCount2 As Integer
     Private prevLoopID As Integer = Nothing
-    Private prevLoopID2 As Integer = Nothing
     Private comicSansFont As New Font("Comic Sans MS", 9, FontStyle.Regular)
     Private corbelFont As New Font("Corbel", 10, FontStyle.Regular)
     Private g As Graphics
@@ -547,7 +547,16 @@ that name"
                 connections(ID, i, 0).connectionValue = 2
                 Gates(i).gateInput1 = 2
                 Gates(i).Calculate()
-                NullifyConnections(i)
+                If loopCount > 1 Then
+                    loopCount = 0
+                ElseIf (connections(ID, prevLoopID, 0).connectionExists = True Or connections(ID, prevLoopID, 1).connectionExists = True) _
+                    Or (connections(prevLoopID, ID, 0).connectionExists = True Or connections(ID, prevLoopID, 1).connectionExists = True) Then
+                    loopCount += 1
+                    prevLoopID = ID
+                    NullifyConnections(i)
+                Else
+                    NullifyConnections(i)
+                End If
             ElseIf connections(ID, i, 0).connectionExists = True Then
                 connections(ID, i, 0).connectionValue = 2
                 Gates(i).gateInput1 = 2
@@ -560,7 +569,16 @@ that name"
                 connections(ID, i, 1).connectionValue = 2
                 Gates(i).gateInput2 = 2
                 Gates(i).Calculate()
-                NullifyConnections(i)
+                If loopCount > 1 Then
+                    loopCount = 0
+                ElseIf (connections(ID, prevLoopID, 0).connectionExists = True Or connections(ID, prevLoopID, 1).connectionExists = True) _
+                    Or (connections(prevLoopID, ID, 0).connectionExists = True Or connections(ID, prevLoopID, 1).connectionExists = True) Then
+                    loopCount += 1
+                    prevLoopID = ID
+                    NullifyConnections(i)
+                Else
+                    NullifyConnections(i)
+                End If
             ElseIf connections(ID, i, 1).connectionExists = True Then
                 connections(ID, i, 1).connectionValue = 2
                 Gates(i).gateInput2 = 2
@@ -575,32 +593,40 @@ that name"
                 connections(ID, i, 0).connectionValue = Gates(ID).gateValue
                 Gates(i).gateInput1 = Gates(ID).gateValue
                 Gates(i).Calculate()
-                If loopCount <= 10 Then
+                If loopCount2 > 1 Then
+                    loopCount2 = 0
+                    prevLoopID = Nothing
+                ElseIf (connections(ID, prevLoopID, 0).connectionExists = True Or connections(ID, prevLoopID, 1).connectionExists = True) _
+                    Or (connections(prevLoopID, ID, 0).connectionExists = True Or connections(ID, prevLoopID, 1).connectionExists = True) Then
+                    loopCount2 += 1
+                    prevLoopID = ID
                     RecalculateConnections(i)
-                    loopCount += 1
-                    If prevLoopID = ID Then
-                        prevLoopID2 = ID
-                    Else
-                        prevLoopID = ID
-                    End If
-                ElseIf ID = prevLoopID Or ID = prevLoopID Then
-                    loopCount = 0
+                    prevLoopID = Nothing
+                    loopCount2 = 0
+                Else
+                    RecalculateConnections(i)
+                    prevLoopID = Nothing
+                    loopCount2 = 0
                 End If
             End If
             If connections(ID, i, 1).connectionExists = True Then
                 connections(ID, i, 1).connectionValue = Gates(ID).gateValue
                 Gates(i).gateInput2 = Gates(ID).gateValue
                 Gates(i).Calculate()
-                If loopCount <= 2 Then
+                If loopCount2 > 1 Then
+                    loopCount2 = 0
+                    prevLoopID = Nothing
+                ElseIf (connections(ID, prevLoopID, 0).connectionExists = True Or connections(ID, prevLoopID, 1).connectionExists = True) _
+                    Or (connections(prevLoopID, ID, 0).connectionExists = True Or connections(ID, prevLoopID, 1).connectionExists = True) Then
+                    loopCount2 += 1
+                    prevLoopID = ID
                     RecalculateConnections(i)
-                    loopCount += 1
-                    If prevLoopID = ID Then
-                        prevLoopID2 = ID
-                    Else
-                        prevLoopID = ID
-                    End If
-                ElseIf ID = prevLoopID Or ID = prevLoopID Then
-                    loopCount = 0
+                    prevLoopID = Nothing
+                    loopCount2 = 0
+                Else
+                    RecalculateConnections(i)
+                    prevLoopID = Nothing
+                    loopCount2 = 0
                 End If
             End If
         Next
