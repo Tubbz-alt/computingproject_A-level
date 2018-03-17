@@ -188,29 +188,53 @@ Class Window
                     If connections(i, j, k).connectionExists = True And k = 0 Then
                         If (Gates(j).gateType = "not" Or Gates(j).gateType = "output") And Gates(i).gateValue = 1 Then
 
-                            g.DrawLine(bluePen, (Gates(i).gateOutputAnchor), (Gates(j).gateInput1Anchor))
+                            If Gates(i).gateType = "input" Or Gates(i).gateType = "output" Then
+                                g.DrawLine(bluePen, (Gates(i).gateXpos + 30), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 30))
+                            Else
+                                g.DrawLine(bluePen, (Gates(i).gateXpos + 120), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 30))
+                            End If
 
                         ElseIf (Gates(j).gateType = "not" Or Gates(j).gateType = "output") And Gates(i).gateValue = 0 Then
 
-                            g.DrawLine(blackPen, (Gates(i).gateOutputAnchor), (Gates(j).gateInput1Anchor))
+                            If Gates(i).gateType = "input" Or Gates(i).gateType = "output" Then
+                                g.DrawLine(blackPen, (Gates(i).gateXpos + 30), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 30))
+                            Else
+                                g.DrawLine(blackPen, (Gates(i).gateXpos + 120), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 30))
+                            End If
 
                         ElseIf (Gates(j).gateType = "not" Or Gates(j).gateType = "output") And Gates(i).gateValue = 2 Then
 
-                            g.DrawLine(redPen, (Gates(i).gateOutputAnchor), (Gates(j).gateInput1Anchor))
+                            If Gates(i).gateType = "input" Or Gates(i).gateType = "output" Then
+                                g.DrawLine(redPen, (Gates(i).gateXpos + 30), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 30))
+                            Else
+                                g.DrawLine(redPen, (Gates(i).gateXpos + 120), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 30))
+                            End If
 
                         Else
 
                             If Gates(i).gateValue = 1 Then
 
-                                g.DrawLine(bluePen, (Gates(i).gateOutputAnchor), (Gates(j).gateInput1Anchor))
+                                If Gates(i).gateType = "input" Or Gates(i).gateType = "output" Then
+                                    g.DrawLine(bluePen, (Gates(i).gateXpos + 30), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 20))
+                                Else
+                                    g.DrawLine(bluePen, (Gates(i).gateXpos + 120), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 20))
+                                End If
 
                             ElseIf Gates(i).gateValue = 0 Then
 
-                                g.DrawLine(blackPen, (Gates(i).gateOutputAnchor), (Gates(j).gateInput1Anchor))
+                                If Gates(i).gateType = "input" Or Gates(i).gateType = "output" Then
+                                    g.DrawLine(blackPen, (Gates(i).gateXpos + 30), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 20))
+                                Else
+                                    g.DrawLine(blackPen, (Gates(i).gateXpos + 120), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 20))
+                                End If
 
                             Else
 
-                                g.DrawLine(redPen, (Gates(i).gateOutputAnchor), (Gates(j).gateInput1Anchor))
+                                If Gates(i).gateType = "input" Or Gates(i).gateType = "output" Then
+                                    g.DrawLine(redPen, (Gates(i).gateXpos + 30), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 20))
+                                Else
+                                    g.DrawLine(redPen, (Gates(i).gateXpos + 120), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 20))
+                                End If
 
                             End If
                         End If
@@ -218,15 +242,27 @@ Class Window
                     If connections(i, j, k).connectionExists = True And k = 1 Then
                         If Gates(i).gateValue = 1 Then
 
-                            g.DrawLine(bluePen, (Gates(i).gateOutputAnchor), (Gates(j).gateInput2Anchor))
+                            If Gates(i).gateType = "input" Or Gates(i).gateType = "output" Then
+                                g.DrawLine(bluePen, (Gates(i).gateXpos + 30), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 40))
+                            Else
+                                g.DrawLine(bluePen, (Gates(i).gateXpos + 120), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 40))
+                            End If
 
                         ElseIf Gates(i).gateValue = 0 Then
 
-                            g.DrawLine(blackPen, (Gates(i).gateOutputAnchor), (Gates(j).gateInput2Anchor))
+                            If Gates(i).gateType = "input" Or Gates(i).gateType = "output" Then
+                                g.DrawLine(blackPen, (Gates(i).gateXpos + 30), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 40))
+                            Else
+                                g.DrawLine(blackPen, (Gates(i).gateXpos + 120), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 40))
+                            End If
 
                         Else
 
-                            g.DrawLine(redPen, (Gates(i).gateOutputAnchor), (Gates(j).gateInput2Anchor))
+                            If Gates(i).gateType = "input" Or Gates(i).gateType = "output" Then
+                                g.DrawLine(redPen, (Gates(i).gateXpos + 30), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 40))
+                            Else
+                                g.DrawLine(redPen, (Gates(i).gateXpos + 120), (Me.Height - Gates(i).gateYpos + 30), (Gates(j).gateXpos), (Me.Height - Gates(j).gateYpos + 40))
+                            End If
 
                         End If
                     End If
@@ -263,7 +299,8 @@ use the RESET button"
             RefreshGraphics()
             PB.Left += e.Location.X - Point.X
             PB.Top += e.Location.Y - Point.Y
-            Gates(PB.Name).gatePos = PB.Location
+            Gates(PB.Name).gateXpos = PB.Left
+            Gates(PB.Name).gateYpos = Me.Height - PB.Top
             If PB.Left < 0 Then                                        'If gate is out of bounds, x/y coords are reset to valid ones
                 PB.Left = 0
                 ValidPB = False
@@ -276,34 +313,6 @@ use the RESET button"
             ElseIf PB.Top > (Me.Height - 90) Then
                 PB.Top = (Me.Height - 100)
                 ValidPB = False
-            End If
-            If Gates(PB.Name).gateType = "and" Or Gates(PB.Name).gateType = "nand" Then
-                Gates(PB.Name).gateInput1AnchorX = PB.Location.X
-                Gates(PB.Name).gateInput1AnchorY = PB.Location.Y + 37
-                Gates(PB.Name).gateInput2AnchorX = PB.Location.X
-                Gates(PB.Name).gateInput2AnchorY = PB.Location.Y + 15
-                Gates(PB.Name).gateOutputAnchorX = PB.Location.X + 125
-                Gates(PB.Name).gateOutputAnchorY = PB.Location.Y + 27
-            ElseIf Gates(PB.Name).gateType = "or" Or Gates(PB.Name).gateType = "nor" Or Gates(PB.Name).gateType = "xor" Then
-                Gates(PB.Name).gateInput1AnchorX = PB.Location.X
-                Gates(PB.Name).gateInput1AnchorY = PB.Location.Y + 31
-                Gates(PB.Name).gateInput2AnchorX = PB.Location.X
-                Gates(PB.Name).gateInput2AnchorY = PB.Location.Y + 8
-                Gates(PB.Name).gateOutputAnchorX = PB.Location.X + 125
-                Gates(PB.Name).gateOutputAnchorY = PB.Location.Y + 20
-            ElseIf Gates(PB.Name).gateType = "not" Then
-                Gates(PB.Name).gateInput1AnchorX = PB.Location.X
-                Gates(PB.Name).gateInput1AnchorY = PB.Location.Y + 23
-                Gates(PB.Name).gateOutputAnchorX = PB.Location.X + 125
-                Gates(PB.Name).gateOutputAnchorY = PB.Location.Y + 23
-            ElseIf Gates(PB.Name).gateType = "input" Then
-                Gates(PB.Name).gateOutputAnchorX = PB.Location.X + 30
-                Gates(PB.Name).gateOutputAnchorY = PB.Location.Y + 30
-            Else
-                Gates(PB.Name).gateInput1AnchorX = PB.Location.X + 30
-                Gates(PB.Name).gateInput1AnchorY = PB.Location.Y + 30
-                Gates(PB.Name).gateOutputAnchorX = PB.Location.X + 30
-                Gates(PB.Name).gateOutputAnchorY = PB.Location.Y + 30
             End If
         End If
     End Sub
@@ -394,10 +403,10 @@ Right-Click again to delete"
         oneSelected = False
         message_output.Text = ""
         Dim PB As New PictureBox
+        PB.Height = 60                              'Sets dimensions and properties of gate PB
+        PB.Width = 125
         PB.Left = 515 - (PB.Width / 2)
         PB.Top = Me.ClientRectangle.Height - PB.Height
-        'Gates(PB.Name).gatePos = PB.Location
-        PB.Name = tempID             '---IMPORTANT---Gate name is set as the gate ID so the gate object can be referenced from the gate PB
         AddHandler PB.MouseDown, AddressOf PBs_MouseDown
         AddHandler PB.MouseMove, AddressOf PBs_MouseMove
         AddHandler PB.MouseEnter, AddressOf PBMouseEnter
@@ -407,82 +416,31 @@ Right-Click again to delete"
             PB.Height = 60
             PB.Width = 60
             PB.Image = inputImageTrue
-            Gates(PB.Name).gateOutputAnchorX = PB.Location.X + 30
-            Gates(PB.Name).gateOutputAnchorY = PB.Location.Y + 30
         ElseIf choice = "input" And Gates(tempID).gateValue = 0 Then
             PB.Height = 60
             PB.Width = 60
             PB.Image = inputImageFalse
-            Gates(PB.Name).gateOutputAnchorX = PB.Location.X + 30
-            Gates(PB.Name).gateOutputAnchorY = PB.Location.Y + 30
         ElseIf choice = "output" Then
             PB.Height = 60
             PB.Width = 60
             PB.Image = outputImageNull
-            Gates(PB.Name).gateInput1AnchorX = PB.Location.X + 30
-            Gates(PB.Name).gateInput1AnchorY = PB.Location.Y + 30
-            Gates(PB.Name).gateOutputAnchorX = PB.Location.X + 30
-            Gates(PB.Name).gateOutputAnchorY = PB.Location.Y + 30
         ElseIf choice = "and" Then
             PB.Image = andImage
-            PB.Height = 52
-            PB.Width = 125
-            Gates(PB.Name).gateInput1AnchorX = PB.Location.X
-            Gates(PB.Name).gateInput1AnchorY = PB.Location.Y + 37
-            Gates(PB.Name).gateInput2AnchorX = PB.Location.X
-            Gates(PB.Name).gateInput2AnchorY = PB.Location.Y + 15
-            Gates(PB.Name).gateOutputAnchorX = PB.Location.X + 125
-            Gates(PB.Name).gateOutputAnchorY = PB.Location.Y + 27
         ElseIf choice = "nand" Then
             PB.Image = nandImage
-            PB.Height = 52
-            PB.Width = 125
-            Gates(PB.Name).gateInput1AnchorX = PB.Location.X
-            Gates(PB.Name).gateInput1AnchorY = PB.Location.Y + 37
-            Gates(PB.Name).gateInput2AnchorX = PB.Location.X
-            Gates(PB.Name).gateInput2AnchorY = PB.Location.Y + 15
-            Gates(PB.Name).gateOutputAnchorX = PB.Location.X + 125
-            Gates(PB.Name).gateOutputAnchorY = PB.Location.Y + 27
         ElseIf choice = "or" Then
             PB.Image = orImage
-            PB.Height = 39
-            PB.Width = 125
-            Gates(PB.Name).gateInput1AnchorX = PB.Location.X
-            Gates(PB.Name).gateInput1AnchorY = PB.Location.Y + 31
-            Gates(PB.Name).gateInput2AnchorX = PB.Location.X
-            Gates(PB.Name).gateInput2AnchorY = PB.Location.Y + 8
-            Gates(PB.Name).gateOutputAnchorX = PB.Location.X + 125
-            Gates(PB.Name).gateOutputAnchorY = PB.Location.Y + 20
         ElseIf choice = "nor" Then
             PB.Image = norImage
-            PB.Height = 39
-            PB.Width = 125
-            Gates(PB.Name).gateInput1AnchorX = PB.Location.X
-            Gates(PB.Name).gateInput1AnchorY = PB.Location.Y + 31
-            Gates(PB.Name).gateInput2AnchorX = PB.Location.X
-            Gates(PB.Name).gateInput2AnchorY = PB.Location.Y + 8
-            Gates(PB.Name).gateOutputAnchorX = PB.Location.X + 125
-            Gates(PB.Name).gateOutputAnchorY = PB.Location.Y + 20
         ElseIf choice = "xor" Then
             PB.Image = xorImage
-            PB.Height = 39
-            PB.Width = 125
-            Gates(PB.Name).gateInput1AnchorX = PB.Location.X
-            Gates(PB.Name).gateInput1AnchorY = PB.Location.Y + 31
-            Gates(PB.Name).gateInput2AnchorX = PB.Location.X
-            Gates(PB.Name).gateInput2AnchorY = PB.Location.Y + 8
-            Gates(PB.Name).gateOutputAnchorX = PB.Location.X + 125
-            Gates(PB.Name).gateOutputAnchorY = PB.Location.Y + 20
         ElseIf choice = "not" Then
             PB.Image = notImage
-            PB.Height = 46
-            PB.Width = 125
-            Gates(PB.Name).gateInput1AnchorX = PB.Location.X
-            Gates(PB.Name).gateInput1AnchorY = PB.Location.Y + 23
-            Gates(PB.Name).gateOutputAnchorX = PB.Location.X + 125
-            Gates(PB.Name).gateOutputAnchorY = PB.Location.Y + 23
         End If
+        PB.Name = tempID             '---IMPORTANT---Gate name is set as the gate ID so the gate object can be referenced from the gate PB
         GatePB.Add(PB)               'Gate PB is added to PB list
+        Gates(PB.Name).gateXpos = PB.Left
+        Gates(PB.Name).gateYpos = Me.Height - PB.Top
     End Sub
     Private Sub newGate(ByVal choice As String)
         Dim gatecount As Integer
@@ -730,15 +688,13 @@ that name"
         Private ID As Integer
         Private isNull As Boolean
         Private Type As String
-        Private pos As Point
+        Private xpos As Integer
+        Private ypos As Integer
         Private value As Integer
         Private input1 As Integer
         Private input2 As Integer
         Private input1Exists As Boolean
         Private input2Exists As Boolean
-        Private input1Anchor As Point
-        Private input2Anchor As Point
-        Private outputAnchor As Point
         Sub New(ByVal givenID As Integer)
             ID = givenID
             isNull = True
@@ -783,28 +739,20 @@ that name"
                 Type = value
             End Set
         End Property
-        Public Property gatePos As Point
+        Public Property gateXpos As Integer
             Get
-                Return pos
+                Return xpos
             End Get
-            Set(ByVal value As Point)
-                pos = value
+            Set(ByVal givenXpos As Integer)
+                xpos = givenXpos
             End Set
         End Property
-        Public Property gatePosX As Integer
+        Public Property gateYpos As Integer
             Get
-                Return pos.X
+                Return ypos
             End Get
-            Set(ByVal value As Integer)
-                pos.X = value
-            End Set
-        End Property
-        Public Property gatePosY As Integer
-            Get
-                Return pos.Y
-            End Get
-            Set(ByVal value As Integer)
-                pos.Y = value
+            Set(ByVal givenYpos As Integer)
+                ypos = givenYpos
             End Set
         End Property
         Public Property gateValue As Integer
@@ -845,78 +793,6 @@ that name"
             End Get
             Set(value As Boolean)
                 input2Exists = value
-            End Set
-        End Property
-        Public Property gateInput1Anchor As Point
-            Get
-                Return input1Anchor
-            End Get
-            Set(value As Point)
-                input1Anchor = value
-            End Set
-        End Property
-        Public Property gateInput1AnchorX As Integer
-            Get
-                Return input1Anchor.X
-            End Get
-            Set(value As Integer)
-                input1Anchor.X = value
-            End Set
-        End Property
-        Public Property gateInput1AnchorY As Integer
-            Get
-                Return input1Anchor.Y
-            End Get
-            Set(value As Integer)
-                input1Anchor.Y = value
-            End Set
-        End Property
-        Public Property gateInput2Anchor As Point
-            Get
-                Return input2Anchor
-            End Get
-            Set(value As Point)
-                input2Anchor = value
-            End Set
-        End Property
-        Public Property gateInput2AnchorX As Integer
-            Get
-                Return input2Anchor.X
-            End Get
-            Set(value As Integer)
-                input2Anchor.X = value
-            End Set
-        End Property
-        Public Property gateInput2AnchorY As Integer
-            Get
-                Return input2Anchor.Y
-            End Get
-            Set(value As Integer)
-                input2Anchor.Y = value
-            End Set
-        End Property
-        Public Property gateOutputAnchor As Point
-            Get
-                Return outputAnchor
-            End Get
-            Set(value As Point)
-                outputAnchor = value
-            End Set
-        End Property
-        Public Property gateOutputAnchorX As Integer
-            Get
-                Return outputAnchor.X
-            End Get
-            Set(value As Integer)
-                outputAnchor.X = value
-            End Set
-        End Property
-        Public Property gateOutputAnchorY As Integer
-            Get
-                Return outputAnchor.Y
-            End Get
-            Set(value As Integer)
-                outputAnchor.Y = value
             End Set
         End Property
         Public Sub Calculate()  'function has to find the outputs of the gate objects which led to it
