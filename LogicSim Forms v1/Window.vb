@@ -58,11 +58,12 @@ Class Window
         loading_bar.Hide()
         SendMessage(Me.custom_gate_input.Handle, &H1501, 0, "Add a cutsom number of gates...")
         SendMessage(Me.custom_gate_name.Handle, &H1501, 0, "Add a cutsom gate name...")
+        SendMessage(Me.clock_interval_input.Handle, &H1501, 0, "Interval...")
     End Sub
     Private Sub ModeSwitch()
         If profMode = True Then
-            inputImageTrue = My.Resources.INPUTTRUEP
-            inputImageFalse = My.Resources.INPUTFALSEP
+            inputImageTrue = My.Resources.INPUTTRUEP1
+            inputImageFalse = My.Resources.INPUTFALSEP1
             add_input_true.Image = inputImageTrue
             add_input_false.Image = inputImageFalse
             outputImageNull = My.Resources.OUTPUTNULLP
@@ -214,8 +215,7 @@ Class Window
 
                             End If
                         End If
-                    End If
-                    If connections(i, j, k).connectionExists = True And k = 1 Then
+                    ElseIf connections(i, j, k).connectionExists = True And k = 1 Then
                         If Gates(i).gateValue = 1 Then
 
                             g.DrawLine(bluePen, (Gates(i).gateOutputAnchor), (Gates(j).gateInput2Anchor))
@@ -279,16 +279,16 @@ use the RESET button"
             End If
             If Gates(PB.Name).gateType = "and" Or Gates(PB.Name).gateType = "nand" Then
                 Gates(PB.Name).gateInput1AnchorX = PB.Location.X
-                Gates(PB.Name).gateInput1AnchorY = PB.Location.Y + 37
+                Gates(PB.Name).gateInput1AnchorY = PB.Location.Y + 15
                 Gates(PB.Name).gateInput2AnchorX = PB.Location.X
-                Gates(PB.Name).gateInput2AnchorY = PB.Location.Y + 15
+                Gates(PB.Name).gateInput2AnchorY = PB.Location.Y + 37
                 Gates(PB.Name).gateOutputAnchorX = PB.Location.X + 125
                 Gates(PB.Name).gateOutputAnchorY = PB.Location.Y + 27
             ElseIf Gates(PB.Name).gateType = "or" Or Gates(PB.Name).gateType = "nor" Or Gates(PB.Name).gateType = "xor" Then
                 Gates(PB.Name).gateInput1AnchorX = PB.Location.X
-                Gates(PB.Name).gateInput1AnchorY = PB.Location.Y + 31
+                Gates(PB.Name).gateInput1AnchorY = PB.Location.Y + 8
                 Gates(PB.Name).gateInput2AnchorX = PB.Location.X
-                Gates(PB.Name).gateInput2AnchorY = PB.Location.Y + 8
+                Gates(PB.Name).gateInput2AnchorY = PB.Location.Y + 31
                 Gates(PB.Name).gateOutputAnchorX = PB.Location.X + 125
                 Gates(PB.Name).gateOutputAnchorY = PB.Location.Y + 20
             ElseIf Gates(PB.Name).gateType = "not" Then
@@ -362,7 +362,6 @@ with value: " & prevValue                                         'The prevValue
 to " & (Gates(ID).gateType).ToUpper & " gate" & " 
 with value: " & prevValue
                         Gates(ID).gateInput2 = prevValue
-
                         connections(prevID, ID, 1).connectionValue = Gates(prevID).gateValue
                         connections(prevID, ID, 1).connectionExists = True
                         Gates(ID).gateInput2Exists = True
@@ -395,7 +394,7 @@ Right-Click again to delete"
         message_output.Text = ""
         Dim PB As New PictureBox
         PB.Left = 515 - (PB.Width / 2)
-        PB.Top = Me.ClientRectangle.Height - PB.Height
+        PB.Top = Me.ClientRectangle.Height - PB.Height - 10
         'Gates(PB.Name).gatePos = PB.Location
         PB.Name = tempID             '---IMPORTANT---Gate name is set as the gate ID so the gate object can be referenced from the gate PB
         AddHandler PB.MouseDown, AddressOf PBs_MouseDown
@@ -404,17 +403,19 @@ Right-Click again to delete"
         AddHandler PB.MouseLeave, AddressOf PBMouseLeave
         PB.Parent = Me
         If choice = "input" And Gates(tempID).gateValue = 1 Then
-            PB.Height = 60
-            PB.Width = 60
+            PB.Height = 58
+            PB.Width = 58
             PB.Image = inputImageTrue
             Gates(PB.Name).gateOutputAnchorX = PB.Location.X + 30
             Gates(PB.Name).gateOutputAnchorY = PB.Location.Y + 30
         ElseIf choice = "input" And Gates(tempID).gateValue = 0 Then
-            PB.Height = 60
-            PB.Width = 60
+            PB.Height = 58
+            PB.Width = 58
             PB.Image = inputImageFalse
             Gates(PB.Name).gateOutputAnchorX = PB.Location.X + 30
             Gates(PB.Name).gateOutputAnchorY = PB.Location.Y + 30
+        ElseIf choice = "clock" Then
+
         ElseIf choice = "output" Then
             PB.Height = 60
             PB.Width = 60
@@ -485,7 +486,7 @@ Right-Click again to delete"
         GatePB.Add(PB)               'Gate PB is added to PB list
     End Sub
     Private Sub newGate(ByVal choice As String)
-        Dim gatecount As Integer
+        Dim gatecount As Integer = 0
         Dim multgate As Integer
         Dim validName As Boolean = True
         For Each Gate In Gates
@@ -523,6 +524,14 @@ Right-Click again to delete"
                             ElseIf choice = "output" Then
                                 Gates(i).gateValue = 2
                                 Gates(i).gateInput1 = 2
+                            ElseIf choice = "clock" Then
+                                Gates(i).gateValue = 0
+                                Try
+                                    Gates(i).gateClockInterval = clock_interval_input.Text
+                                Catch
+                                    Gates(i).gateClockInterval = 1000
+                                End Try
+                                clock_interval_input.Text = ""
                             Else
                                 Gates(i).gateValue = 2
                                 Gates(i).gateInput1 = 2
@@ -681,6 +690,10 @@ that name"
         Dim choice As String = "inputf"
         newGate(choice)
     End Sub
+    Private Sub add_clock_Click(sender As Object, e As EventArgs) Handles add_clock.Click
+        Dim choice As String = "clock"
+        newGate(choice)
+    End Sub
     Private Sub add_output_Click(sender As Object, e As EventArgs) Handles add_output.Click
         Dim choice As String = "output"
         newGate(choice)
@@ -730,6 +743,7 @@ that name"
         Private ID As Integer
         Private isNull As Boolean
         Private Type As String
+        Private clockInterval As Integer
         Private pos As Point
         Private value As Integer
         Private input1 As Integer
@@ -744,6 +758,7 @@ that name"
             isNull = True
             input1Exists = False
             input2Exists = False
+            clockInterval = Nothing
         End Sub
         Protected Overrides Sub Finalize()
             isNull = True
@@ -781,6 +796,14 @@ that name"
             End Get
             Set(value As String)
                 Type = value
+            End Set
+        End Property
+        Public Property gateClockInterval As Integer
+            Get
+                Return clockInterval
+            End Get
+            Set(value As Integer)
+                clockInterval = value
             End Set
         End Property
         Public Property gatePos As Point

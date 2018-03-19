@@ -130,9 +130,6 @@
   <data name="INPUTTRUE" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\INPUTTRUE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="INPUTTRUEP" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\INPUTTRUEP.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="NAND" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\NAND.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -186,5 +183,14 @@
   </data>
   <data name="_XORP" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\XORP.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="INPUTFALSEP1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\INPUTFALSEP1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="INPUTTRUEP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\INPUTTRUEP.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="INPUTTRUEP1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\INPUTTRUEP1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

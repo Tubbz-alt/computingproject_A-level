@@ -173,6 +173,16 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property INPUTFALSEP1() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("INPUTFALSEP1", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property INPUTTRUE() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("INPUTTRUE", resourceCulture)
@@ -186,6 +196,16 @@ Namespace My.Resources
         Friend ReadOnly Property INPUTTRUEP() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("INPUTTRUEP", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property INPUTTRUEP1() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("INPUTTRUEP1", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

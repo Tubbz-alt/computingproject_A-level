@@ -154,9 +154,6 @@
     <None Include="Resources\INPUTFALSEP.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\INPUTTRUEP.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\NANDP.png" />
   </ItemGroup>
   <ItemGroup>
@@ -224,6 +221,15 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\INPUTTRUEP.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\INPUTFALSEP1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\INPUTTRUEP1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

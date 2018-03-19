@@ -43,6 +43,8 @@ Partial Class Window
         Me.loading_bar = New System.Windows.Forms.ProgressBar()
         Me.switch_mode = New System.Windows.Forms.Button()
         Me.invert_input = New System.Windows.Forms.Button()
+        Me.add_clock = New System.Windows.Forms.Button()
+        Me.clock_interval_input = New System.Windows.Forms.TextBox()
         Me.SuspendLayout()
         '
         'add_and
@@ -126,7 +128,7 @@ Partial Class Window
         Me.selected_gate.Font = New System.Drawing.Font("Corbel", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.selected_gate.Location = New System.Drawing.Point(596, 85)
         Me.selected_gate.Name = "selected_gate"
-        Me.selected_gate.Size = New System.Drawing.Size(0, 24)
+        Me.selected_gate.Size = New System.Drawing.Size(0, 22)
         Me.selected_gate.TabIndex = 7
         '
         'add_output
@@ -143,7 +145,7 @@ Partial Class Window
         Me.message_output.Font = New System.Drawing.Font("Corbel", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.message_output.Location = New System.Drawing.Point(782, 81)
         Me.message_output.Name = "message_output"
-        Me.message_output.Size = New System.Drawing.Size(0, 24)
+        Me.message_output.Size = New System.Drawing.Size(0, 22)
         Me.message_output.TabIndex = 12
         '
         'add_input_false
@@ -209,12 +211,31 @@ Partial Class Window
         Me.invert_input.Text = "INVERT INPUT"
         Me.invert_input.UseVisualStyleBackColor = True
         '
+        'add_clock
+        '
+        Me.add_clock.Font = New System.Drawing.Font("Corbel", 9.0!)
+        Me.add_clock.Location = New System.Drawing.Point(936, 72)
+        Me.add_clock.Name = "add_clock"
+        Me.add_clock.Size = New System.Drawing.Size(64, 64)
+        Me.add_clock.TabIndex = 21
+        Me.add_clock.Text = "CLOCK"
+        Me.add_clock.UseVisualStyleBackColor = True
+        '
+        'clock_interval_input
+        '
+        Me.clock_interval_input.Location = New System.Drawing.Point(936, 142)
+        Me.clock_interval_input.Name = "clock_interval_input"
+        Me.clock_interval_input.Size = New System.Drawing.Size(64, 20)
+        Me.clock_interval_input.TabIndex = 22
+        '
         'Window
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.delete_all_gates
-        Me.ClientSize = New System.Drawing.Size(1014, 459)
+        Me.ClientSize = New System.Drawing.Size(1014, 462)
+        Me.Controls.Add(Me.clock_interval_input)
+        Me.Controls.Add(Me.add_clock)
         Me.Controls.Add(Me.invert_input)
         Me.Controls.Add(Me.switch_mode)
         Me.Controls.Add(Me.loading_bar)
@@ -262,4 +283,6 @@ Partial Class Window
     Friend WithEvents loading_bar As ProgressBar
     Friend WithEvents switch_mode As Button
     Friend WithEvents invert_input As Button
+    Friend WithEvents add_clock As Button
+    Friend WithEvents clock_interval_input As TextBox
 End Class
