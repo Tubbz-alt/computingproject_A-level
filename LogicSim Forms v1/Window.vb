@@ -17,6 +17,7 @@ Class Window
     Private blackPen As New Pen(Color.Black, 4)
     Private bluePen As New Pen(Color.Blue, 4)
     Private redPen As New Pen(Color.Red, 4)
+    Private clockTime As Integer
     Private inputImageTrue As Image
     Private inputImageFalse As Image
     Private outputImageNull As Image
@@ -41,6 +42,10 @@ Class Window
     End Function
     Private Sub WindowStart()      'Sets initial values for gate variables
         g = CreateGraphics()
+        Label1.Text = 0
+        clockTime = 0
+        ClockTimer.Interval = 1
+        ClockTimer.Start()
         ReDim Gates(199)
         ReDim connections(199, 199, 1)
         prevValue = 2
@@ -59,6 +64,26 @@ Class Window
         SendMessage(Me.custom_gate_input.Handle, &H1501, 0, "Add a cutsom number of gates...")
         SendMessage(Me.custom_gate_name.Handle, &H1501, 0, "Add a cutsom gate name...")
         SendMessage(Me.clock_interval_input.Handle, &H1501, 0, "Interval...")
+    End Sub
+    Private Sub ClockTimerTick(sender As Object, e As EventArgs) Handles ClockTimer.Tick
+        clockTime += 1
+        Label1.Text = clockTime
+        If clockTime >= 10000 Then
+            clockTime = 0
+        End If
+        For Each Gate In Gates
+            If Gate.gateType = "clock" Then
+                If clockTime Mod Gate.gateClockInterval = 0 Then
+                    If Gate.gateValue = 1 Then
+                        Gate.gateValue = 0
+                    Else
+                        Gate.gateValue = 1
+                    End If
+                    RecalculateConnections(Gate.gateID)
+                    RefreshGraphics()
+                End If
+            End If
+        Next
     End Sub
     Private Sub ModeSwitch()
         If profMode = True Then
@@ -179,6 +204,10 @@ Class Window
             ElseIf Gates(PB.Name).gateType = "input" And Gates(PB.Name).gateValue = 1 Then
                 PB.Image = inputImageTrue
             ElseIf Gates(PB.Name).gateType = "input" And Gates(PB.Name).gateValue = 0 Then
+                PB.Image = inputImageFalse
+            ElseIf Gates(PB.Name).gateType = "clock" And Gates(PB.Name).gateValue = 1 Then
+                PB.Image = inputImageTrue
+            ElseIf Gates(PB.Name).gateType = "clock" And Gates(PB.Name).gateValue = 0 Then
                 PB.Image = inputImageFalse
             End If
         Next
@@ -324,16 +353,24 @@ use the RESET button"
             ElseIf Gates(ID).gateValue = 0 Then
                 value = "FALSE"
             End If
-            selected_gate.Text = "Selected Gate ID: " & ID & " 
+            If Gates(ID).gateType <> "clock" Then
+                selected_gate.Text = "Selected Gate ID: " & ID & " 
 Gate Type: " & (Gates(ID).gateType).ToUpper & "
 Current Value: " & value & "
 Gate Name: " & Gates(ID).gateName
+            Else
+                selected_gate.Text = "Selected Gate ID: " & ID & " 
+Gate Type: " & (Gates(ID).gateType).ToUpper & "
+Current Value: " & value & "
+Gate Name: " & Gates(ID).gateName & "
+Clock Interval: " & Gates(ID).gateClockInterval & " ms"
+            End If
         Else
         End If
     End Sub
     Private Sub AttachGate(ByRef oneSelected As Boolean, ByRef prevValue As Integer, ByRef prevID As Integer, ByVal ID As Integer)
         If oneSelected = True Then                                                     'This means the gate is having a value assigned to one of its inputs from another gates output
-            If Gates(ID).gateType <> "input" Then
+            If Gates(ID).gateType <> "input" Or Gates(ID).gateType <> "clock" Then
                 If Gates(ID).gateType = "not" Or Gates(ID).gateType = "output" Then
                     If Gates(ID).gateInput1Exists = False Then
                         message_output.Text = "Assigned input 
@@ -373,7 +410,7 @@ already occupied"
                 End If
                 RecalculateConnections(ID)
             Else
-                message_output.Text = "Input values are 
+                message_output.Text = "Input nodes are 
 fixed and cannot be 
 assigned by another 
 gate"
@@ -415,7 +452,11 @@ Right-Click again to delete"
             Gates(PB.Name).gateOutputAnchorX = PB.Location.X + 30
             Gates(PB.Name).gateOutputAnchorY = PB.Location.Y + 30
         ElseIf choice = "clock" Then
-
+            PB.Height = 58
+            PB.Width = 58
+            PB.Image = inputImageTrue
+            Gates(PB.Name).gateOutputAnchorX = PB.Location.X + 30
+            Gates(PB.Name).gateOutputAnchorY = PB.Location.Y + 30
         ElseIf choice = "output" Then
             PB.Height = 60
             PB.Width = 60
@@ -735,6 +776,15 @@ that name"
             End If
             RecalculateConnections(selectedID)
             RefreshGraphics()
+        End If
+    End Sub
+    Private Sub change_clock_interval_Click(sender As Object, e As EventArgs) Handles change_clock_interval.Click
+        If Gates(selectedID).gateType = "clock" Then
+            Try
+                Gates(selectedID).gateClockInterval = clock_interval_input.Text
+            Catch
+            End Try
+        Else
         End If
     End Sub
     Class MultiGate
