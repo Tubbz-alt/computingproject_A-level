@@ -77,12 +77,22 @@ LogicSim Forms v1
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
 </member>
+<member name="P:LogicSim_Forms_v1.My.Resources.Resources.INPUTFALSEP1">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
 <member name="P:LogicSim_Forms_v1.My.Resources.Resources.INPUTTRUE">
 <summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
 </member>
 <member name="P:LogicSim_Forms_v1.My.Resources.Resources.INPUTTRUEP">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:LogicSim_Forms_v1.My.Resources.Resources.INPUTTRUEP1">
 <summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>

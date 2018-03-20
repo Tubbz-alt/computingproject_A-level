@@ -291,6 +291,7 @@ use the RESET button"
     End Sub
     Private Sub PBs_MouseMove(ByVal sender As Object, ByVal e As MouseEventArgs)
         Dim PB As PictureBox = DirectCast(sender, PictureBox)
+        selectedID = PB.Name
         If e.Button = MouseButtons.Left And ValidPB Then               'If mouse is down, moving and the mouse is in valid bounds then the gate moves
             RefreshGraphics()
             PB.Left += e.Location.X - Point.X
@@ -574,7 +575,7 @@ Right-Click again to delete"
                                 Try
                                     Gates(i).gateClockInterval = clock_interval_input.Text
                                 Catch
-                                    Gates(i).gateClockInterval = 1000
+                                    Gates(i).gateClockInterval = 400
                                 End Try
                                 clock_interval_input.Text = ""
                             Else
@@ -790,6 +791,7 @@ that name"
             End Try
         Else
         End If
+        clock_interval_input.Text = ""
     End Sub
     Class MultiGate
         Inherits Window
