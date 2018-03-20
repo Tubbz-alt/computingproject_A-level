@@ -2,12 +2,11 @@
 Imports System.Runtime.InteropServices
 Class Window
     Private profMode As Boolean
-    Private oneSelected As Boolean = False
     Private tempID As Integer
+    Private oneSelected As Boolean = False
     Private selectedID As Integer
     Private prevValue As Integer
     Private prevID As Integer
-    Private tempInputID As Integer
     Private loopCount As Integer
     Private loopCount2 As Integer
     Private prevLoopID As Integer = Nothing
@@ -29,8 +28,8 @@ Class Window
     Private norImage As Image
     Private xorImage As Image
     Private notImage As Image
-    Protected Point As Point
     Private ValidPB As Boolean
+    Protected Point As Point
     Protected WithEvents GatePB As New List(Of PictureBox)
     Protected connections(199, 199, 1) As Connection
     Protected Gates() As MultiGate
@@ -42,7 +41,7 @@ Class Window
     End Function
     Private Sub WindowStart()      'Sets initial values for gate variables
         g = CreateGraphics()
-        Label1.Text = 0
+        'Label2.Text = 0
         clockTime = 0
         ClockTimer.Interval = 1
         ClockTimer.Start()
@@ -67,7 +66,7 @@ Class Window
     End Sub
     Private Sub ClockTimerTick(sender As Object, e As EventArgs) Handles ClockTimer.Tick
         clockTime += 1
-        Label1.Text = clockTime
+        'Label2.Text = clockTime
         If clockTime >= 10000 Then
             clockTime = 0
         End If
@@ -268,7 +267,11 @@ Class Window
         Dim ID = PB.Name
         Point = e.Location
         If e.Button = MouseButtons.Left Then                               'If it is a left click then the gate is 'selected' and details are shown
-            selectedID = PB.Name
+            If selectedID = -1 Then
+                selected_gate.Text = ""
+            Else
+                displayGateInfo(selectedID)
+            End If
             If PB.Location.X >= 0 Or PB.Location.X <= Me.Width Or PB.Location.Y >= 0 Or PB.Location.Y <= Me.Height Then
                 ValidPB = True
             End If
@@ -426,26 +429,26 @@ Right-Click again to delete"
             oneSelected = True
         End If
     End Sub
-    Private Sub AddGatePB(ByVal choice As String, ByVal tempID As Integer)
+    Private Sub AddGatePB(ByVal choice As String, ByVal ID As Integer)
         oneSelected = False
         message_output.Text = ""
         Dim PB As New PictureBox
         PB.Left = 515 - (PB.Width / 2)
         PB.Top = Me.ClientRectangle.Height - PB.Height - 10
         'Gates(PB.Name).gatePos = PB.Location
-        PB.Name = tempID             '---IMPORTANT---Gate name is set as the gate ID so the gate object can be referenced from the gate PB
+        PB.Name = ID             '---IMPORTANT---Gate name is set as the gate ID so the gate object can be referenced from the gate PB
         AddHandler PB.MouseDown, AddressOf PBs_MouseDown
         AddHandler PB.MouseMove, AddressOf PBs_MouseMove
         AddHandler PB.MouseEnter, AddressOf PBMouseEnter
         AddHandler PB.MouseLeave, AddressOf PBMouseLeave
         PB.Parent = Me
-        If choice = "input" And Gates(tempID).gateValue = 1 Then
+        If choice = "input" And Gates(ID).gateValue = 1 Then
             PB.Height = 58
             PB.Width = 58
             PB.Image = inputImageTrue
             Gates(PB.Name).gateOutputAnchorX = PB.Location.X + 30
             Gates(PB.Name).gateOutputAnchorY = PB.Location.Y + 30
-        ElseIf choice = "input" And Gates(tempID).gateValue = 0 Then
+        ElseIf choice = "input" And Gates(ID).gateValue = 0 Then
             PB.Height = 58
             PB.Width = 58
             PB.Image = inputImageFalse
@@ -527,6 +530,7 @@ Right-Click again to delete"
         GatePB.Add(PB)               'Gate PB is added to PB list
     End Sub
     Private Sub newGate(ByVal choice As String)
+        Dim ID As Integer
         Dim gatecount As Integer = 0
         Dim multgate As Integer
         Dim validName As Boolean = True
@@ -578,8 +582,8 @@ Right-Click again to delete"
                                 Gates(i).gateInput1 = 2
                                 Gates(i).gateInput2 = 2
                             End If
-                            tempID = i
-                            AddGatePB(Gates(i).gateType, tempID)
+                            ID = i
+                            AddGatePB(Gates(i).gateType, ID)
                             Exit For
                         End If
                     Next

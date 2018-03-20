@@ -47,7 +47,6 @@ Partial Class Window
         Me.clock_interval_input = New System.Windows.Forms.TextBox()
         Me.change_clock_interval = New System.Windows.Forms.Button()
         Me.ClockTimer = New System.Windows.Forms.Timer(Me.components)
-        Me.Label1 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'add_and
@@ -131,7 +130,7 @@ Partial Class Window
         Me.selected_gate.Font = New System.Drawing.Font("Corbel", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.selected_gate.Location = New System.Drawing.Point(596, 85)
         Me.selected_gate.Name = "selected_gate"
-        Me.selected_gate.Size = New System.Drawing.Size(0, 24)
+        Me.selected_gate.Size = New System.Drawing.Size(0, 22)
         Me.selected_gate.TabIndex = 7
         '
         'add_output
@@ -148,7 +147,7 @@ Partial Class Window
         Me.message_output.Font = New System.Drawing.Font("Corbel", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.message_output.Location = New System.Drawing.Point(782, 81)
         Me.message_output.Name = "message_output"
-        Me.message_output.Size = New System.Drawing.Size(0, 24)
+        Me.message_output.Size = New System.Drawing.Size(0, 22)
         Me.message_output.TabIndex = 12
         '
         'add_input_false
@@ -244,21 +243,12 @@ Partial Class Window
         'ClockTimer
         '
         '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(174, 349)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(0, 15)
-        Me.Label1.TabIndex = 24
-        '
         'Window
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.delete_all_gates
-        Me.ClientSize = New System.Drawing.Size(1014, 459)
-        Me.Controls.Add(Me.Label1)
+        Me.ClientSize = New System.Drawing.Size(1014, 462)
         Me.Controls.Add(Me.change_clock_interval)
         Me.Controls.Add(Me.clock_interval_input)
         Me.Controls.Add(Me.add_clock)
@@ -313,5 +303,4 @@ Partial Class Window
     Friend WithEvents clock_interval_input As TextBox
     Friend WithEvents change_clock_interval As Button
     Friend WithEvents ClockTimer As Timer
-    Friend WithEvents Label1 As Label
 End Class
