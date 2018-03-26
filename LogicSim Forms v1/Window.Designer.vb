@@ -47,13 +47,23 @@ Partial Class Window
         Me.clock_interval_input = New System.Windows.Forms.TextBox()
         Me.change_clock_interval = New System.Windows.Forms.Button()
         Me.ClockTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.GroupBox1.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
+        Me.GroupBox3.SuspendLayout()
+        Me.GroupBox4.SuspendLayout()
+        Me.GroupBox5.SuspendLayout()
         Me.SuspendLayout()
         '
         'add_and
         '
         Me.add_and.Font = New System.Drawing.Font("Corbel", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.add_and.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.add_and.Location = New System.Drawing.Point(12, 4)
+        Me.add_and.Location = New System.Drawing.Point(6, 19)
         Me.add_and.Name = "add_and"
         Me.add_and.Size = New System.Drawing.Size(125, 60)
         Me.add_and.TabIndex = 0
@@ -64,7 +74,7 @@ Partial Class Window
         '
         Me.add_nand.Font = New System.Drawing.Font("Corbel", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.add_nand.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.add_nand.Location = New System.Drawing.Point(143, 4)
+        Me.add_nand.Location = New System.Drawing.Point(137, 19)
         Me.add_nand.Name = "add_nand"
         Me.add_nand.Size = New System.Drawing.Size(125, 60)
         Me.add_nand.TabIndex = 1
@@ -75,7 +85,7 @@ Partial Class Window
         '
         Me.add_or.Font = New System.Drawing.Font("Corbel", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.add_or.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.add_or.Location = New System.Drawing.Point(274, 4)
+        Me.add_or.Location = New System.Drawing.Point(268, 19)
         Me.add_or.Name = "add_or"
         Me.add_or.Size = New System.Drawing.Size(125, 60)
         Me.add_or.TabIndex = 2
@@ -86,7 +96,7 @@ Partial Class Window
         '
         Me.add_nor.Font = New System.Drawing.Font("Corbel", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.add_nor.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.add_nor.Location = New System.Drawing.Point(405, 4)
+        Me.add_nor.Location = New System.Drawing.Point(399, 19)
         Me.add_nor.Name = "add_nor"
         Me.add_nor.Size = New System.Drawing.Size(125, 60)
         Me.add_nor.TabIndex = 3
@@ -97,7 +107,7 @@ Partial Class Window
         '
         Me.add_xor.Font = New System.Drawing.Font("Corbel", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.add_xor.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.add_xor.Location = New System.Drawing.Point(536, 4)
+        Me.add_xor.Location = New System.Drawing.Point(530, 19)
         Me.add_xor.Name = "add_xor"
         Me.add_xor.Size = New System.Drawing.Size(125, 60)
         Me.add_xor.TabIndex = 4
@@ -108,7 +118,7 @@ Partial Class Window
         '
         Me.add_not.Font = New System.Drawing.Font("Corbel", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.add_not.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.add_not.Location = New System.Drawing.Point(667, 4)
+        Me.add_not.Location = New System.Drawing.Point(661, 19)
         Me.add_not.Name = "add_not"
         Me.add_not.Size = New System.Drawing.Size(125, 60)
         Me.add_not.TabIndex = 5
@@ -118,7 +128,7 @@ Partial Class Window
         'add_input_true
         '
         Me.add_input_true.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.add_input_true.Location = New System.Drawing.Point(798, 2)
+        Me.add_input_true.Location = New System.Drawing.Point(6, 19)
         Me.add_input_true.Name = "add_input_true"
         Me.add_input_true.Size = New System.Drawing.Size(64, 64)
         Me.add_input_true.TabIndex = 6
@@ -128,14 +138,14 @@ Partial Class Window
         '
         Me.selected_gate.AutoSize = True
         Me.selected_gate.Font = New System.Drawing.Font("Corbel", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.selected_gate.Location = New System.Drawing.Point(596, 85)
+        Me.selected_gate.Location = New System.Drawing.Point(12, 190)
         Me.selected_gate.Name = "selected_gate"
         Me.selected_gate.Size = New System.Drawing.Size(0, 22)
         Me.selected_gate.TabIndex = 7
         '
         'add_output
         '
-        Me.add_output.Location = New System.Drawing.Point(936, 2)
+        Me.add_output.Location = New System.Drawing.Point(6, 19)
         Me.add_output.Name = "add_output"
         Me.add_output.Size = New System.Drawing.Size(64, 64)
         Me.add_output.TabIndex = 11
@@ -145,7 +155,7 @@ Partial Class Window
         '
         Me.message_output.AutoSize = True
         Me.message_output.Font = New System.Drawing.Font("Corbel", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.message_output.Location = New System.Drawing.Point(782, 81)
+        Me.message_output.Location = New System.Drawing.Point(180, 190)
         Me.message_output.Name = "message_output"
         Me.message_output.Size = New System.Drawing.Size(0, 22)
         Me.message_output.TabIndex = 12
@@ -153,7 +163,7 @@ Partial Class Window
         'add_input_false
         '
         Me.add_input_false.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.add_input_false.Location = New System.Drawing.Point(867, 2)
+        Me.add_input_false.Location = New System.Drawing.Point(76, 19)
         Me.add_input_false.Name = "add_input_false"
         Me.add_input_false.Size = New System.Drawing.Size(64, 64)
         Me.add_input_false.TabIndex = 14
@@ -163,7 +173,7 @@ Partial Class Window
         '
         Me.delete_all_gates.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.delete_all_gates.Font = New System.Drawing.Font("Corbel", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.delete_all_gates.Location = New System.Drawing.Point(12, 72)
+        Me.delete_all_gates.Location = New System.Drawing.Point(136, 14)
         Me.delete_all_gates.Name = "delete_all_gates"
         Me.delete_all_gates.Size = New System.Drawing.Size(78, 45)
         Me.delete_all_gates.TabIndex = 15
@@ -172,30 +182,30 @@ Partial Class Window
         '
         'custom_gate_input
         '
-        Me.custom_gate_input.Location = New System.Drawing.Point(400, 85)
+        Me.custom_gate_input.Location = New System.Drawing.Point(180, 19)
         Me.custom_gate_input.Name = "custom_gate_input"
         Me.custom_gate_input.Size = New System.Drawing.Size(168, 20)
         Me.custom_gate_input.TabIndex = 16
         '
         'custom_gate_name
         '
-        Me.custom_gate_name.Location = New System.Drawing.Point(226, 85)
+        Me.custom_gate_name.Location = New System.Drawing.Point(6, 19)
         Me.custom_gate_name.Name = "custom_gate_name"
         Me.custom_gate_name.Size = New System.Drawing.Size(168, 20)
         Me.custom_gate_name.TabIndex = 17
         '
         'loading_bar
         '
-        Me.loading_bar.Location = New System.Drawing.Point(96, 123)
+        Me.loading_bar.Location = New System.Drawing.Point(271, 298)
         Me.loading_bar.Name = "loading_bar"
-        Me.loading_bar.Size = New System.Drawing.Size(426, 20)
+        Me.loading_bar.Size = New System.Drawing.Size(387, 20)
         Me.loading_bar.TabIndex = 18
         '
         'switch_mode
         '
         Me.switch_mode.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.switch_mode.Font = New System.Drawing.Font("Corbel", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.switch_mode.Location = New System.Drawing.Point(96, 72)
+        Me.switch_mode.Location = New System.Drawing.Point(6, 14)
         Me.switch_mode.Name = "switch_mode"
         Me.switch_mode.Size = New System.Drawing.Size(124, 45)
         Me.switch_mode.TabIndex = 19
@@ -206,7 +216,7 @@ Partial Class Window
         '
         Me.invert_input.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.invert_input.Font = New System.Drawing.Font("Corbel", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.invert_input.Location = New System.Drawing.Point(12, 123)
+        Me.invert_input.Location = New System.Drawing.Point(220, 14)
         Me.invert_input.Name = "invert_input"
         Me.invert_input.Size = New System.Drawing.Size(78, 45)
         Me.invert_input.TabIndex = 20
@@ -216,7 +226,7 @@ Partial Class Window
         'add_clock
         '
         Me.add_clock.Font = New System.Drawing.Font("Corbel", 9.0!)
-        Me.add_clock.Location = New System.Drawing.Point(867, 72)
+        Me.add_clock.Location = New System.Drawing.Point(7, 89)
         Me.add_clock.Name = "add_clock"
         Me.add_clock.Size = New System.Drawing.Size(133, 45)
         Me.add_clock.TabIndex = 21
@@ -225,7 +235,7 @@ Partial Class Window
         '
         'clock_interval_input
         '
-        Me.clock_interval_input.Location = New System.Drawing.Point(867, 120)
+        Me.clock_interval_input.Location = New System.Drawing.Point(7, 140)
         Me.clock_interval_input.Name = "clock_interval_input"
         Me.clock_interval_input.Size = New System.Drawing.Size(58, 20)
         Me.clock_interval_input.TabIndex = 22
@@ -233,7 +243,7 @@ Partial Class Window
         'change_clock_interval
         '
         Me.change_clock_interval.Font = New System.Drawing.Font("Corbel", 9.0!)
-        Me.change_clock_interval.Location = New System.Drawing.Point(931, 117)
+        Me.change_clock_interval.Location = New System.Drawing.Point(71, 139)
         Me.change_clock_interval.Name = "change_clock_interval"
         Me.change_clock_interval.Size = New System.Drawing.Size(69, 23)
         Me.change_clock_interval.TabIndex = 23
@@ -243,39 +253,96 @@ Partial Class Window
         'ClockTimer
         '
         '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.add_and)
+        Me.GroupBox1.Controls.Add(Me.add_nand)
+        Me.GroupBox1.Controls.Add(Me.add_or)
+        Me.GroupBox1.Controls.Add(Me.add_nor)
+        Me.GroupBox1.Controls.Add(Me.add_xor)
+        Me.GroupBox1.Controls.Add(Me.add_not)
+        Me.GroupBox1.Location = New System.Drawing.Point(3, 2)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(791, 88)
+        Me.GroupBox1.TabIndex = 24
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "Add Logic Gates"
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.add_input_true)
+        Me.GroupBox2.Controls.Add(Me.add_input_false)
+        Me.GroupBox2.Controls.Add(Me.change_clock_interval)
+        Me.GroupBox2.Controls.Add(Me.add_clock)
+        Me.GroupBox2.Controls.Add(Me.clock_interval_input)
+        Me.GroupBox2.Location = New System.Drawing.Point(800, 2)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(150, 180)
+        Me.GroupBox2.TabIndex = 25
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "Inputs"
+        '
+        'GroupBox3
+        '
+        Me.GroupBox3.Controls.Add(Me.add_output)
+        Me.GroupBox3.Location = New System.Drawing.Point(718, 96)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Size = New System.Drawing.Size(76, 92)
+        Me.GroupBox3.TabIndex = 26
+        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "Output"
+        '
+        'GroupBox4
+        '
+        Me.GroupBox4.Controls.Add(Me.switch_mode)
+        Me.GroupBox4.Controls.Add(Me.invert_input)
+        Me.GroupBox4.Controls.Add(Me.delete_all_gates)
+        Me.GroupBox4.Location = New System.Drawing.Point(3, 96)
+        Me.GroupBox4.Name = "GroupBox4"
+        Me.GroupBox4.Size = New System.Drawing.Size(304, 68)
+        Me.GroupBox4.TabIndex = 27
+        Me.GroupBox4.TabStop = False
+        Me.GroupBox4.Text = "Tools"
+        '
+        'GroupBox5
+        '
+        Me.GroupBox5.Controls.Add(Me.custom_gate_name)
+        Me.GroupBox5.Controls.Add(Me.custom_gate_input)
+        Me.GroupBox5.Location = New System.Drawing.Point(313, 104)
+        Me.GroupBox5.Name = "GroupBox5"
+        Me.GroupBox5.Size = New System.Drawing.Size(356, 58)
+        Me.GroupBox5.TabIndex = 28
+        Me.GroupBox5.TabStop = False
+        Me.GroupBox5.Text = "Extra Options"
+        '
         'Window
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.delete_all_gates
-        Me.ClientSize = New System.Drawing.Size(1014, 462)
-        Me.Controls.Add(Me.change_clock_interval)
-        Me.Controls.Add(Me.clock_interval_input)
-        Me.Controls.Add(Me.add_clock)
-        Me.Controls.Add(Me.invert_input)
-        Me.Controls.Add(Me.switch_mode)
+        Me.ClientSize = New System.Drawing.Size(964, 562)
+        Me.Controls.Add(Me.GroupBox5)
+        Me.Controls.Add(Me.GroupBox4)
+        Me.Controls.Add(Me.GroupBox3)
+        Me.Controls.Add(Me.GroupBox2)
+        Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.loading_bar)
-        Me.Controls.Add(Me.custom_gate_name)
-        Me.Controls.Add(Me.custom_gate_input)
-        Me.Controls.Add(Me.delete_all_gates)
-        Me.Controls.Add(Me.add_input_false)
         Me.Controls.Add(Me.message_output)
-        Me.Controls.Add(Me.add_output)
         Me.Controls.Add(Me.selected_gate)
-        Me.Controls.Add(Me.add_input_true)
-        Me.Controls.Add(Me.add_not)
-        Me.Controls.Add(Me.add_xor)
-        Me.Controls.Add(Me.add_nor)
-        Me.Controls.Add(Me.add_or)
-        Me.Controls.Add(Me.add_nand)
-        Me.Controls.Add(Me.add_and)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
-        Me.MaximumSize = New System.Drawing.Size(1030, 500)
-        Me.MinimumSize = New System.Drawing.Size(1030, 500)
+        Me.MaximumSize = New System.Drawing.Size(980, 600)
+        Me.MinimumSize = New System.Drawing.Size(980, 600)
         Me.Name = "Window"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "LogicSim"
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
+        Me.GroupBox3.ResumeLayout(False)
+        Me.GroupBox4.ResumeLayout(False)
+        Me.GroupBox5.ResumeLayout(False)
+        Me.GroupBox5.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -303,4 +370,9 @@ Partial Class Window
     Friend WithEvents clock_interval_input As TextBox
     Friend WithEvents change_clock_interval As Button
     Friend WithEvents ClockTimer As Timer
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents GroupBox3 As GroupBox
+    Friend WithEvents GroupBox4 As GroupBox
+    Friend WithEvents GroupBox5 As GroupBox
 End Class

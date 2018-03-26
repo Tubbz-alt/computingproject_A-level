@@ -1,6 +1,7 @@
 ﻿Imports VB = Microsoft.VisualBasic
 Imports System.Runtime.InteropServices
 Class Window
+    'Global Private variable declarations
     Private profMode As Boolean
     Private tempID As Integer
     Private oneSelected As Boolean = False
@@ -10,6 +11,7 @@ Class Window
     Private loopCount As Integer
     Private loopCount2 As Integer
     Private prevLoopID As Integer = Nothing
+    'Graphics object declarations
     Private comicSansFont As New Font("Comic Sans MS", 9, FontStyle.Regular)
     Private corbelFont As New Font("Corbel", 10, FontStyle.Regular)
     Private g As Graphics
@@ -17,6 +19,8 @@ Class Window
     Private bluePen As New Pen(Color.Blue, 4)
     Private redPen As New Pen(Color.Red, 4)
     Private clockTime As Integer
+    Private ValidPB As Boolean
+    'Image Declarations for the gate PBs
     Private inputImageTrue As Image
     Private inputImageFalse As Image
     Private outputImageNull As Image
@@ -28,8 +32,8 @@ Class Window
     Private norImage As Image
     Private xorImage As Image
     Private notImage As Image
-    Private ValidPB As Boolean
     Protected Point As Point
+    'Object Declarations
     Protected WithEvents GatePB As New List(Of PictureBox)
     Protected connections(199, 199, 1) As Connection
     Protected Gates() As MultiGate
@@ -41,15 +45,14 @@ Class Window
     End Function
     Private Sub WindowStart()      'Sets initial values for gate variables
         g = CreateGraphics()
-        'Label2.Text = 0
-        clockTime = 0
+        clockTime = 0                          'Sets the clock to 0, sets the interval to 1ms
         ClockTimer.Interval = 1
         ClockTimer.Start()
         ReDim Gates(199)
         ReDim connections(199, 199, 1)
         prevValue = 2
         ModeSwitch()
-        For i As Integer = 0 To 199
+        For i As Integer = 0 To 199            'All gate and connection objects are instantiated and set to a null state
             Gates(i) = New MultiGate(i)
         Next
         For k = 0 To 1
@@ -59,32 +62,32 @@ Class Window
                 Next
             Next
         Next
-        loading_bar.Hide()
+        loading_bar.Hide()                      'For graphical and UI elements \/ \/
         SendMessage(Me.custom_gate_input.Handle, &H1501, 0, "Add a cutsom number of gates...")
         SendMessage(Me.custom_gate_name.Handle, &H1501, 0, "Add a cutsom gate name...")
         SendMessage(Me.clock_interval_input.Handle, &H1501, 0, "Interval...")
     End Sub
     Private Sub ClockTimerTick(sender As Object, e As EventArgs) Handles ClockTimer.Tick
-        clockTime += 1
-        'Label2.Text = clockTime
-        If clockTime >= 10000 Then
+        clockTime += 1                'Ticks over every millisecond
+        If clockTime >= 10000 Then    'Stops value overflowing
             clockTime = 0
         End If
         For Each Gate In Gates
-            If Gate.gateType = "clock" Then
-                If clockTime Mod Gate.gateClockInterval = 0 Then
+            If Gate.gateType = "clock" Then                          'Checks the gates to see if any clocks exist and
+                If clockTime Mod Gate.gateClockInterval = 0 Then     'if they do, check if they need to change value
                     If Gate.gateValue = 1 Then
                         Gate.gateValue = 0
                     Else
                         Gate.gateValue = 1
                     End If
                     RecalculateConnections(Gate.gateID)
-                    RefreshGraphics()
+                    RefreshGraphics()                    'Refreshes all elements to show change
+                    displayGateInfo(Gate.gateID)
                 End If
             End If
         Next
     End Sub
-    Private Sub ModeSwitch()
+    Private Sub ModeSwitch()                                 'Assignment of images en mass to PB variables depending on mode
         If profMode = True Then
             inputImageTrue = My.Resources.INPUTTRUEP1
             inputImageFalse = My.Resources.INPUTFALSEP1
@@ -281,9 +284,6 @@ Class Window
                 DeleteGate(PB)
                 oneSelected = False
                 message_output.Text = ""
-            ElseIf ID = prevID And oneSelected = True And profMode = False Then
-                message_output.Text = "To delete gates In child mode 
-use the RESET button"
             Else
                 AttachGate(oneSelected, prevValue, prevID, ID)
             End If
@@ -303,8 +303,8 @@ use the RESET button"
             ElseIf PB.Left > (Me.Width - 130) Then
                 PB.Left = (Me.Width - 140)
                 ValidPB = False
-            ElseIf PB.Top < 50 Then
-                PB.Top = 60
+            ElseIf PB.Top < 160 Then
+                PB.Top = 170
                 ValidPB = False
             ElseIf PB.Top > (Me.Height - 90) Then
                 PB.Top = (Me.Height - 100)
