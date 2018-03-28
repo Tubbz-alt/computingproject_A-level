@@ -37,7 +37,7 @@ Class Window
     Protected WithEvents GatePB As New List(Of PictureBox)
     Protected connections(199, 199, 1) As Connection
     Protected Gates() As MultiGate
-    Private Sub WindowCloser(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles Me.Closing
+    Private Sub WindowCloser(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         End
     End Sub
     <DllImport("user32.dll", CharSet:=CharSet.Auto)>
@@ -63,8 +63,8 @@ Class Window
             Next
         Next
         loading_bar.Hide()                      'For graphical and UI elements \/ \/
-        SendMessage(Me.custom_gate_input.Handle, &H1501, 0, "Add a cutsom number of gates...")
-        SendMessage(Me.custom_gate_name.Handle, &H1501, 0, "Add a cutsom gate name...")
+        SendMessage(Me.custom_gate_input.Handle, &H1501, 0, "Custom Number of Gates")
+        SendMessage(Me.custom_gate_name.Handle, &H1501, 0, "Custom Gate Name")
         SendMessage(Me.clock_interval_input.Handle, &H1501, 0, "Interval...")
     End Sub
     Private Sub ClockTimerTick(sender As Object, e As EventArgs) Handles ClockTimer.Tick
@@ -190,10 +190,7 @@ Class Window
         End Set
     End Property
     Private Sub WindowLoader(sender As Object, e As EventArgs) Handles MyBase.Load
-        loader.Enabled = True
         WindowStart()                   'Calls the sub that redims gate arrays and constructs gate objects using these arrays
-        loader.Enabled = False
-        ButtonCheck.Enabled = True
     End Sub
     Private Sub RefreshGraphics()
         For Each PB In GatePB
@@ -213,7 +210,7 @@ Class Window
                 PB.Image = inputImageFalse
             End If
         Next
-        Me.Refresh()              'Graphics refresh
+        Me.Refresh()
         For k = 0 To 1                                      '          || ||
             For i = 0 To 199                                'This mess \/ \/  is responsible for assigning connection graphics to the correct part of each gate
                 For j = 0 To 199
@@ -303,8 +300,8 @@ Class Window
             ElseIf PB.Left > (Me.Width - 130) Then
                 PB.Left = (Me.Width - 140)
                 ValidPB = False
-            ElseIf PB.Top < 160 Then
-                PB.Top = 170
+            ElseIf PB.Top < 190 Then
+                PB.Top = 190
                 ValidPB = False
             ElseIf PB.Top > (Me.Height - 90) Then
                 PB.Top = (Me.Height - 100)
@@ -598,6 +595,44 @@ that name"
         End If
         custom_gate_name.Text = ""
     End Sub
+    Private Sub loadPreset(strFileName As String)
+        Dim readString As String
+        Dim gateSequence(100) As String
+        Dim connectionSequence(100) As String
+        Dim gateRead As Boolean = True
+        Dim x As Integer = 0
+        readString = My.Computer.FileSystem.ReadAllText(strFileName)
+        For Each letter As String In readString
+            If letter = "!" Then
+                gateRead = False
+                x = 0
+                For i = 0 To gateSequence.Length - 1
+                    If gateSequence(i) <> "" Then
+                        newGate(gateSequence(i))
+                    Else
+                    End If
+                Next
+            Else
+                If letter <> "/" And gateRead = True Then
+                    gateSequence(x) = gateSequence(x) & letter
+                ElseIf gateRead = True Then
+                    x += 1
+                End If
+                If letter <> "/" And gateRead = False Then
+                    If letter <> "." Then
+                        connectionSequence(x) = letter
+                    Else
+                        x += 1
+                    End If
+                ElseIf letter = "/" And gateRead = False Then
+                    x = 0
+                    connections(connectionSequence(0), connectionSequence(1), connectionSequence(2)).connectionExists = True
+                End If
+            End If
+        Next
+        RecalculateConnections(0)
+        RefreshGraphics()
+    End Sub
     Private Sub delete_all_gates_Click(sender As Object, e As EventArgs) Handles delete_all_gates.Click
         loading_bar.Value = 0
         loading_bar.Maximum = Convert.ToInt32(GatePB.Count)
@@ -792,6 +827,21 @@ that name"
         Else
         End If
         clock_interval_input.Text = ""
+    End Sub
+    Private Sub browse_for_preset_Click(sender As Object, e As EventArgs) Handles browse_for_preset.Click
+        Dim fd As OpenFileDialog = New OpenFileDialog()
+        Dim strFileName As String
+
+        fd.Title = "Open File Dialog"
+        fd.InitialDirectory = "C:\"
+        fd.Filter = "All files (*.*)|*.*|All files (*.*)|*.*"
+        fd.FilterIndex = 2
+        fd.RestoreDirectory = True
+
+        If fd.ShowDialog() = DialogResult.OK Then
+            strFileName = fd.FileName
+            loadPreset(strFileName)
+        End If
     End Sub
     Class MultiGate
         Inherits Window

@@ -24,8 +24,6 @@ Partial Class Window
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Window))
-        Me.loader = New System.Windows.Forms.Timer(Me.components)
-        Me.ButtonCheck = New System.Windows.Forms.Timer(Me.components)
         Me.add_and = New System.Windows.Forms.Button()
         Me.add_nand = New System.Windows.Forms.Button()
         Me.add_or = New System.Windows.Forms.Button()
@@ -52,11 +50,15 @@ Partial Class Window
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.browse_for_preset = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
+        Me.GroupBox6.SuspendLayout()
         Me.SuspendLayout()
         '
         'add_and
@@ -140,7 +142,7 @@ Partial Class Window
         Me.selected_gate.Font = New System.Drawing.Font("Corbel", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.selected_gate.Location = New System.Drawing.Point(12, 190)
         Me.selected_gate.Name = "selected_gate"
-        Me.selected_gate.Size = New System.Drawing.Size(0, 22)
+        Me.selected_gate.Size = New System.Drawing.Size(0, 24)
         Me.selected_gate.TabIndex = 7
         '
         'add_output
@@ -157,7 +159,7 @@ Partial Class Window
         Me.message_output.Font = New System.Drawing.Font("Corbel", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.message_output.Location = New System.Drawing.Point(180, 190)
         Me.message_output.Name = "message_output"
-        Me.message_output.Size = New System.Drawing.Size(0, 22)
+        Me.message_output.Size = New System.Drawing.Size(0, 24)
         Me.message_output.TabIndex = 12
         '
         'add_input_false
@@ -182,21 +184,21 @@ Partial Class Window
         '
         'custom_gate_input
         '
-        Me.custom_gate_input.Location = New System.Drawing.Point(180, 19)
+        Me.custom_gate_input.Location = New System.Drawing.Point(129, 19)
         Me.custom_gate_input.Name = "custom_gate_input"
-        Me.custom_gate_input.Size = New System.Drawing.Size(168, 20)
+        Me.custom_gate_input.Size = New System.Drawing.Size(117, 20)
         Me.custom_gate_input.TabIndex = 16
         '
         'custom_gate_name
         '
         Me.custom_gate_name.Location = New System.Drawing.Point(6, 19)
         Me.custom_gate_name.Name = "custom_gate_name"
-        Me.custom_gate_name.Size = New System.Drawing.Size(168, 20)
+        Me.custom_gate_name.Size = New System.Drawing.Size(117, 20)
         Me.custom_gate_name.TabIndex = 17
         '
         'loading_bar
         '
-        Me.loading_bar.Location = New System.Drawing.Point(271, 298)
+        Me.loading_bar.Location = New System.Drawing.Point(285, 181)
         Me.loading_bar.Name = "loading_bar"
         Me.loading_bar.Size = New System.Drawing.Size(387, 20)
         Me.loading_bar.TabIndex = 18
@@ -285,7 +287,7 @@ Partial Class Window
         'GroupBox3
         '
         Me.GroupBox3.Controls.Add(Me.add_output)
-        Me.GroupBox3.Location = New System.Drawing.Point(718, 96)
+        Me.GroupBox3.Location = New System.Drawing.Point(718, 91)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Size = New System.Drawing.Size(76, 92)
         Me.GroupBox3.TabIndex = 26
@@ -306,29 +308,58 @@ Partial Class Window
         '
         'GroupBox5
         '
+        Me.GroupBox5.Controls.Add(Me.browse_for_preset)
         Me.GroupBox5.Controls.Add(Me.custom_gate_name)
         Me.GroupBox5.Controls.Add(Me.custom_gate_input)
         Me.GroupBox5.Location = New System.Drawing.Point(313, 104)
         Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(356, 58)
+        Me.GroupBox5.Size = New System.Drawing.Size(399, 60)
         Me.GroupBox5.TabIndex = 28
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "Extra Options"
+        '
+        'GroupBox6
+        '
+        Me.GroupBox6.Controls.Add(Me.loading_bar)
+        Me.GroupBox6.Location = New System.Drawing.Point(-15, 180)
+        Me.GroupBox6.Name = "GroupBox6"
+        Me.GroupBox6.Size = New System.Drawing.Size(1039, 10)
+        Me.GroupBox6.TabIndex = 29
+        Me.GroupBox6.TabStop = False
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(0, 0)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 30
+        Me.Button1.Text = "Button1"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'browse_for_preset
+        '
+        Me.browse_for_preset.Location = New System.Drawing.Point(265, 19)
+        Me.browse_for_preset.Name = "browse_for_preset"
+        Me.browse_for_preset.Size = New System.Drawing.Size(117, 23)
+        Me.browse_for_preset.TabIndex = 31
+        Me.browse_for_preset.Text = "Browse for Preset"
+        Me.browse_for_preset.UseVisualStyleBackColor = True
         '
         'Window
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.delete_all_gates
-        Me.ClientSize = New System.Drawing.Size(964, 562)
+        Me.ClientSize = New System.Drawing.Size(964, 559)
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.GroupBox5)
         Me.Controls.Add(Me.GroupBox4)
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
-        Me.Controls.Add(Me.loading_bar)
         Me.Controls.Add(Me.message_output)
         Me.Controls.Add(Me.selected_gate)
+        Me.Controls.Add(Me.GroupBox6)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.MaximumSize = New System.Drawing.Size(980, 600)
@@ -343,12 +374,11 @@ Partial Class Window
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox5.ResumeLayout(False)
         Me.GroupBox5.PerformLayout()
+        Me.GroupBox6.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents ButtonCheck As Timer
-    Friend WithEvents loader As Timer
     Friend WithEvents add_and As Button
     Friend WithEvents add_nand As Button
     Friend WithEvents add_or As Button
@@ -375,4 +405,7 @@ Partial Class Window
     Friend WithEvents GroupBox3 As GroupBox
     Friend WithEvents GroupBox4 As GroupBox
     Friend WithEvents GroupBox5 As GroupBox
+    Friend WithEvents GroupBox6 As GroupBox
+    Friend WithEvents Button1 As Button
+    Friend WithEvents browse_for_preset As Button
 End Class
