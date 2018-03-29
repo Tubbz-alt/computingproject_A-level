@@ -547,9 +547,13 @@ Right-Click again to delete"
             End If
         Next
         Try
-            multgate = custom_gate_input.Text
+            If custom_gate_input.Text = "" Then
+                multgate = 1
+            ElseIf Convert.ToInt32(custom_gate_input.text) Then
+                multgate = custom_gate_input.Text
+            End If
         Catch
-            multgate = 1
+            validName = False
         End Try
         custom_gate_input.Text = ""
         For i = 0 To 199
@@ -583,7 +587,6 @@ Right-Click again to delete"
                                 Catch
                                     Gates(i).gateClockInterval = 400
                                 End Try
-                                clock_interval_input.Text = ""
                             Else
                                 Gates(i).gateValue = 2
                                 Gates(i).gateInput1 = 2
@@ -596,13 +599,13 @@ Right-Click again to delete"
                     Next
                 End If
             Next
-        ElseIf gatecount + multgate > 200 Then
-            message_output.Text = "Gate limit reached"
         Else
             message_output.Text = "Gate already exists with 
-that name"
+that name or erroneous
+data has been input"
         End If
         custom_gate_name.Text = ""
+        clock_interval_input.Text = ""
     End Sub
     Private Sub loadPreset(ByVal strFileName As String)
         Dim readString As String
