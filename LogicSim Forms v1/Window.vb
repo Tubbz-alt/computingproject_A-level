@@ -74,7 +74,7 @@ Class Window
                 Next
             Next
         Next
-        loading_bar.Hide()                      'For graphical and UI elements \/ \/
+        progress_bar.Hide()                      'For graphical and UI elements \/ \/
         SendMessage(Me.custom_gate_input.Handle, &H1501, 0, "Custom Number of Gates")
         SendMessage(Me.custom_gate_name.Handle, &H1501, 0, "Custom Gate Name")
         SendMessage(Me.clock_interval_input.Handle, &H1501, 0, "Interval...")
@@ -621,14 +621,14 @@ data has been input"
         RefreshGraphics()            'Graphics Refresh
     End Sub
     Private Sub DeleteAllGates()
-        loading_bar.Value = 0
-        loading_bar.Maximum = Convert.ToInt32(GatePB.Count)
-        loading_bar.Show()
+        progress_bar.Value = 0
+        progress_bar.Maximum = Convert.ToInt32(GatePB.Count)
+        progress_bar.Show()
         While GatePB.Count <> 0
             Try
                 For Each PB In GatePB
                     DeleteGate(PB)
-                    loading_bar.Value += 1
+                    progress_bar.Value += 1
                     If GatePB.Count = 0 Then
                         Exit For
                     End If
@@ -638,7 +638,7 @@ data has been input"
         End While
         selected_gate.Text = ""
         message_output.Text = ""
-        loading_bar.Hide()
+        progress_bar.Hide()
     End Sub
     Private Sub loadPreset(ByVal strFileName As String)
         Dim readString As String

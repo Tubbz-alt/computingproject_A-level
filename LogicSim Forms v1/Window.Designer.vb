@@ -53,6 +53,7 @@ Partial Class Window
         Me.save_current_layout = New System.Windows.Forms.Button()
         Me.browse_for_preset = New System.Windows.Forms.Button()
         Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.progress_bar = New System.Windows.Forms.ProgressBar()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -346,12 +347,20 @@ Partial Class Window
         Me.GroupBox6.TabIndex = 29
         Me.GroupBox6.TabStop = False
         '
+        'progress_bar
+        '
+        Me.progress_bar.Location = New System.Drawing.Point(271, 345)
+        Me.progress_bar.Name = "progress_bar"
+        Me.progress_bar.Size = New System.Drawing.Size(387, 24)
+        Me.progress_bar.TabIndex = 30
+        '
         'Window
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.delete_all_gates
         Me.ClientSize = New System.Drawing.Size(964, 559)
+        Me.Controls.Add(Me.progress_bar)
         Me.Controls.Add(Me.GroupBox5)
         Me.Controls.Add(Me.GroupBox4)
         Me.Controls.Add(Me.GroupBox3)
@@ -408,4 +417,5 @@ Partial Class Window
     Friend WithEvents GroupBox6 As GroupBox
     Friend WithEvents browse_for_preset As Button
     Friend WithEvents save_current_layout As Button
+    Friend WithEvents progress_bar As ProgressBar
 End Class
