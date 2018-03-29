@@ -151,15 +151,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to inputt/inputf/xor/and/output/output.
-        '''</summary>
-        Friend ReadOnly Property halfadder() As String
-            Get
-                Return ResourceManager.GetString("halfadder", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property INPUTFALSE() As System.Drawing.Bitmap

@@ -50,9 +50,9 @@ Partial Class Window
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
-        Me.GroupBox6 = New System.Windows.Forms.GroupBox()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.save_current_layout = New System.Windows.Forms.Button()
         Me.browse_for_preset = New System.Windows.Forms.Button()
+        Me.GroupBox6 = New System.Windows.Forms.GroupBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -308,6 +308,7 @@ Partial Class Window
         '
         'GroupBox5
         '
+        Me.GroupBox5.Controls.Add(Me.save_current_layout)
         Me.GroupBox5.Controls.Add(Me.browse_for_preset)
         Me.GroupBox5.Controls.Add(Me.custom_gate_name)
         Me.GroupBox5.Controls.Add(Me.custom_gate_input)
@@ -318,6 +319,24 @@ Partial Class Window
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "Extra Options"
         '
+        'save_current_layout
+        '
+        Me.save_current_layout.Location = New System.Drawing.Point(263, 31)
+        Me.save_current_layout.Name = "save_current_layout"
+        Me.save_current_layout.Size = New System.Drawing.Size(130, 23)
+        Me.save_current_layout.TabIndex = 32
+        Me.save_current_layout.Text = "Save Current Layout"
+        Me.save_current_layout.UseVisualStyleBackColor = True
+        '
+        'browse_for_preset
+        '
+        Me.browse_for_preset.Location = New System.Drawing.Point(263, 9)
+        Me.browse_for_preset.Name = "browse_for_preset"
+        Me.browse_for_preset.Size = New System.Drawing.Size(130, 23)
+        Me.browse_for_preset.TabIndex = 31
+        Me.browse_for_preset.Text = "Browse for Preset"
+        Me.browse_for_preset.UseVisualStyleBackColor = True
+        '
         'GroupBox6
         '
         Me.GroupBox6.Controls.Add(Me.loading_bar)
@@ -327,31 +346,12 @@ Partial Class Window
         Me.GroupBox6.TabIndex = 29
         Me.GroupBox6.TabStop = False
         '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(0, 0)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 30
-        Me.Button1.Text = "Button1"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
-        'browse_for_preset
-        '
-        Me.browse_for_preset.Location = New System.Drawing.Point(265, 19)
-        Me.browse_for_preset.Name = "browse_for_preset"
-        Me.browse_for_preset.Size = New System.Drawing.Size(117, 23)
-        Me.browse_for_preset.TabIndex = 31
-        Me.browse_for_preset.Text = "Browse for Preset"
-        Me.browse_for_preset.UseVisualStyleBackColor = True
-        '
         'Window
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.delete_all_gates
         Me.ClientSize = New System.Drawing.Size(964, 559)
-        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.GroupBox5)
         Me.Controls.Add(Me.GroupBox4)
         Me.Controls.Add(Me.GroupBox3)
@@ -406,6 +406,6 @@ Partial Class Window
     Friend WithEvents GroupBox4 As GroupBox
     Friend WithEvents GroupBox5 As GroupBox
     Friend WithEvents GroupBox6 As GroupBox
-    Friend WithEvents Button1 As Button
     Friend WithEvents browse_for_preset As Button
+    Friend WithEvents save_current_layout As Button
 End Class

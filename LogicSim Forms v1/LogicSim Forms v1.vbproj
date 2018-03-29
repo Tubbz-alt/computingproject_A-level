@@ -231,8 +231,5 @@
   <ItemGroup>
     <None Include="Resources\INPUTTRUEP1.png" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\halfadder.txt" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

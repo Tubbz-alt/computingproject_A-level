@@ -6,6 +6,7 @@ Class Window
     Private tempID As Integer
     Private oneSelected As Boolean = False
     Private selectedID As Integer
+    Private hoveredID As Integer
     Private prevValue As Integer
     Private prevID As Integer
     Private loopCount As Integer
@@ -51,6 +52,7 @@ Class Window
         ReDim Gates(199)
         ReDim connections(199, 199, 1)
         prevValue = 2
+        hoveredID = -1
         ModeSwitch()
         For i As Integer = 0 To 199            'All gate and connection objects are instantiated and set to a null state
             Gates(i) = New MultiGate(i)
@@ -82,7 +84,12 @@ Class Window
                     End If
                     RecalculateConnections(Gate.gateID)
                     RefreshGraphics()                    'Refreshes all elements to show change
-                    displayGateInfo(Gate.gateID)
+                    Try
+                        If Gates(hoveredID).gateType = "clock" Then
+                            displayGateInfo(hoveredID)
+                        End If
+                    Catch
+                    End Try
                 End If
             End If
         Next
@@ -339,10 +346,12 @@ Class Window
     End Sub
     Private Sub PBMouseEnter(sender As Object, e As EventArgs)
         Dim PB As PictureBox = DirectCast(sender, PictureBox)
+        hoveredID = PB.Name
         displayGateInfo(PB.Name)
     End Sub
     Private Sub PBMouseLeave(sender As Object, e As EventArgs)
         selected_gate.Text = ""
+        hoveredID = -1
     End Sub
     Private Sub displayGateInfo(ByVal ID As Integer)
         Dim value As String
@@ -595,13 +604,16 @@ that name"
         End If
         custom_gate_name.Text = ""
     End Sub
-    Private Sub loadPreset(strFileName As String)
+    Private Sub loadPreset(ByVal strFileName As String)
         Dim readString As String
-        Dim gateSequence(100) As String
-        Dim connectionSequence(100) As String
+        Dim gateSequence(300) As String
+        Dim connectionSequence(2) As String
         Dim gateRead As Boolean = True
         Dim x As Integer = 0
+
+        DeleteAllGates()
         readString = My.Computer.FileSystem.ReadAllText(strFileName)
+
         For Each letter As String In readString
             If letter = "!" Then
                 gateRead = False
@@ -630,10 +642,59 @@ that name"
                 End If
             End If
         Next
-        RecalculateConnections(0)
+
+        For Each Gate In Gates
+            If Gate.gateType = "input" Then
+                RecalculateConnections(Gate.gateID)
+            End If
+        Next
+
         RefreshGraphics()
     End Sub
+    Private Sub savePreset(ByVal strFileName As String)
+        Dim writeString As String
+
+        For Each Gate In Gates
+            If Gate.gateIsNull = False Then
+                If Gate.gateType = "input" And Gate.gateValue = 1 Then
+                    writeString &= "inputt/"
+                ElseIf Gate.gateType = "input" And Gate.gateValue = 0 Then
+                    writeString &= "inputf/"
+                Else
+                    writeString &= Gate.gateType & "/"
+                End If
+            End If
+        Next
+
+        writeString &= "!"
+
+        For k = 0 To 1
+            For i = 0 To 199
+                For j = 0 To 199
+                    If connections(i, j, k).connectionExists = True Then
+                        writeString = writeString & i & "." & j & "." & k & "/"
+                    End If
+                Next
+            Next
+        Next
+
+        My.Computer.FileSystem.WriteAllText(strFileName, writeString, False)
+    End Sub
     Private Sub delete_all_gates_Click(sender As Object, e As EventArgs) Handles delete_all_gates.Click
+        DeleteAllGates()
+    End Sub
+    Private Sub DeleteGate(ByRef PB As PictureBox)
+        Dim ID As Integer = PB.Name
+        hoveredID = -1
+        tempID = ID
+        NullifyConnections(ID)
+        selected_gate.Text = ""
+        Gates(PB.Name).Finalize()    'Destructs gate object
+        GatePB.Remove(PB)            'Removes gate PB from PB list
+        PB.Dispose()                 'makes PB disappear
+        RefreshGraphics()            'Graphics Refresh
+    End Sub
+    Private Sub DeleteAllGates()
         loading_bar.Value = 0
         loading_bar.Maximum = Convert.ToInt32(GatePB.Count)
         loading_bar.Show()
@@ -652,16 +713,6 @@ that name"
         selected_gate.Text = ""
         message_output.Text = ""
         loading_bar.Hide()
-    End Sub
-    Private Sub DeleteGate(ByRef PB As PictureBox)
-        Dim ID As Integer = PB.Name
-        tempID = ID
-        NullifyConnections(ID)
-        selected_gate.Text = ""
-        Gates(PB.Name).Finalize()    'Destructs gate object
-        GatePB.Remove(PB)            'Removes gate PB from PB list
-        PB.Dispose()                 'makes PB disappear
-        RefreshGraphics()            'Graphics Refresh
     End Sub
     Private Sub NullifyConnections(ByVal ID As Integer)
         For i = 0 To 199                                                   'Searches array of connections and looks for connections connected to and from gate to be deleted
@@ -832,7 +883,7 @@ that name"
         Dim fd As OpenFileDialog = New OpenFileDialog()
         Dim strFileName As String
 
-        fd.Title = "Open File Dialog"
+        fd.Title = "Select a Preset to Open"
         fd.InitialDirectory = "C:\"
         fd.Filter = "All files (*.*)|*.*|All files (*.*)|*.*"
         fd.FilterIndex = 2
@@ -841,6 +892,21 @@ that name"
         If fd.ShowDialog() = DialogResult.OK Then
             strFileName = fd.FileName
             loadPreset(strFileName)
+        End If
+    End Sub
+    Private Sub save_current_layout_Click(sender As Object, e As EventArgs) Handles save_current_layout.Click
+        Dim fd As SaveFileDialog = New SaveFileDialog()
+        Dim strFileName As String
+
+        fd.Title = "Select a Location to Save the Preset"
+        fd.InitialDirectory = "C:\"
+        fd.Filter = "All files (*.*)|*.*|All files (*.*)|*.*"
+        fd.FilterIndex = 2
+        fd.RestoreDirectory = True
+
+        If fd.ShowDialog() = DialogResult.OK Then
+            strFileName = fd.FileName
+            savePreset(strFileName)
         End If
     End Sub
     Class MultiGate

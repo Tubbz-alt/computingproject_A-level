@@ -67,11 +67,6 @@ LogicSim Forms v1
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
 </member>
-<member name="P:LogicSim_Forms_v1.My.Resources.Resources.halfadder">
-<summary>
-  Looks up a localized string similar to inputt/inputf/xor/and/output/output.
-</summary>
-</member>
 <member name="P:LogicSim_Forms_v1.My.Resources.Resources.INPUTFALSE">
 <summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
