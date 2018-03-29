@@ -19,7 +19,7 @@ Class Window
     Private blackPen As New Pen(Color.Black, 4)
     Private bluePen As New Pen(Color.Blue, 4)
     Private redPen As New Pen(Color.Red, 4)
-    Private clockTime As Integer
+    Private clockTime As Integer = 0
     Private ValidPB As Boolean
     'Image Declarations for the gate PBs
     Private inputImageTrue As Image
@@ -38,22 +38,32 @@ Class Window
     Protected WithEvents GatePB As New List(Of PictureBox)
     Protected connections(199, 199, 1) As Connection
     Protected Gates() As MultiGate
-    Private Sub WindowCloser(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        End
-    End Sub
+    Public Property windowProf As Boolean
+        Get
+            Return profMode
+        End Get
+        Set(value As Boolean)
+            profMode = value
+        End Set
+    End Property
     <DllImport("user32.dll", CharSet:=CharSet.Auto)>
     Private Shared Function SendMessage(ByVal hWnd As IntPtr, ByVal msg As Integer, ByVal wParam As Integer, <MarshalAs(UnmanagedType.LPWStr)> ByVal lParam As String) As Int32
     End Function
+    Private Sub WindowCloser(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
+        End
+    End Sub
+    Private Sub WindowLoader(sender As Object, e As EventArgs) Handles MyBase.Load
+        WindowStart()                   'Calls the sub that redims gate arrays and constructs gate objects using these arrays
+    End Sub
     Private Sub WindowStart()      'Sets initial values for gate variables
         g = CreateGraphics()
-        clockTime = 0                          'Sets the clock to 0, sets the interval to 1ms
+        ModeSwitch()
+        prevValue = 2
+        hoveredID = -1
         ClockTimer.Interval = 1
         ClockTimer.Start()
         ReDim Gates(199)
         ReDim connections(199, 199, 1)
-        prevValue = 2
-        hoveredID = -1
-        ModeSwitch()
         For i As Integer = 0 To 199            'All gate and connection objects are instantiated and set to a null state
             Gates(i) = New MultiGate(i)
         Next
@@ -187,17 +197,6 @@ Class Window
                 End If
             Next
         End If
-    End Sub
-    Public Property windowProf As Boolean
-        Get
-            Return profMode
-        End Get
-        Set(value As Boolean)
-            profMode = value
-        End Set
-    End Property
-    Private Sub WindowLoader(sender As Object, e As EventArgs) Handles MyBase.Load
-        WindowStart()                   'Calls the sub that redims gate arrays and constructs gate objects using these arrays
     End Sub
     Private Sub RefreshGraphics()
         For Each PB In GatePB
@@ -436,6 +435,77 @@ Right-Click again to delete"
             oneSelected = True
         End If
     End Sub
+    Private Sub newGate(ByVal choice As String)
+        Dim ID As Integer
+        Dim gatecount As Integer = 0
+        Dim multgate As Integer
+        Dim validName As Boolean = True
+        For Each Gate In Gates
+            If Gate.gateIsNull = False Then
+                gatecount += 1
+            End If
+        Next
+        Try
+            If custom_gate_input.Text = "" Then
+                multgate = 1
+            ElseIf Convert.ToInt32(custom_gate_input.Text) Then
+                multgate = custom_gate_input.Text
+            End If
+        Catch
+            validName = False
+        End Try
+        custom_gate_input.Text = ""
+        For i = 0 To 199
+            If custom_gate_name.Text = Gates(i).gateName And Gates(i).gateName <> "" Then
+                validName = False
+                Exit For
+            End If
+        Next
+        If gatecount + multgate <= 200 And validName = True Then
+            For o = 0 To multgate - 1
+                Dim tempID As Integer
+                If gatecount < 200 Then
+                    For i As Integer = 0 To 199
+                        If Gates(i).gateIsNull = True Then                  'Cycles through the array of objects with a loop and finds an unused one
+                            Gates(i).gateIsNull = False                     'Sets it to 'Not Null'
+                            Gates(i).gateType = choice                      'Sets the 'Type' variable to the choice
+                            Gates(i).gateName = custom_gate_name.Text       'Sets the optional gate name
+                            If choice = "inputt" Then                       'Sets the preset value that the gate starts with
+                                Gates(i).gateValue = 1
+                                Gates(i).gateType = "input"
+                            ElseIf choice = "inputf" Then
+                                Gates(i).gateValue = 0
+                                Gates(i).gateType = "input"
+                            ElseIf choice = "output" Then
+                                Gates(i).gateValue = 2
+                                Gates(i).gateInput1 = 2
+                            ElseIf choice = "clock" Then
+                                Gates(i).gateValue = 0
+                                Try
+                                    Gates(i).gateClockInterval = clock_interval_input.Text
+                                Catch
+                                    Gates(i).gateClockInterval = 400
+                                End Try
+                            Else
+                                Gates(i).gateValue = 2
+                                Gates(i).gateInput1 = 2
+                                Gates(i).gateInput2 = 2
+                            End If
+                            ID = i
+                            AddGatePB(Gates(i).gateType, ID)
+                            Exit For
+                        End If
+                    Next
+                End If
+            Next
+        Else
+            message_output.Text = "Gate already exists with 
+that name or erroneous
+data has been input"
+        End If
+        custom_gate_name.Text = ""
+        clock_interval_input.Text = ""
+    End Sub
     Private Sub AddGatePB(ByVal choice As String, ByVal ID As Integer)
         oneSelected = False
         message_output.Text = ""
@@ -536,76 +606,39 @@ Right-Click again to delete"
         End If
         GatePB.Add(PB)               'Gate PB is added to PB list
     End Sub
-    Private Sub newGate(ByVal choice As String)
-        Dim ID As Integer
-        Dim gatecount As Integer = 0
-        Dim multgate As Integer
-        Dim validName As Boolean = True
-        For Each Gate In Gates
-            If Gate.gateIsNull = False Then
-                gatecount += 1
-            End If
-        Next
-        Try
-            If custom_gate_input.Text = "" Then
-                multgate = 1
-            ElseIf Convert.ToInt32(custom_gate_input.text) Then
-                multgate = custom_gate_input.Text
-            End If
-        Catch
-            validName = False
-        End Try
-        custom_gate_input.Text = ""
-        For i = 0 To 199
-            If custom_gate_name.Text = Gates(i).gateName And Gates(i).gateName <> "" Then
-                validName = False
-                Exit For
-            End If
-        Next
-        If gatecount + multgate <= 200 And validName = True Then
-            For o = 0 To multgate - 1
-                Dim tempID As Integer
-                If gatecount < 200 Then
-                    For i As Integer = 0 To 199
-                        If Gates(i).gateIsNull = True Then                  'Cycles through the array of objects with a loop and finds an unused one
-                            Gates(i).gateIsNull = False                     'Sets it to 'Not Null'
-                            Gates(i).gateType = choice                      'Sets the 'Type' variable to the choice
-                            Gates(i).gateName = custom_gate_name.Text       'Sets the optional gate name
-                            If choice = "inputt" Then                       'Sets the preset value that the gate starts with
-                                Gates(i).gateValue = 1
-                                Gates(i).gateType = "input"
-                            ElseIf choice = "inputf" Then
-                                Gates(i).gateValue = 0
-                                Gates(i).gateType = "input"
-                            ElseIf choice = "output" Then
-                                Gates(i).gateValue = 2
-                                Gates(i).gateInput1 = 2
-                            ElseIf choice = "clock" Then
-                                Gates(i).gateValue = 0
-                                Try
-                                    Gates(i).gateClockInterval = clock_interval_input.Text
-                                Catch
-                                    Gates(i).gateClockInterval = 400
-                                End Try
-                            Else
-                                Gates(i).gateValue = 2
-                                Gates(i).gateInput1 = 2
-                                Gates(i).gateInput2 = 2
-                            End If
-                            ID = i
-                            AddGatePB(Gates(i).gateType, ID)
-                            Exit For
-                        End If
-                    Next
-                End If
-            Next
-        Else
-            message_output.Text = "Gate already exists with 
-that name or erroneous
-data has been input"
-        End If
-        custom_gate_name.Text = ""
-        clock_interval_input.Text = ""
+    Private Sub delete_all_gates_Click(sender As Object, e As EventArgs) Handles delete_all_gates.Click
+        DeleteAllGates()
+    End Sub
+    Private Sub DeleteGate(ByRef PB As PictureBox)
+        Dim ID As Integer = PB.Name
+        hoveredID = -1
+        tempID = ID
+        NullifyConnections(ID)
+        selected_gate.Text = ""
+        Gates(PB.Name).Finalize()    'Destructs gate object
+        GatePB.Remove(PB)            'Removes gate PB from PB list
+        PB.Dispose()                 'makes PB disappear
+        RefreshGraphics()            'Graphics Refresh
+    End Sub
+    Private Sub DeleteAllGates()
+        loading_bar.Value = 0
+        loading_bar.Maximum = Convert.ToInt32(GatePB.Count)
+        loading_bar.Show()
+        While GatePB.Count <> 0
+            Try
+                For Each PB In GatePB
+                    DeleteGate(PB)
+                    loading_bar.Value += 1
+                    If GatePB.Count = 0 Then
+                        Exit For
+                    End If
+                Next
+            Catch
+            End Try
+        End While
+        selected_gate.Text = ""
+        message_output.Text = ""
+        loading_bar.Hide()
     End Sub
     Private Sub loadPreset(ByVal strFileName As String)
         Dim readString As String
@@ -682,40 +715,6 @@ data has been input"
         Next
 
         My.Computer.FileSystem.WriteAllText(strFileName, writeString, False)
-    End Sub
-    Private Sub delete_all_gates_Click(sender As Object, e As EventArgs) Handles delete_all_gates.Click
-        DeleteAllGates()
-    End Sub
-    Private Sub DeleteGate(ByRef PB As PictureBox)
-        Dim ID As Integer = PB.Name
-        hoveredID = -1
-        tempID = ID
-        NullifyConnections(ID)
-        selected_gate.Text = ""
-        Gates(PB.Name).Finalize()    'Destructs gate object
-        GatePB.Remove(PB)            'Removes gate PB from PB list
-        PB.Dispose()                 'makes PB disappear
-        RefreshGraphics()            'Graphics Refresh
-    End Sub
-    Private Sub DeleteAllGates()
-        loading_bar.Value = 0
-        loading_bar.Maximum = Convert.ToInt32(GatePB.Count)
-        loading_bar.Show()
-        While GatePB.Count <> 0
-            Try
-                For Each PB In GatePB
-                    DeleteGate(PB)
-                    loading_bar.Value += 1
-                    If GatePB.Count = 0 Then
-                        Exit For
-                    End If
-                Next
-            Catch
-            End Try
-        End While
-        selected_gate.Text = ""
-        message_output.Text = ""
-        loading_bar.Hide()
     End Sub
     Private Sub NullifyConnections(ByVal ID As Integer)
         For i = 0 To 199                                                   'Searches array of connections and looks for connections connected to and from gate to be deleted
