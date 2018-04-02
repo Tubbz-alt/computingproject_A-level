@@ -56,13 +56,13 @@ Class Window
         WindowStart()                   'Calls the sub that redims gate arrays and constructs gate objects using these arrays
     End Sub
     Private Sub WindowStart()      'Sets initial values for gate variables
-        g = CreateGraphics()
-        ModeSwitch()
+        g = CreateGraphics()       'Required for graphics to appear
+        ModeSwitch()               'Checks which mode it is starting in and loads appropriate assets
         prevValue = 2
         hoveredID = -1
         ClockTimer.Interval = 1
-        ClockTimer.Start()
-        ReDim Gates(199)
+        ClockTimer.Start()                       'Starts timer ticking every ms for clocks
+        ReDim Gates(199)                          'Gates() and connections(,,) must be redimmed and then recreated as objects... A VB quirk
         ReDim connections(199, 199, 1)
         For i As Integer = 0 To 199            'All gate and connection objects are instantiated and set to a null state
             Gates(i) = New MultiGate(i)
@@ -221,7 +221,7 @@ Class Window
             For i = 0 To 199                                'This mess \/ \/  is responsible for assigning connection graphics to the correct part of each gate
                 For j = 0 To 199
                     If connections(i, j, k).connectionExists = True And k = 0 Then
-                        If (Gates(j).gateType = "not" Or Gates(j).gateType = "output") And Gates(i).gateValue = 1 Then
+                        If (Gates(j).gateType = "not" Or Gates(j).gateType = "output") And Gates(i).gateValue = 1 Then                   'Anchors are specific coordinates of points on the PB, that represent where connects connect differ from gate to gate as they are all different
 
                             g.DrawLine(bluePen, (Gates(i).gateOutputAnchor), (Gates(j).gateInput1Anchor))
 
@@ -268,19 +268,15 @@ Class Window
             Next
         Next
     End Sub
-    Private Sub PBs_MouseDown(ByVal sender As Object, ByVal e As MouseEventArgs)
+    Private Sub PBs_MouseDown(ByVal sender As Object, ByVal e As MouseEventArgs)            'Called when a gate has the mouse down on it
         Dim PB As PictureBox = DirectCast(sender, PictureBox)
         Dim ID = PB.Name
         Point = e.Location
         If e.Button = MouseButtons.Left Then                               'If it is a left click then the gate is 'selected' and details are shown
-            If selectedID = -1 Then
-                selected_gate.Text = ""
-            Else
-                displayGateInfo(selectedID)
-            End If
             If PB.Location.X >= 0 Or PB.Location.X <= Me.Width Or PB.Location.Y >= 0 Or PB.Location.Y <= Me.Height Then
                 ValidPB = True
             End If
+            selectedID = ID
         End If
         If e.Button = MouseButtons.Right Then                         'If it is a right click then the gate is being attached and the AttachGate sub is run.
             If ID = prevID And oneSelected = True And profMode = True Then
@@ -292,7 +288,7 @@ Class Window
             End If
         End If
     End Sub
-    Private Sub PBs_MouseMove(ByVal sender As Object, ByVal e As MouseEventArgs)
+    Private Sub PBs_MouseMove(ByVal sender As Object, ByVal e As MouseEventArgs)                'Called when the mouse moves
         Dim PB As PictureBox = DirectCast(sender, PictureBox)
         selectedID = PB.Name
         If e.Button = MouseButtons.Left And ValidPB Then               'If mouse is down, moving and the mouse is in valid bounds then the gate moves
@@ -312,7 +308,7 @@ Class Window
             ElseIf PB.Top > (Me.Height - 90) Then
                 PB.Top = (Me.Height - 100)
                 ValidPB = False
-            End If
+            End If                                                     'The anchors have to be refreshed every time the gate is moved.
             If Gates(PB.Name).gateType = "and" Or Gates(PB.Name).gateType = "nand" Then
                 Gates(PB.Name).gateInput1AnchorX = PB.Location.X
                 Gates(PB.Name).gateInput1AnchorY = PB.Location.Y + 15
@@ -343,18 +339,18 @@ Class Window
             End If
         End If
     End Sub
-    Private Sub PBMouseEnter(sender As Object, e As EventArgs)
+    Private Sub PBMouseEnter(sender As Object, e As EventArgs)           'Called when the mouse enters a gate
         Dim PB As PictureBox = DirectCast(sender, PictureBox)
         hoveredID = PB.Name
         displayGateInfo(PB.Name)
     End Sub
-    Private Sub PBMouseLeave(sender As Object, e As EventArgs)
+    Private Sub PBMouseLeave(sender As Object, e As EventArgs)             'Called when the mouse leaves a gate
         selected_gate.Text = ""
         hoveredID = -1
     End Sub
-    Private Sub displayGateInfo(ByVal ID As Integer)
+    Private Sub displayGateInfo(ByVal ID As Integer)                'Displays all info on a gate, provided with the ID of said gate
         Dim value As String
-        If ID <> -1 Then
+        If ID <> -1 Then                                          'being passed an ID of -1 means "Don't display anything"
             If Gates(ID).gateValue = 2 Then
                 value = "NULL"
             ElseIf Gates(ID).gateValue = 1 Then
@@ -386,8 +382,8 @@ Clock Interval: " & Gates(ID).gateClockInterval & " ms"
 to " & (Gates(ID).gateType).ToUpper & " gate" & " 
 with value: " & prevValue                                         'The prevValue is assigned to an input
                         Gates(ID).gateInput1 = prevValue
-                        connections(prevID, ID, 0).connectionValue = Gates(prevID).gateValue
-                        connections(prevID, ID, 0).connectionExists = True
+                        connections(prevID, ID, 0).connectionValue = Gates(prevID).gateValue       'Connection is only created for k = 0 because some gates only have one input
+                        connections(prevID, ID, 0).connectionExists = True                       'Connection become existent and value is assigned
                         Gates(ID).gateInput1Exists = True
                         Gates(ID).Calculate()
                     Else
@@ -399,8 +395,8 @@ with value: " & prevValue                                         'The prevValue
 to " & (Gates(ID).gateType).ToUpper & " gate" & " 
 with value: " & prevValue                                         'The prevValue is assigned to an input
                         Gates(ID).gateInput1 = prevValue
-                        connections(prevID, ID, 0).connectionValue = Gates(prevID).gateValue
-                        connections(prevID, ID, 0).connectionExists = True
+                        connections(prevID, ID, 0).connectionValue = Gates(prevID).gateValue        'Connection object for connecting to input 1
+                        connections(prevID, ID, 0).connectionExists = True                      'Connection become existent and value is assigned
                         Gates(ID).gateInput1Exists = True
                         Gates(ID).Calculate()
                     ElseIf Gates(ID).gateInput2Exists = False Then
@@ -408,8 +404,8 @@ with value: " & prevValue                                         'The prevValue
 to " & (Gates(ID).gateType).ToUpper & " gate" & " 
 with value: " & prevValue
                         Gates(ID).gateInput2 = prevValue
-                        connections(prevID, ID, 1).connectionValue = Gates(prevID).gateValue
-                        connections(prevID, ID, 1).connectionExists = True
+                        connections(prevID, ID, 1).connectionValue = Gates(prevID).gateValue       'Connection object for connecting to input 2
+                        connections(prevID, ID, 1).connectionExists = True                       'Connection become existent and value is assigned
                         Gates(ID).gateInput2Exists = True
                         Gates(ID).Calculate()
                     Else
@@ -417,7 +413,7 @@ with value: " & prevValue
 already occupied"
                     End If
                 End If
-                RecalculateConnections(ID)
+                RecalculateConnections(ID)                                 'Every time a connection is made, all gates are recalculated from that point onwards
             Else
                 message_output.Text = "Input nodes are 
 fixed and cannot be 
@@ -426,7 +422,7 @@ gate"
             End If
             oneSelected = False
             displayGateInfo(ID)
-            RefreshGraphics()
+            RefreshGraphics()                                 'A graphics refresh to show the new connection in all its glory
         ElseIf oneSelected = False Then                         'This means the gate is before another gate in the circuit
             message_output.Text = (Gates(ID).gateType).ToUpper & " gate 1 selected...
 Right-Click again to delete"
@@ -435,33 +431,27 @@ Right-Click again to delete"
             oneSelected = True
         End If
     End Sub
-    Private Sub newGate(ByVal choice As String)
+    Private Sub NewGate(ByVal choice As String)
         Dim ID As Integer
         Dim gatecount As Integer = 0
         Dim multgate As Integer
-        Dim validName As Boolean = True
+        Dim valid As Boolean = True
         For Each Gate In Gates
-            If Gate.gateIsNull = False Then
+            If Gate.gateIsNull = False Then          'Recounts gatecount every time, to always have an up to date number
                 gatecount += 1
             End If
         Next
-        Try
+        Try                                            'Validation to ensure user has entered something valid in the input fields
             If custom_gate_input.Text = "" Then
                 multgate = 1
             ElseIf Convert.ToInt32(custom_gate_input.Text) Then
                 multgate = custom_gate_input.Text
             End If
         Catch
-            validName = False
+            valid = False
         End Try
         custom_gate_input.Text = ""
-        For i = 0 To 199
-            If custom_gate_name.Text = Gates(i).gateName And Gates(i).gateName <> "" Then
-                validName = False
-                Exit For
-            End If
-        Next
-        If gatecount + multgate <= 200 And validName = True Then
+        If gatecount + multgate <= 200 And valid = True Then
             For o = 0 To multgate - 1
                 Dim tempID As Integer
                 If gatecount < 200 Then
@@ -482,7 +472,7 @@ Right-Click again to delete"
                             ElseIf choice = "clock" Then
                                 Gates(i).gateValue = 0
                                 Try
-                                    Gates(i).gateClockInterval = clock_interval_input.Text
+                                    Gates(i).gateClockInterval = clock_interval_input.Text         'Clocks have their interval assigned from the input box
                                 Catch
                                     Gates(i).gateClockInterval = 400
                                 End Try
@@ -492,16 +482,16 @@ Right-Click again to delete"
                                 Gates(i).gateInput2 = 2
                             End If
                             ID = i
-                            AddGatePB(Gates(i).gateType, ID)
+                            AddGatePB(Gates(i).gateType, ID)                         'Calls sub which creates the gate PB, passes the ID and type as argument
                             Exit For
                         End If
                     Next
                 End If
             Next
         Else
-            message_output.Text = "Gate already exists with 
-that name or erroneous
-data has been input"
+            message_output.Text = "Erroneous
+data has been input
+please try again"
         End If
         custom_gate_name.Text = ""
         clock_interval_input.Text = ""
@@ -512,14 +502,13 @@ data has been input"
         Dim PB As New PictureBox
         PB.Left = 515 - (PB.Width / 2)
         PB.Top = Me.ClientRectangle.Height - PB.Height - 10
-        'Gates(PB.Name).gatePos = PB.Location
         PB.Name = ID             '---IMPORTANT---Gate name is set as the gate ID so the gate object can be referenced from the gate PB
-        AddHandler PB.MouseDown, AddressOf PBs_MouseDown
+        AddHandler PB.MouseDown, AddressOf PBs_MouseDown                  'Handlers are created for each PB to call respective subroutines when mouse interacts with them
         AddHandler PB.MouseMove, AddressOf PBs_MouseMove
         AddHandler PB.MouseEnter, AddressOf PBMouseEnter
         AddHandler PB.MouseLeave, AddressOf PBMouseLeave
         PB.Parent = Me
-        If choice = "input" And Gates(ID).gateValue = 1 Then
+        If choice = "input" And Gates(ID).gateValue = 1 Then            'Depending on type of gate, picture is assigned, size is assigned, and anchors are assigned.
             PB.Height = 58
             PB.Width = 58
             PB.Image = inputImageTrue
@@ -613,14 +602,14 @@ data has been input"
         Dim ID As Integer = PB.Name
         hoveredID = -1
         tempID = ID
-        NullifyConnections(ID)
+        NullifyConnections(ID)       'Ensures all connections from that gate are updated to be null
         selected_gate.Text = ""
         Gates(PB.Name).Finalize()    'Destructs gate object
         GatePB.Remove(PB)            'Removes gate PB from PB list
         PB.Dispose()                 'makes PB disappear
         RefreshGraphics()            'Graphics Refresh
     End Sub
-    Private Sub DeleteAllGates()
+    Private Sub DeleteAllGates()                       'Basically just calls DeleteGate() in a for loop and adds a loading bar
         progress_bar.Value = 0
         progress_bar.Maximum = Convert.ToInt32(GatePB.Count)
         progress_bar.Show()
@@ -640,23 +629,23 @@ data has been input"
         message_output.Text = ""
         progress_bar.Hide()
     End Sub
-    Private Sub loadPreset(ByVal strFileName As String)
+    Private Sub LoadPreset(ByVal strFileName As String)
         Dim readString As String
         Dim gateSequence(300) As String
         Dim connectionSequence(2) As String
         Dim gateRead As Boolean = True
         Dim x As Integer = 0
 
-        DeleteAllGates()
-        readString = My.Computer.FileSystem.ReadAllText(strFileName)
+        DeleteAllGates()                                             'Clears the form, so that it can create its own connections once gates are input
+        readString = My.Computer.FileSystem.ReadAllText(strFileName)     'Reads file into string variable
 
-        For Each letter As String In readString
-            If letter = "!" Then
+        For Each letter As String In readString                            'BNF definition for file presets is in documentation
+            If letter = "!" Then                                          'Algorithm reads the string character by character and then creates the gates and connections accordingly
                 gateRead = False
                 x = 0
                 For i = 0 To gateSequence.Length - 1
                     If gateSequence(i) <> "" Then
-                        newGate(gateSequence(i))
+                        NewGate(gateSequence(i))
                     Else
                     End If
                 Next
@@ -687,10 +676,10 @@ data has been input"
 
         RefreshGraphics()
     End Sub
-    Private Sub savePreset(ByVal strFileName As String)
+    Private Sub SavePreset(ByVal strFileName As String)
         Dim writeString As String
 
-        For Each Gate In Gates
+        For Each Gate In Gates                                           'Runs through Gates() list and creates a string of gates
             If Gate.gateIsNull = False Then
                 If Gate.gateType = "input" And Gate.gateValue = 1 Then
                     writeString &= "inputt/"
@@ -704,7 +693,7 @@ data has been input"
 
         writeString &= "!"
 
-        For k = 0 To 1
+        For k = 0 To 1                                                  'Runs through connections(,,) array and creates a string of connections
             For i = 0 To 199
                 For j = 0 To 199
                     If connections(i, j, k).connectionExists = True Then
@@ -723,8 +712,8 @@ data has been input"
                 connections(i, ID, 0).connectionValue = 2
             End If
             If connections(i, ID, 1).connectionExists = True And ID = tempID Then
-                connections(i, ID, 1).connectionExists = False
-                connections(i, ID, 1).connectionValue = 2
+                connections(i, ID, 1).connectionExists = False                                                'Recursive subroutine that nullifies connections. If there are more gates after that gate, it is called again with that gates ID as the argument
+                connections(i, ID, 1).connectionValue = 2                                                     'Continues until all relevant connecitons have been nullified
             End If
             If connections(ID, i, 0).connectionExists = True And ID = tempID Then
                 connections(ID, i, 0).connectionExists = False
@@ -775,8 +764,8 @@ data has been input"
     Private Sub RecalculateConnections(ID)
         For i = 0 To 199
             If connections(ID, i, 0).connectionExists = True Then
-                connections(ID, i, 0).connectionValue = Gates(ID).gateValue
-                Gates(i).gateInput1 = Gates(ID).gateValue
+                connections(ID, i, 0).connectionValue = Gates(ID).gateValue                           'Recursive subroutine that recalculates connections and gate values. If there are more gates after that gate, it is called again with that gates ID as the argument
+                Gates(i).gateInput1 = Gates(ID).gateValue                                             'Continues until there are no gates left which haven't been recalculated
                 Gates(i).Calculate()
                 If loopCount2 > 1 Then
                     loopCount2 = 0
@@ -862,19 +851,19 @@ data has been input"
     End Sub
     Private Sub invert_input_Click(sender As Object, e As EventArgs) Handles invert_input.Click
         If Gates(selectedID).gateType = "input" Then
-            If Gates(selectedID).gateValue = 1 Then
+            If Gates(selectedID).gateValue = 1 Then         'If input is this, input becomes NOT(this)
                 Gates(selectedID).gateValue = 0
             Else
                 Gates(selectedID).gateValue = 1
             End If
-            RecalculateConnections(selectedID)
-            RefreshGraphics()
+            RecalculateConnections(selectedID)         'Recalculates to show changes
+            RefreshGraphics()                          'Graphics update to show effect of recalculation and inversion
         End If
     End Sub
     Private Sub change_clock_interval_Click(sender As Object, e As EventArgs) Handles change_clock_interval.Click
         If Gates(selectedID).gateType = "clock" Then
             Try
-                Gates(selectedID).gateClockInterval = clock_interval_input.Text
+                Gates(selectedID).gateClockInterval = clock_interval_input.Text          'Re assigns interval value to whatever is in the input box
             Catch
             End Try
         Else
@@ -887,7 +876,7 @@ data has been input"
 
         fd.Title = "Select a Preset to Open"
         fd.InitialDirectory = "C:\"
-        fd.Filter = "All files (*.*)|*.*|All files (*.*)|*.*"
+        fd.Filter = "Text Files (*.txt)|*.txt"
         fd.FilterIndex = 2
         fd.RestoreDirectory = True
 
@@ -902,7 +891,7 @@ data has been input"
 
         fd.Title = "Select a Location to Save the Preset"
         fd.InitialDirectory = "C:\"
-        fd.Filter = "All files (*.*)|*.*|All files (*.*)|*.*"
+        fd.Filter = "Text Files (*.txt)|*.txt"
         fd.FilterIndex = 2
         fd.RestoreDirectory = True
 
@@ -1116,7 +1105,7 @@ data has been input"
                 outputAnchor.Y = value
             End Set
         End Property
-        Public Sub Calculate()  'function has to find the outputs of the gate objects which led to it
+        Public Sub Calculate()
             If gateType = "not" Then
                 If input1 <> 2 Then
                     If input1 = 1 Then
