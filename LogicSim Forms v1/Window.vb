@@ -290,7 +290,7 @@ Class Window
     End Sub
     Private Sub PBs_MouseMove(ByVal sender As Object, ByVal e As MouseEventArgs)                'Called when the mouse moves
         Dim PB As PictureBox = DirectCast(sender, PictureBox)
-        selectedID = PB.Name
+        'selectedID = PB.Name
         If e.Button = MouseButtons.Left And ValidPB Then               'If mouse is down, moving and the mouse is in valid bounds then the gate moves
             RefreshGraphics()
             PB.Left += e.Location.X - Point.X
