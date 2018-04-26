@@ -60,3 +60,16 @@ F:\Documents\GitHub\computingproject\LogicSim Forms v1\obj\Debug\LogicSim Forms 
 F:\Documents\GitHub\computingproject\LogicSim Forms v1\obj\Debug\LogicSim Forms v1.exe
 F:\Documents\GitHub\computingproject\LogicSim Forms v1\obj\Debug\LogicSim Forms v1.xml
 F:\Documents\GitHub\computingproject\LogicSim Forms v1\obj\Debug\LogicSim Forms v1.pdb
+G:\A - Level\VB.NET Projects\LogicSim Forms v1\LogicSim Forms v1\obj\Debug\LogicSim Forms v1.vbprojResolveAssemblyReference.cache
+G:\A - Level\VB.NET Projects\LogicSim Forms v1\LogicSim Forms v1\obj\Debug\LogicSim_Forms_v1.SplashScreen.resources
+G:\A - Level\VB.NET Projects\LogicSim Forms v1\LogicSim Forms v1\obj\Debug\LogicSim_Forms_v1.Window.resources
+G:\A - Level\VB.NET Projects\LogicSim Forms v1\LogicSim Forms v1\obj\Debug\LogicSim_Forms_v1.Resources.resources
+G:\A - Level\VB.NET Projects\LogicSim Forms v1\LogicSim Forms v1\obj\Debug\LogicSim Forms v1.vbproj.GenerateResource.Cache
+G:\A - Level\VB.NET Projects\LogicSim Forms v1\LogicSim Forms v1\obj\Debug\LogicSim Forms v1.vbproj.CoreCompileInputs.cache
+G:\A - Level\VB.NET Projects\LogicSim Forms v1\LogicSim Forms v1\obj\Debug\LogicSim Forms v1.exe
+G:\A - Level\VB.NET Projects\LogicSim Forms v1\LogicSim Forms v1\obj\Debug\LogicSim Forms v1.xml
+G:\A - Level\VB.NET Projects\LogicSim Forms v1\LogicSim Forms v1\obj\Debug\LogicSim Forms v1.pdb
+G:\A - Level\VB.NET Projects\LogicSim Forms v1\LogicSim Forms v1\bin\Debug\LogicSim Forms v1.exe.config
+G:\A - Level\VB.NET Projects\LogicSim Forms v1\LogicSim Forms v1\bin\Debug\LogicSim Forms v1.exe
+G:\A - Level\VB.NET Projects\LogicSim Forms v1\LogicSim Forms v1\bin\Debug\LogicSim Forms v1.pdb
+G:\A - Level\VB.NET Projects\LogicSim Forms v1\LogicSim Forms v1\bin\Debug\LogicSim Forms v1.xml

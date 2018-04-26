@@ -38,6 +38,8 @@ Class Window
     Protected WithEvents GatePB As New List(Of PictureBox)
     Protected connections(199, 199, 1) As Connection
     Protected Gates() As MultiGate
+
+
     Public Property windowProf As Boolean
         Get
             Return profMode
@@ -279,6 +281,7 @@ Class Window
             selectedID = ID
         End If
         If e.Button = MouseButtons.Right Then                         'If it is a right click then the gate is being attached and the AttachGate sub is run.
+            selectedID = ID
             If ID = prevID And oneSelected = True And profMode = True Then
                 DeleteGate(PB)
                 oneSelected = False
@@ -290,7 +293,6 @@ Class Window
     End Sub
     Private Sub PBs_MouseMove(ByVal sender As Object, ByVal e As MouseEventArgs)                'Called when the mouse moves
         Dim PB As PictureBox = DirectCast(sender, PictureBox)
-        'selectedID = PB.Name
         If e.Button = MouseButtons.Left And ValidPB Then               'If mouse is down, moving and the mouse is in valid bounds then the gate moves
             RefreshGraphics()
             PB.Left += e.Location.X - Point.X
@@ -474,7 +476,7 @@ Right-Click again to delete"
                                 Try
                                     Gates(i).gateClockInterval = clock_interval_input.Text         'Clocks have their interval assigned from the input box
                                 Catch
-                                    Gates(i).gateClockInterval = 400
+                                    Gates(i).gateClockInterval = 30
                                 End Try
                             Else
                                 Gates(i).gateValue = 2

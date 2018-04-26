@@ -22,6 +22,7 @@ Partial Class SplashScreen
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SplashScreen))
         Me.start_prof = New System.Windows.Forms.Button()
         Me.start_nonprof = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
@@ -64,6 +65,7 @@ Partial Class SplashScreen
         Me.ClientSize = New System.Drawing.Size(284, 155)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.start_nonprof)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "SplashScreen"
         Me.Text = "LogicSim"
         Me.GroupBox1.ResumeLayout(False)

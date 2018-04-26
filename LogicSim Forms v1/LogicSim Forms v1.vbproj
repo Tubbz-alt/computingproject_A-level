@@ -62,7 +62,7 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\project_icon_icP_icon.ico</ApplicationIcon>
+    <ApplicationIcon>logic_board_games_cl6_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -230,6 +230,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\INPUTTRUEP1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="logic_board_games_cl6_icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

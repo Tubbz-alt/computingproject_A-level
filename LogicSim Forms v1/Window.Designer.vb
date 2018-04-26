@@ -143,7 +143,7 @@ Partial Class Window
         Me.selected_gate.Font = New System.Drawing.Font("Corbel", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.selected_gate.Location = New System.Drawing.Point(12, 190)
         Me.selected_gate.Name = "selected_gate"
-        Me.selected_gate.Size = New System.Drawing.Size(0, 24)
+        Me.selected_gate.Size = New System.Drawing.Size(0, 22)
         Me.selected_gate.TabIndex = 7
         '
         'add_output
@@ -160,7 +160,7 @@ Partial Class Window
         Me.message_output.Font = New System.Drawing.Font("Corbel", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.message_output.Location = New System.Drawing.Point(180, 190)
         Me.message_output.Name = "message_output"
-        Me.message_output.Size = New System.Drawing.Size(0, 24)
+        Me.message_output.Size = New System.Drawing.Size(0, 22)
         Me.message_output.TabIndex = 12
         '
         'add_input_false
@@ -359,7 +359,7 @@ Partial Class Window
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.delete_all_gates
-        Me.ClientSize = New System.Drawing.Size(964, 559)
+        Me.ClientSize = New System.Drawing.Size(964, 562)
         Me.Controls.Add(Me.progress_bar)
         Me.Controls.Add(Me.GroupBox5)
         Me.Controls.Add(Me.GroupBox4)
