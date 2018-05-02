@@ -215,7 +215,7 @@ Class Window
                 PB.Image = inputImageFalse
             End If
         Next
-        Me.Refresh()
+        Refresh()
         For k = 0 To 1                                      '          || ||
             For i = 0 To 199                                'This mess \/ \/  is responsible for assigning connection graphics to the correct part of each gate
                 For j = 0 To 199
@@ -290,7 +290,6 @@ Class Window
     End Sub
     Private Sub PBs_MouseMove(ByVal sender As Object, ByVal e As MouseEventArgs)                'Called when the mouse moves
         Dim PB As PictureBox = DirectCast(sender, PictureBox)
-        RecalculateConnections(PB.Name)
         If e.Button = MouseButtons.Left And ValidPB Then               'If mouse is down, moving and the mouse is in valid bounds then the gate moves
             RefreshGraphics()
             PB.Left += e.Location.X - Point.X
@@ -362,8 +361,7 @@ Class Window
                 selected_gate.Text = "Selected Gate ID: " & ID & " 
 Gate Type: " & (Gates(ID).gateType).ToUpper & "
 Current Value: " & value & "
-Gate Name: " & Gates(ID).gateName & "
-Safe: " & Gates(ID).gateSafe
+Gate Name: " & Gates(ID).gateName
             Else
                 selected_gate.Text = "Selected Gate ID: " & ID & " 
 Gate Type: " & (Gates(ID).gateType).ToUpper & "
@@ -376,7 +374,12 @@ Clock Interval: " & Gates(ID).gateClockInterval & " ms"
     End Sub
     Private Sub AttachGate(ByRef oneSelected As Boolean, ByRef prevValue As Integer, ByRef prevID As Integer, ByVal ID As Integer)
         If oneSelected = True Then                                                     'This means the gate is having a value assigned to one of its inputs from another gates output
-            If Gates(ID).gateType <> "input" Or Gates(ID).gateType <> "clock" Then
+            If Gates(ID).gateType = "input" Or Gates(ID).gateType = "clock" Then
+                message_output.Text = "Input nodes are 
+fixed and cannot be 
+assigned by another 
+gate"
+            Else
                 If Gates(ID).gateType = "not" Or Gates(ID).gateType = "output" Then
                     If Gates(ID).gateInput1Exists = False Then
                         message_output.Text = "Assigned input 
@@ -419,11 +422,6 @@ already occupied"
                     Gates(prevID).gateSafe = ID
                 End If
                 RecalculateConnections(ID)                                 'Every time a connection is made, all gates are recalculated from that point onwards
-            Else
-                    message_output.Text = "Input nodes are 
-fixed and cannot be 
-assigned by another 
-gate"
             End If
             oneSelected = False
             displayGateInfo(ID)
