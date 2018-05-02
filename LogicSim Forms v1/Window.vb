@@ -772,50 +772,48 @@ please try again"
     End Sub
     Private Sub RecalculateConnections(ID)
         For i = 0 To 199
-            If connections(ID, i, 0).connectionExists = True And (Gates(ID).gateSafe <> i Or Gates(i).gateSafe <> ID) Then
+            If connections(ID, i, 0).connectionExists = True And (Gates(ID).gateSafe = i And Gates(i).gateSafe = ID) Then
+                connections(ID, i, 0).connectionValue = Gates(ID).gateValue                           'Recursive subroutine that recalculates connections and gate values. If there are more gates after that gate, it is called again with that gates ID as the argument
+                Gates(i).gateInput1 = Gates(ID).gateValue                                             'Continues until there are no gates left which haven't been recalculated
+                Gates(i).Calculate()
+                RecalculateConnections2(i)
+
+            ElseIf connections(ID, i, 0).connectionExists = True Then
                 connections(ID, i, 0).connectionValue = Gates(ID).gateValue                           'Recursive subroutine that recalculates connections and gate values. If there are more gates after that gate, it is called again with that gates ID as the argument
                 Gates(i).gateInput1 = Gates(ID).gateValue                                             'Continues until there are no gates left which haven't been recalculated
                 Gates(i).Calculate()
                 RecalculateConnections(i)
-
-            ElseIf connections(ID, i, 0).connectionExists = True And (Gates(ID).gateSafe = i And Gates(i).gateSafe = ID) Then
-                connections(ID, i, 0).connectionValue = Gates(ID).gateValue                           'Recursive subroutine that recalculates connections and gate values. If there are more gates after that gate, it is called again with that gates ID as the argument
-                Gates(i).gateInput1 = Gates(ID).gateValue                                             'Continues until there are no gates left which haven't been recalculated
-                Gates(i).Calculate()
-
-                If connections(i, ID, 0).connectionExists = True Then
-                    connections(i, ID, 0).connectionValue = Gates(i).gateValue                           'Recursive subroutine that recalculates connections and gate values. If there are more gates after that gate, it is called again with that gates ID as the argument
-                    Gates(ID).gateInput1 = Gates(i).gateValue                                             'Continues until there are no gates left which haven't been recalculated
-                    Gates(ID).Calculate()
-                ElseIf connections(i, ID, 1).connectionExists = True Then
-                    connections(i, ID, 1).connectionValue = Gates(i).gateValue                           'Recursive subroutine that recalculates connections and gate values. If there are more gates after that gate, it is called again with that gates ID as the argument
-                    Gates(ID).gateInput1 = Gates(i).gateValue                                             'Continues until there are no gates left which haven't been recalculated
-                    Gates(ID).Calculate()
-                End If
-
             End If
 
-            If connections(ID, i, 1).connectionExists = True And (Gates(ID).gateSafe <> i Or Gates(i).gateSafe <> ID) Then
-                connections(ID, i, 1).connectionValue = Gates(ID).gateValue
-                Gates(i).gateInput2 = Gates(ID).gateValue
+            If connections(ID, i, 1).connectionExists = True And (Gates(ID).gateSafe = i And Gates(i).gateSafe = ID) Then
+                connections(ID, i, 1).connectionValue = Gates(ID).gateValue                           'Recursive subroutine that recalculates connections and gate values. If there are more gates after that gate, it is called again with that gates ID as the argument
+                Gates(i).gateInput2 = Gates(ID).gateValue                                             'Continues until there are no gates left which haven't been recalculated
+                Gates(i).Calculate()
+                RecalculateConnections2(i)
+
+            ElseIf connections(ID, i, 1).connectionExists = True Then
+                connections(ID, i, 1).connectionValue = Gates(ID).gateValue                           'Recursive subroutine that recalculates connections and gate values. If there are more gates after that gate, it is called again with that gates ID as the argument
+                Gates(i).gateInput2 = Gates(ID).gateValue                                             'Continues until there are no gates left which haven't been recalculated
                 Gates(i).Calculate()
                 RecalculateConnections(i)
-
-            ElseIf connections(ID, i, 1).connectionExists = True And (Gates(ID).gateSafe = i And Gates(i).gateSafe = ID) Then
-                connections(ID, i, 1).connectionValue = Gates(ID).gateValue
-                Gates(i).gateInput2 = Gates(ID).gateValue
-                Gates(i).Calculate()
-
-                If connections(i, ID, 0).connectionExists = True Then
-                    connections(i, ID, 0).connectionValue = Gates(i).gateValue                           'Recursive subroutine that recalculates connections and gate values. If there are more gates after that gate, it is called again with that gates ID as the argument
-                    Gates(ID).gateInput1 = Gates(i).gateValue                                             'Continues until there are no gates left which haven't been recalculated
-                    Gates(ID).Calculate()
-                ElseIf connections(i, ID, 1).connectionExists = True Then
-                    connections(i, ID, 1).connectionValue = Gates(i).gateValue                           'Recursive subroutine that recalculates connections and gate values. If there are more gates after that gate, it is called again with that gates ID as the argument
-                    Gates(ID).gateInput1 = Gates(i).gateValue                                             'Continues until there are no gates left which haven't been recalculated
-                    Gates(ID).Calculate()
+            End If
+        Next
+    End Sub
+    Private Sub RecalculateConnections2(ID)
+        For i = 0 To 199
+            If Gates(ID).gateSafe <> i Then
+                If connections(ID, i, 0).connectionExists = True Then
+                    connections(ID, i, 0).connectionValue = Gates(ID).gateValue                           'Recursive subroutine that recalculates connections and gate values. If there are more gates after that gate, it is called again with that gates ID as the argument
+                    Gates(i).gateInput1 = Gates(ID).gateValue                                             'Continues until there are no gates left which haven't been recalculated
+                    Gates(i).Calculate()
+                    RecalculateConnections2(i)
                 End If
-
+                If connections(ID, i, 1).connectionExists = True Then
+                    connections(ID, i, 1).connectionValue = Gates(ID).gateValue                           'Recursive subroutine that recalculates connections and gate values. If there are more gates after that gate, it is called again with that gates ID as the argument
+                    Gates(i).gateInput2 = Gates(ID).gateValue                                             'Continues until there are no gates left which haven't been recalculated
+                    Gates(i).Calculate()
+                    RecalculateConnections2(i)
+                End If
             End If
         Next
     End Sub
