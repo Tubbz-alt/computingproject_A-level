@@ -1,5 +1,4 @@
-﻿Imports VB = Microsoft.VisualBasic
-Imports System.Runtime.InteropServices
+﻿Imports System.Runtime.InteropServices
 Class Window
     'Global Private variable declarations
     Private profMode As Boolean
@@ -34,7 +33,7 @@ Class Window
     'Object Declarations
     Protected WithEvents GatePB As New List(Of PictureBox)
     Protected connections(199, 199, 1) As Connection
-    Protected Gates() As MultiGate
+    Protected Gates As Array
 
 
     Public Property windowProf As Boolean
@@ -61,11 +60,10 @@ Class Window
         hoveredID = -1
         ClockTimer.Interval = 1
         ClockTimer.Start()                       'Starts timer ticking every ms for clocks
-        ReDim Gates(199)                          'Gates() and connections(,,) must be redimmed and then recreated as objects... A VB quirk
         ReDim connections(199, 199, 1)
-        For i As Integer = 0 To 199            'All gate and connection objects are instantiated and set to a null state
-            Gates(i) = New MultiGate(i)
-        Next
+        'For i As Integer = 0 To 199            'All gate and connection objects are instantiated and set to a null state
+        '    Gates(i) = New MultiGate(i)
+        'Next
         For k = 0 To 1
             For i = 0 To 199
                 For j = 0 To 199
@@ -458,43 +456,36 @@ Right-Click again to delete"
             For o = 0 To multgate - 1
                 Dim tempID As Integer
                 If gatecount < 200 Then
-                    For i As Integer = 0 To 199
-                        If Gates(i).gateIsNull = True Then                  'Cycles through the array of objects with a loop and finds an unused one
-                            Gates(i).gateIsNull = False                     'Sets it to 'Not Null'
-                            Gates(i).gateType = choice                      'Sets the 'Type' variable to the choice
-                            Gates(i).gateName = custom_gate_name.Text       'Sets the optional gate name
-                            If choice = "inputt" Then                       'Sets the preset value that the gate starts with
-                                Gates(i).gateValue = 1
-                                Gates(i).gateType = "input"
-                            ElseIf choice = "inputf" Then
-                                Gates(i).gateValue = 0
-                                Gates(i).gateType = "input"
-                            ElseIf choice = "output" Then
-                                Gates(i).gateValue = 2
-                                Gates(i).gateInput1 = 2
-                            ElseIf choice = "clock" Then
-                                Gates(i).gateValue = 0
-                                Try
-                                    Gates(i).gateClockInterval = clock_interval_input.Text         'Clocks have their interval assigned from the input box
-                                Catch
-                                    Gates(i).gateClockInterval = 30
-                                End Try
-                            Else
-                                Gates(i).gateValue = 2
-                                Gates(i).gateInput1 = 2
-                                Gates(i).gateInput2 = 2
-                            End If
-                            ID = i
-                            AddGatePB(Gates(i).gateType, ID)                         'Calls sub which creates the gate PB, passes the ID and type as argument
-                            Exit For
-                        End If
-                    Next
+                    Dim i As Integer = Gates.Length
+                    Dim gate As New MultiGate(i)
+                    gate.gateID = o
+                    gate.gateName = "[NO NAME]"
+                    If choice = "inputt" Then                       'Sets the preset value that the gate starts with
+                        gate.gateType = "input"
+                        gate.gateValue = 1
+                    ElseIf choice = "inputf" Then
+                        gate.gateType = "input"
+                        gate.gateValue = 0
+                    ElseIf choice = "output" Then
+                        gate.gateType = "output"
+                    ElseIf choice = "clock" Then
+                        gate.gateValue = 0
+                        Try
+                            gate.gateClockInterval = clock_interval_input.Text         'Clocks have their interval assigned from the input box
+                        Catch
+                            gate.gateClockInterval = 30
+                        End Try
+                    Else
+                        gate.gateType = choice
+                    End If
+                    ReDim Preserve Gates()
+
+
+                    AddGatePB(choice, i)                         'Calls sub which creates the gate PB, passes the ID and type as argument
+                Else
+                    Exit For
                 End If
             Next
-        Else
-            message_output.Text = "Erroneous
-data has been input
-please try again"
         End If
         custom_gate_name.Text = ""
         clock_interval_input.Text = ""
@@ -607,7 +598,8 @@ please try again"
         tempID = ID
         NullifyConnections(ID)       'Ensures all connections from that gate are updated to be null
         selected_gate.Text = ""
-        Gates(PB.Name).Finalize()    'Destructs gate object
+        Gates.RemoveAt(PB.Name)
+        'Gates(PB.Name).Finalize()    'Destructs gate object
         GatePB.Remove(PB)            'Removes gate PB from PB list
         PB.Dispose()                 'makes PB disappear
         RefreshGraphics()            'Graphics Refresh
@@ -748,7 +740,7 @@ please try again"
         Next
     End Sub
     Private Sub RecalculateConnections(ByVal ID As Integer)
-        For i = 0 To 199
+        For i = 0 To Gates.Count - 1
             If connections(ID, i, 0).connectionExists = True And (Gates(ID).gateSafe = i And Gates(i).gateSafe = ID) Then
                 connections(ID, i, 0).connectionValue = Gates(ID).gateValue                                                     'Recursive subroutine that recalculates connections and gate values. If there are more gates after that gate, it is called again with that gates ID as the argument
                 Gates(i).gateInput1 = Gates(ID).gateValue                                                                       'Continues until there are no gates left which haven't been recalculated
@@ -774,7 +766,7 @@ please try again"
         Next
     End Sub
     Private Sub RecalculateConnections2(ByVal ID As Integer)
-        For i = 0 To 199
+        For i = 0 To Gates.Count - 1
             If Gates(ID).gateSafe <> i Then
                 If connections(ID, i, 0).connectionExists = True Then
                     connections(ID, i, 0).connectionValue = Gates(ID).gateValue                           'Second recursive subroutine that runs within RecalculateConnections, slightly different code so that it can deal with infinite recursion
@@ -793,43 +785,43 @@ please try again"
     End Sub
     Private Sub AddInputTrue(ByVal sender As Object, ByVal e As EventArgs) Handles add_input_true.Click
         Dim choice As String = "inputt"
-        newGate(choice)
+        NewGate(choice)
     End Sub
     Private Sub AddInputFalse(ByVal sender As Object, ByVal e As EventArgs) Handles add_input_false.Click
         Dim choice As String = "inputf"
-        newGate(choice)
+        NewGate(choice)
     End Sub
     Private Sub add_clock_Click(sender As Object, e As EventArgs) Handles add_clock.Click
         Dim choice As String = "clock"
-        newGate(choice)
+        NewGate(choice)
     End Sub
     Private Sub add_output_Click(sender As Object, e As EventArgs) Handles add_output.Click
         Dim choice As String = "output"
-        newGate(choice)
+        NewGate(choice)
     End Sub
     Private Sub AddAnd(ByVal sender As Object, ByVal e As EventArgs) Handles add_and.Click
         Dim choice As String = "and"
-        newGate(choice)
+        NewGate(choice)
     End Sub
     Private Sub AddNand(ByVal sender As Object, ByVal e As EventArgs) Handles add_nand.Click
         Dim choice As String = "nand"
-        newGate(choice)
+        NewGate(choice)
     End Sub
     Private Sub AddOr(ByVal sender As Object, ByVal e As EventArgs) Handles add_or.Click
         Dim choice As String = "or"
-        newGate(choice)
+        NewGate(choice)
     End Sub
     Private Sub AddNor(ByVal sender As Object, ByVal e As EventArgs) Handles add_nor.Click
         Dim choice As String = "nor"
-        newGate(choice)
+        NewGate(choice)
     End Sub
     Private Sub AddXor(ByVal sender As Object, ByVal e As EventArgs) Handles add_xor.Click
         Dim choice As String = "xor"
-        newGate(choice)
+        NewGate(choice)
     End Sub
     Private Sub AddNot(sender As Object, e As EventArgs) Handles add_not.Click
         Dim choice As String = "not"
-        newGate(choice)
+        NewGate(choice)
     End Sub
     Private Sub switch_mode_click(sender As Object, e As EventArgs) Handles switch_mode.Click
         profMode = Not profMode
@@ -868,7 +860,7 @@ please try again"
 
         If fd.ShowDialog() = DialogResult.OK Then
             strFileName = fd.FileName
-            loadPreset(strFileName)
+            LoadPreset(strFileName)
         End If
     End Sub
     Private Sub save_current_layout_Click(sender As Object, e As EventArgs) Handles save_current_layout.Click
@@ -883,7 +875,7 @@ please try again"
 
         If fd.ShowDialog() = DialogResult.OK Then
             strFileName = fd.FileName
-            savePreset(strFileName)
+            SavePreset(strFileName)
         End If
     End Sub
     Class MultiGate
@@ -908,6 +900,9 @@ please try again"
             isNull = True
             input1Exists = False
             input2Exists = False
+            input1 = 2
+            input2 = 2
+            value = 2
             clockInterval = Nothing
             safe = False
         End Sub
