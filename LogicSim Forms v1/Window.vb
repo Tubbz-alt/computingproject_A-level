@@ -793,43 +793,43 @@ please try again"
     End Sub
     Private Sub AddInputTrue(ByVal sender As Object, ByVal e As EventArgs) Handles add_input_true.Click
         Dim choice As String = "inputt"
-        newGate(choice)
+        NewGate(choice)
     End Sub
     Private Sub AddInputFalse(ByVal sender As Object, ByVal e As EventArgs) Handles add_input_false.Click
         Dim choice As String = "inputf"
-        newGate(choice)
+        NewGate(choice)
     End Sub
     Private Sub add_clock_Click(sender As Object, e As EventArgs) Handles add_clock.Click
         Dim choice As String = "clock"
-        newGate(choice)
+        NewGate(choice)
     End Sub
     Private Sub add_output_Click(sender As Object, e As EventArgs) Handles add_output.Click
         Dim choice As String = "output"
-        newGate(choice)
+        NewGate(choice)
     End Sub
     Private Sub AddAnd(ByVal sender As Object, ByVal e As EventArgs) Handles add_and.Click
         Dim choice As String = "and"
-        newGate(choice)
+        NewGate(choice)
     End Sub
     Private Sub AddNand(ByVal sender As Object, ByVal e As EventArgs) Handles add_nand.Click
         Dim choice As String = "nand"
-        newGate(choice)
+        NewGate(choice)
     End Sub
     Private Sub AddOr(ByVal sender As Object, ByVal e As EventArgs) Handles add_or.Click
         Dim choice As String = "or"
-        newGate(choice)
+        NewGate(choice)
     End Sub
     Private Sub AddNor(ByVal sender As Object, ByVal e As EventArgs) Handles add_nor.Click
         Dim choice As String = "nor"
-        newGate(choice)
+        NewGate(choice)
     End Sub
     Private Sub AddXor(ByVal sender As Object, ByVal e As EventArgs) Handles add_xor.Click
         Dim choice As String = "xor"
-        newGate(choice)
+        NewGate(choice)
     End Sub
     Private Sub AddNot(sender As Object, e As EventArgs) Handles add_not.Click
         Dim choice As String = "not"
-        newGate(choice)
+        NewGate(choice)
     End Sub
     Private Sub switch_mode_click(sender As Object, e As EventArgs) Handles switch_mode.Click
         profMode = Not profMode
@@ -868,7 +868,7 @@ please try again"
 
         If fd.ShowDialog() = DialogResult.OK Then
             strFileName = fd.FileName
-            loadPreset(strFileName)
+            LoadPreset(strFileName)
         End If
     End Sub
     Private Sub save_current_layout_Click(sender As Object, e As EventArgs) Handles save_current_layout.Click
@@ -883,7 +883,7 @@ please try again"
 
         If fd.ShowDialog() = DialogResult.OK Then
             strFileName = fd.FileName
-            savePreset(strFileName)
+            SavePreset(strFileName)
         End If
     End Sub
     Class MultiGate
