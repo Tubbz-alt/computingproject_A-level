@@ -35,7 +35,7 @@ Class Window
     Protected WithEvents GatePB As New List(Of PictureBox)
     Protected connections(199, 199, 1) As Connection
     Protected Gates() As MultiGate
-
+    'End of variable and object declarations
 
     Public Property windowProf As Boolean
         Get
