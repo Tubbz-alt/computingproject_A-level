@@ -607,7 +607,6 @@ please try again"
         tempID = ID
         NullifyConnections(ID)       'Ensures all connections from that gate are updated to be null
         selected_gate.Text = ""
-        Gates(PB.Name).Finalize()    'Destructs gate object
         GatePB.Remove(PB)            'Removes gate PB from PB list
         PB.Dispose()                 'makes PB disappear
         RefreshGraphics()            'Graphics Refresh
@@ -719,31 +718,92 @@ please try again"
                 connections(i, ID, 1).connectionValue = 2                                                     'Continues until all relevant connecitons have been nullified
             End If
 
-            If connections(ID, i, 0).connectionExists = True And ID = tempID Then                         'Now nullifies connections that are coming from the gate to be deleted
-                connections(ID, i, 0).connectionExists = False
-                connections(ID, i, 0).connectionValue = 2
-                Gates(i).gateInput1Exists = False
-                Gates(i).gateInput1 = 2
-                Gates(i).Calculate()
-                NullifyConnections(i)
-            ElseIf connections(ID, i, 0).connectionExists = True Then
-                connections(ID, i, 0).connectionValue = 2
-                Gates(i).gateInput1 = 2
-                Gates(i).Calculate()
-                NullifyConnections(i)
+            If Gates(ID).gateSafe = i And Gates(i).gateSafe = ID Then
+                If connections(ID, i, 0).connectionExists = True And ID = tempID Then                         'Now nullifies connections that are coming from the gate to be deleted
+                    connections(ID, i, 0).connectionExists = False
+                    connections(ID, i, 0).connectionValue = 2
+                    Gates(i).gateInput1Exists = False
+                    Gates(i).gateInput1 = 2
+                    Gates(i).Calculate()
+                    NullifyConnections2(i)
+                ElseIf connections(ID, i, 0).connectionExists = True Then
+                    connections(ID, i, 0).connectionValue = 2
+                    Gates(i).gateInput1 = 2
+                    Gates(i).Calculate()
+                    NullifyConnections2(i)
+                End If
+                If connections(ID, i, 1).connectionExists = True And ID = tempID Then
+                    connections(ID, i, 1).connectionExists = False
+                    connections(ID, i, 1).connectionValue = 2
+                    Gates(i).gateInput2Exists = False
+                    Gates(i).gateInput2 = 2
+                    Gates(i).Calculate()
+                    NullifyConnections2(i)
+                ElseIf connections(ID, i, 1).connectionExists = True Then
+                    connections(ID, i, 1).connectionValue = 2
+                    Gates(i).gateInput2 = 2
+                    Gates(i).Calculate()
+                    NullifyConnections2(i)
+                End If
+            Else
+                If connections(ID, i, 0).connectionExists = True And ID = tempID Then
+                    connections(ID, i, 0).connectionExists = False
+                    connections(ID, i, 0).connectionValue = 2
+                    Gates(i).gateInput1Exists = False
+                    Gates(i).gateInput1 = 2
+                    Gates(i).Calculate()
+                    NullifyConnections(i)
+                ElseIf connections(ID, i, 0).connectionExists = True Then
+                    connections(ID, i, 0).connectionValue = 2
+                    Gates(i).gateInput1 = 2
+                    Gates(i).Calculate()
+                    NullifyConnections(i)
+                End If
+                If connections(ID, i, 1).connectionExists = True And ID = tempID Then
+                    connections(ID, i, 1).connectionExists = False
+                    connections(ID, i, 1).connectionValue = 2
+                    Gates(i).gateInput2Exists = False
+                    Gates(i).gateInput2 = 2
+                    Gates(i).Calculate()
+                    NullifyConnections(i)
+                ElseIf connections(ID, i, 1).connectionExists = True Then
+                    connections(ID, i, 1).connectionValue = 2
+                    Gates(i).gateInput2 = 2
+                    Gates(i).Calculate()
+                    NullifyConnections(i)
+                End If
             End If
-            If connections(ID, i, 1).connectionExists = True And ID = tempID Then
-                connections(ID, i, 1).connectionExists = False
-                connections(ID, i, 1).connectionValue = 2
-                Gates(i).gateInput2Exists = False
-                Gates(i).gateInput2 = 2
-                Gates(i).Calculate()
-                NullifyConnections(i)
-            ElseIf connections(ID, i, 1).connectionExists = True Then
-                connections(ID, i, 1).connectionValue = 2
-                Gates(i).gateInput2 = 2
-                Gates(i).Calculate()
-                NullifyConnections(i)
+        Next
+    End Sub
+    Private Sub NullifyConnections2(ByVal ID As Integer)                               'Second recursive subroutine that can run within NullifyConnections, slightly different code so that it can deal with infinite recursion
+        For i = 0 To 199
+            If Gates(ID).gateSafe <> i Then
+                If connections(ID, i, 0).connectionExists = True And ID = tempID Then
+                    connections(ID, i, 0).connectionExists = False
+                    connections(ID, i, 0).connectionValue = 2
+                    Gates(i).gateInput1Exists = False
+                    Gates(i).gateInput1 = 2
+                    Gates(i).Calculate()
+                    NullifyConnections2(i)
+                ElseIf connections(ID, i, 0).connectionExists = True Then
+                    connections(ID, i, 0).connectionValue = 2
+                    Gates(i).gateInput1 = 2
+                    Gates(i).Calculate()
+                    NullifyConnections2(i)
+                End If
+                If connections(ID, i, 1).connectionExists = True And ID = tempID Then
+                    connections(ID, i, 1).connectionExists = False
+                    connections(ID, i, 1).connectionValue = 2
+                    Gates(i).gateInput2Exists = False
+                    Gates(i).gateInput2 = 2
+                    Gates(i).Calculate()
+                    NullifyConnections2(i)
+                ElseIf connections(ID, i, 1).connectionExists = True Then
+                    connections(ID, i, 1).connectionValue = 2
+                    Gates(i).gateInput2 = 2
+                    Gates(i).Calculate()
+                    NullifyConnections2(i)
+                End If
             End If
         Next
     End Sub
